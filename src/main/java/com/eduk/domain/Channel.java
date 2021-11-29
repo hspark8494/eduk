@@ -28,10 +28,7 @@ public class Channel {
 	private Long writeAuth;
 	
 	private Long deleteAuth;
-	
-	@OneToOne
-	@JoinColumn(name="channelTypeId")
-	private ChannelType channelType;
+
 	
 	@ManyToOne
 	@JoinColumn(name="classRoomId")
