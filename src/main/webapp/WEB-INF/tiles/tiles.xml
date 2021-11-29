@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+	"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+	
+<tiles-definitions>
+	<definition name="userLayout" template="/WEB-INF/tiles/userLayout.jsp">
+		<put-attribute name="header" value="/WEB-INF/tiles/header.jsp"/>
+	</definition>
+
+	<definition name="mainLayout" template="/WEB-INF/tiles/mainLayout.jsp">
+		<put-attribute name="header" value="/WEB-INF/tiles/header.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"/>
+	</definition>
+	
+	<definition name="myPageLayout" template="/WEB-INF/tiles/myPageLayout.jsp">
+		<put-attribute name="header" value="/WEB-INF/tiles/header.jsp"/>
+		<put-attribute name="nav" value="/WEB-INF/tiles/nav.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"/>
+	</definition>
+	
+	<definition extends="userLayout" name="user/*">
+		<put-attribute name="content" value="/WEB-INF/views/user/{1}.jsp"/>
+	</definition>
+	
+	<definition extends="mainLayout" name="main/*">
+		<put-attribute name="content" value="/WEB-INF/views/main/{1}.jsp"/>
+	</definition>
+	
+	<definition extends="myPageLayout" name="myPage/*">
+		<put-attribute name="content" value="/WEB-INF/views/myPage/{1}.jsp"/>
+	</definition>
+	
+</tiles-definitions>

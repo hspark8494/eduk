@@ -1,0 +1,11 @@
+package com.eduk.controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class AjaxTestController {
+	
+	@RequestMapping("/sendMail")
+	public void sendMail() {}
+}
