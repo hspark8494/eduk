@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -37,5 +39,13 @@ public class Files {
 	private LocalDateTime createTime;
 	@UpdateTimestamp
 	private LocalDateTime updateTime;
+	
+	@ManyToOne
+	@JoinColumn(name="referenceRoomId")
+	private ReferenceRoom referenceRoom;
+	
+	@ManyToOne
+	@JoinColumn(name="chattingId")
+	private Chatting chatting;
 	
 }

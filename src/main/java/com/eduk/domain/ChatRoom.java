@@ -2,6 +2,8 @@ package com.eduk.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,9 +20,15 @@ public class ChatRoom {
 	@Id
 	private Long chatRoomId;
 	
-	private Long channelId;
-	
 	private int state;
 	
 	private String chatRoomName;
+	
+	@OneToOne
+	@JoinColumn(name="channelId")
+	private Channel channel;
+	
+	@OneToOne
+	@JoinColumn(name="webClassId")
+	private WebClass webClass;
 }

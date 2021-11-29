@@ -2,6 +2,9 @@ package com.eduk.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,10 +21,6 @@ public class Channel {
 	@Id
 	private Long channelId;
 	
-	private Long channelTypeId;
-	
-	private Long classRoomId;
-	
 	private int state;
 	
 	private Long readAuth;
@@ -29,4 +28,17 @@ public class Channel {
 	private Long writeAuth;
 	
 	private Long deleteAuth;
+	
+	@OneToOne
+	@JoinColumn(name="channelTypeId")
+	private ChannelType channelType;
+	
+	@ManyToOne
+	@JoinColumn(name="classRoomId")
+	private ClassRoom classRoom;
+	
+	@OneToOne
+	@JoinColumn(name="authId")
+	private Authentication authentication;
+	
 }

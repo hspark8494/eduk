@@ -37,4 +37,8 @@ public class ClassRoom {
 	
 	private int state;
 	
+	private String classRoomImage;
+	
+	
+	
 }

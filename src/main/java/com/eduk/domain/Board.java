@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,10 +24,12 @@ public class Board {
 	@Id
 	private Long boardId;
 	
-	private Long channelId;
-	
 	private int state;
 	
 	private String boardName;
+	
+	@OneToOne
+	@JoinColumn(name="channelId")
+	private Channel channel;
 
 }
