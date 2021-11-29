@@ -20,7 +20,7 @@ public class Authentication {
 	@Id
 	private long authId;
 	
-	private String name;
+	private String authName;
 	
 	@ManyToOne
 	@JoinColumn(name="memberId")

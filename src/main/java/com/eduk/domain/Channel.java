@@ -21,14 +21,9 @@ public class Channel {
 	@Id
 	private Long channelId;
 	
+	private String channelType;
+	
 	private int state;
-	
-	private Long readAuth;
-	
-	private Long writeAuth;
-	
-	private Long deleteAuth;
-
 	
 	@ManyToOne
 	@JoinColumn(name="classRoomId")

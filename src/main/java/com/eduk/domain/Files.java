@@ -48,4 +48,8 @@ public class Files {
 	@JoinColumn(name="chattingId")
 	private Chatting chatting;
 	
+	@ManyToOne
+	@JoinColumn(name="memberId")
+	private Member member;
+	
 }
