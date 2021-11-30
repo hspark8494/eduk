@@ -12,10 +12,10 @@
         </b-link>
 
         <b-card-title class="mb-1">
-          회원 가입 🚀
+          강의실 생성하기
         </b-card-title>
         <b-card-text class="mb-2">
-          보다 간편한 실시간 교육 플랫폼!
+          나만의 강의실을 생성해보세요!
         </b-card-text>
 
         <!-- form -->
@@ -24,80 +24,49 @@
             class="auth-register-form mt-2"
             @submit.prevent="validationForm"
           >
-            <!-- username -->
+
+            <label for="image-file" id="classRoom-image">
+            <div>
+            <p>+</p>
+            <input type="file" id="image-file" name="classimage"/>
+            </div>
+            </label>
+
             <b-form-group
-              label="이름"
-              label-for="username"
+              label="강의실 이름"
+              label-for="classname"
             >
               <validation-provider
                 #default="{ errors }"
-                name="Username"
+                name="classname"
                 rules="required"
               >
                 <b-form-input
-                  id="username"
-                  v-model="username"
+                  id="classname"
+                  v-model="classname"
                   :state="errors.length > 0 ? false:null"
-                  name="register-username"
-                  placeholder="이름 입력란"
+                  name="register-classname"
+                  placeholder="강의실명 입력란"
                 />
-                <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
             </b-form-group>
 
-            <!-- email -->
             <b-form-group
-              label="이메일"
-              label-for="email"
+              label="강의실 설명"
+              label-for="classdetail"
             >
               <validation-provider
                 #default="{ errors }"
-                name="Email"
-                rules="required|email"
-              >
-                <b-form-input
-                  id="email"
-                  v-model="regEmail"
-                  :state="errors.length > 0 ? false:null"
-                  name="register-email"
-                  placeholder="이메일 입력란"
-                />
-                <small class="text-danger">{{ errors[0] }}</small>
-              </validation-provider>
-            </b-form-group>
-
-            <!-- password -->
-            <b-form-group
-              label="비밀번호"
-              label-for="password"
-            >
-              <validation-provider
-                #default="{ errors }"
-                name="Password"
+                name="classdetail"
                 rules="required"
               >
-                <b-input-group
-                  class="input-group-merge"
-                  :class="errors.length > 0 ? 'is-invalid':null"
-                >
-                  <b-form-input
-                    id="password"
-                    v-model="password"
-                    :type="passwordFieldType"
-                    :state="errors.length > 0 ? false:null"
-                    class="form-control-merge"
-                    name="register-password"
-                    placeholder="비밀번호 입력란"
-                  />
-                  <b-input-group-append is-text>
-                    <feather-icon
-                      :icon="passwordToggleIcon"
-                      class="cursor-pointer"
-                      @click="togglePasswordVisibility"
-                    />
-                  </b-input-group-append>
-                </b-input-group>
-                <small class="text-danger">{{ errors[0] }}</small>
+                <b-form-input
+                  id="classdetail"
+                  v-model="classdetail"
+                  :state="errors.length > 0 ? false:null"
+                  name="register-classdetail"
+                  placeholder="강의실 설명 입력란"
+                />
               </validation-provider>
             </b-form-group>
 
@@ -107,17 +76,10 @@
               block
               type="submit"
             >
-              가입하기
+              생성하기
             </b-button>
           </b-form>
         </validation-observer>
-
-        <b-card-text class="text-center mt-2">
-          <span>이미 계정이 있으신가요? </span>
-          <b-link :to="{name:'auth-login-v1'}">
-            <span>로그인</span>
-          </b-link>
-        </b-card-text>
       </b-card>
     <!-- /Register v1 -->
     </div>
@@ -135,6 +97,7 @@ import VuexyLogo from '@core/layouts/components/Logo.vue'
 import { required, email } from '@validations'
 import { togglePasswordVisibility } from '@core/mixins/ui/forms'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
+import axios from 'axios'
 
 export default {
   components: {
@@ -158,9 +121,8 @@ export default {
   mixins: [togglePasswordVisibility],
   data() {
     return {
-      regEmail: '',
-      username: '',
-      password: '',
+      classname: '',
+      classdetail: '',
       status: '',
 
       // validation rules
@@ -175,18 +137,19 @@ export default {
   },
   methods: {
     validationForm() {
-      this.$refs.registerForm.validate().then(success => {
-        if (success) {
-          this.$toast({
-            component: ToastificationContent,
-            props: {
-              title: 'Form Submitted',
-              icon: 'EditIcon',
-              variant: 'success',
-            },
-          })
-        }
-      })
+    const frm = new FormData();
+    frm.append('className', this.classname);
+    frm.append('classDetail', this.classdetail);
+    var file = document.getElementById("image-file");
+    frm.append("classImage", file.files[0]);
+    this$axios.post('/createClassRoom', null, frm, {
+      headers: {
+         'Content-Type': 'multipart/form-data'
+      }
+    })
+    .then((response) => {
+      document.getElementById("#classRoom-image").style.backgroundImage= response;
+    })
     },
   },
 }
@@ -194,4 +157,34 @@ export default {
 
 <style lang="scss">
 @import '@core/scss/vue/pages/page-auth.scss';
+</style>
+<style>
+  #classRoom-image{
+    border: 1px dashed black;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    background-image: url('noimage.png');
+    background-size: 100% 100%;
+    display: block;
+  }
+  #classRoom-image:hover{
+    cursor: pointer;
+  }
+  #classRoom-image p{
+    position: relative;
+    top: 70px;
+    left: 70px;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    padding: 5px 12px;
+    background-color: #7367F0;
+    color: #fff;
+  }
+  #classRoom-image input[type=file]{
+    display: none;
+  }
 </style>

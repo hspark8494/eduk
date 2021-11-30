@@ -14,10 +14,10 @@
         </b-link>
 
         <b-card-title class="mb-1">
-          비밀번호 재설정 🔒
+          안전한 비밀번호로 새로 변경해주세요 🔒
         </b-card-title>
         <b-card-text class="mb-2">
-          안전한 비밀번호로 새로 변경해주세요
+          대문자, 소문자, 숫자, 특수문자 1개 이상씩 사용
         </b-card-text>
 
         <!-- form -->
@@ -181,7 +181,7 @@ export default {
           this.$toast({
             component: ToastificationContent,
             props: {
-              title: 'Form Submitted',
+              title: '변경되었습니다',
               icon: 'EditIcon',
               variant: 'success',
             },

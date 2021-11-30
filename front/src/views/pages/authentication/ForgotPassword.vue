@@ -17,7 +17,8 @@
           비밀번호를 잊으셨나요? 🔒
         </b-card-title>
         <b-card-text class="mb-2">
-          이메일을 입력하고 비밀번호를 재설정하세요
+          이메일을 입력 후 해당 이메일을 확인하여<br>
+          전송된 인증 코드를 입력해주세요
         </b-card-text>
 
         <!-- form -->
@@ -26,7 +27,7 @@
             class="auth-forgot-password-form mt-2"
             @submit.prevent="validationForm"
           >
-            <!-- email -->
+
             <b-form-group
               label="이메일"
               label-for="forgot-password-email"
@@ -43,7 +44,35 @@
                   name="forgot-password-email"
                   placeholder="이메일 입력란"
                 />
-                <small class="text-danger">{{ errors[0] }}</small>
+              </validation-provider>
+            </b-form-group>
+
+            <!-- submit button -->
+            <b-button
+              variant="primary"
+              block
+              type="button"
+            >
+              인증 코드 받기
+            </b-button>
+
+            <!-- email -->
+            <b-form-group
+              label="이메일 인증"
+              label-for="forgot-password-code"
+            >
+              <validation-provider
+                #default="{ errors }"
+                name="code"
+                rules="required"
+              >
+                <b-form-input
+                  id="forgot-password-code"
+                  v-model="code"
+                  :state="errors.length > 0 ? false:null"
+                  name="forgot-password-code"
+                  placeholder="인증 코드 입력란"
+                />
               </validation-provider>
             </b-form-group>
 
@@ -95,6 +124,7 @@ export default {
   data() {
     return {
       userEmail: '',
+      code: '',
       // validation
       required,
       email,
@@ -114,4 +144,9 @@ export default {
 
 <style lang="scss">
 @import '@core/scss/vue/pages/page-auth.scss';
+</style>
+<style>
+  button[type=button]{
+    margin-bottom: 15px;
+  }
 </style>

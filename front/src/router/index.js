@@ -13,7 +13,7 @@ const router = new VueRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('@/views/Home.vue'),
+      component: () => import('@/views/pages/Home.vue'),
       meta: {
         pageTitle: 'Home',
         breadcrumb: [
@@ -27,7 +27,7 @@ const router = new VueRouter({
     {
       path: '/second-page',
       name: 'second-page',
-      component: () => import('@/views/SecondPage.vue'),
+      component: () => import('@/views/pages/SecondPage.vue'),
       meta: {
         pageTitle: 'Second Page',
         breadcrumb: [
@@ -39,33 +39,49 @@ const router = new VueRouter({
       },
     },
     {
-      path: '/pages/authentication/login-v1',
-      name: 'auth-login-v1',
-      component: () => import('@/views/pages/authentication/Login-v1.vue'),
+      path: '/pages/authentication/login',
+      name: 'auth-login',
+      component: () => import('@/views/pages/authentication/Login.vue'),
       meta: {
         layout: 'full',
       },
     },
     {
-      path: '/pages/authentication/register-v1',
-      name: 'auth-register-v1',
-      component: () => import('@/views/pages/authentication/Register-v1.vue'),
+      path: '/pages/authentication/register',
+      name: 'auth-register',
+      component: () => import('@/views/pages/authentication/Register.vue'),
       meta: {
         layout: 'full',
       },
     },
     {
-      path: '/pages/authentication/forgot-password-v1',
-      name: 'auth-forgot-password-v1',
-      component: () => import('@/views/pages/authentication/ForgotPassword-v1.vue'),
+      path: '/pages/authentication/forgot-password',
+      name: 'auth-forgot-password',
+      component: () => import('@/views/pages/authentication/ForgotPassword.vue'),
       meta: {
         layout: 'full',
       },
     },
     {
-      path: '/pages/authentication/reset-password-v1',
-      name: 'auth-reset-password-v1',
-      component: () => import('@/views/pages/authentication/ResetPassword-v1.vue'),
+      path: '/pages/authentication/reset-password',
+      name: 'auth-reset-password',
+      component: () => import('@/views/pages/authentication/ResetPassword.vue'),
+      meta: {
+        layout: 'full',
+      },
+    },
+    {
+      path: '/pages/authentication/create-classRoom',
+      name: 'auth-create-classRoom',
+      component: () => import('@/views/pages/authentication/create-classRoom.vue'),
+      meta: {
+        layout: 'full',
+      },
+    },
+    {
+      path: '/pages/authentication/invite-classRoom',
+      name: 'auth-invite-classRoom',
+      component: () => import('@/views/pages/authentication/invite-classRoom.vue'),
       meta: {
         layout: 'full',
       },
