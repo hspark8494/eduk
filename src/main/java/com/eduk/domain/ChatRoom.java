@@ -1,6 +1,8 @@
 package com.eduk.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -18,6 +20,7 @@ import lombok.Setter;
 public class ChatRoom {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long chatRoomId;
 	
 	private int state;
