@@ -7,15 +7,15 @@
         <b-link class="brand-logo">
           <vuexy-logo />
           <h2 class="brand-text text-primary ml-1">
-            Vuexy
+            eduK
           </h2>
         </b-link>
 
         <b-card-title class="mb-1">
-          Adventure starts here 🚀
+          회원 가입 🚀
         </b-card-title>
         <b-card-text class="mb-2">
-          Make your app management easy and fun!
+          보다 간편한 실시간 교육 플랫폼!
         </b-card-text>
 
         <!-- form -->
@@ -26,7 +26,7 @@
           >
             <!-- username -->
             <b-form-group
-              label="Username"
+              label="이름"
               label-for="username"
             >
               <validation-provider
@@ -39,7 +39,7 @@
                   v-model="username"
                   :state="errors.length > 0 ? false:null"
                   name="register-username"
-                  placeholder="johndoe"
+                  placeholder="이름 입력란"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
@@ -47,7 +47,7 @@
 
             <!-- email -->
             <b-form-group
-              label="Email"
+              label="이메일"
               label-for="email"
             >
               <validation-provider
@@ -60,7 +60,7 @@
                   v-model="regEmail"
                   :state="errors.length > 0 ? false:null"
                   name="register-email"
-                  placeholder="john@example.com"
+                  placeholder="이메일 입력란"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
@@ -68,7 +68,7 @@
 
             <!-- password -->
             <b-form-group
-              label="Password"
+              label="비밀번호"
               label-for="password"
             >
               <validation-provider
@@ -87,7 +87,7 @@
                     :state="errors.length > 0 ? false:null"
                     class="form-control-merge"
                     name="register-password"
-                    placeholder="············"
+                    placeholder="비밀번호 입력란"
                   />
                   <b-input-group-append is-text>
                     <feather-icon
@@ -101,69 +101,23 @@
               </validation-provider>
             </b-form-group>
 
-            <!-- checkbox -->
-            <b-form-group>
-              <b-form-checkbox
-                id="register-privacy-policy"
-                v-model="status"
-                name="checkbox-1"
-              >
-                I agree to
-                <b-link>privacy policy & terms</b-link>
-              </b-form-checkbox>
-            </b-form-group>
-
             <!-- submit button -->
             <b-button
               variant="primary"
               block
               type="submit"
             >
-              Sign up
+              가입하기
             </b-button>
           </b-form>
         </validation-observer>
 
         <b-card-text class="text-center mt-2">
-          <span>Already have an account? </span>
+          <span>이미 계정이 있으신가요? </span>
           <b-link :to="{name:'auth-login-v1'}">
-            <span>Sign in instead</span>
+            <span>로그인</span>
           </b-link>
         </b-card-text>
-
-        <div class="divider my-2">
-          <div class="divider-text">
-            or
-          </div>
-        </div>
-
-        <!-- social buttons -->
-        <div class="auth-footer-btn d-flex justify-content-center">
-          <b-button
-            variant="facebook"
-            href="javascript:void(0)"
-          >
-            <feather-icon icon="FacebookIcon" />
-          </b-button>
-          <b-button
-            variant="twitter"
-            href="javascript:void(0)"
-          >
-            <feather-icon icon="TwitterIcon" />
-          </b-button>
-          <b-button
-            variant="google"
-            href="javascript:void(0)"
-          >
-            <feather-icon icon="MailIcon" />
-          </b-button>
-          <b-button
-            variant="github"
-            href="javascript:void(0)"
-          >
-            <feather-icon icon="GithubIcon" />
-          </b-button>
-        </div>
       </b-card>
     <!-- /Register v1 -->
     </div>

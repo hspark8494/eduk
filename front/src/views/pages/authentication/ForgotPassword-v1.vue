@@ -9,15 +9,15 @@
           <vuexy-logo />
 
           <h2 class="brand-text text-primary ml-1">
-            Vuexy
+            eduK
           </h2>
         </b-link>
 
         <b-card-title class="mb-1">
-          Forgot Password? 🔒
+          비밀번호를 잊으셨나요? 🔒
         </b-card-title>
         <b-card-text class="mb-2">
-          Enter your email and we'll send you instructions to reset your password
+          이메일을 입력하고 비밀번호를 재설정하세요
         </b-card-text>
 
         <!-- form -->
@@ -28,7 +28,7 @@
           >
             <!-- email -->
             <b-form-group
-              label="Email"
+              label="이메일"
               label-for="forgot-password-email"
             >
               <validation-provider
@@ -41,7 +41,7 @@
                   v-model="userEmail"
                   :state="errors.length > 0 ? false:null"
                   name="forgot-password-email"
-                  placeholder="john@example.com"
+                  placeholder="이메일 입력란"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
@@ -53,14 +53,14 @@
               block
               type="submit"
             >
-              Send reset link
+              메일 전송하기
             </b-button>
           </b-form>
         </validation-observer>
 
         <b-card-text class="text-center mt-2">
           <b-link :to="{name:'auth-login-v1'}">
-            <feather-icon icon="ChevronLeftIcon" /> Back to login
+            <feather-icon icon="ChevronLeftIcon" /> 로그인하러 가기
           </b-link>
         </b-card-text>
 

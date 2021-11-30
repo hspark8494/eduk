@@ -8,15 +8,15 @@
           <vuexy-logo />
 
           <h2 class="brand-text text-primary ml-1">
-            Vuexy
+            eduK
           </h2>
         </b-link>
 
         <b-card-title class="mb-1">
-          Welcome to Vuexy! 👋
+          Welcome to eduK! 👋
         </b-card-title>
         <b-card-text class="mb-2">
-          Please sign-in to your account and start the adventure
+          계정에 로그인하고 이용해주세요
         </b-card-text>
 
         <!-- form -->
@@ -32,7 +32,7 @@
             <!-- email -->
             <b-form-group
               label-for="email"
-              label="Email"
+              label="이메일"
             >
               <validation-provider
                 #default="{ errors }"
@@ -44,19 +44,18 @@
                   v-model="userEmail"
                   name="login-email"
                   :state="errors.length > 0 ? false:null"
-                  placeholder="john@example.com"
+                  placeholder="이메일 입력란"
                   autofocus
                 />
-                <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
             </b-form-group>
 
             <!-- password -->
             <b-form-group>
               <div class="d-flex justify-content-between">
-                <label for="password">Password</label>
+                <label for="password">비밀번호</label>
                 <b-link :to="{name:'auth-forgot-password-v1'}">
-                  <small>Forgot Password?</small>
+                  <small>비밀번호를 잊으셨나요?</small>
                 </b-link>
               </div>
               <validation-provider
@@ -75,7 +74,7 @@
                     class="form-control-merge"
                     :state="errors.length > 0 ? false:null"
                     name="login-password"
-                    placeholder="Password"
+                    placeholder="비밀번호 입력란"
                   />
 
                   <b-input-group-append is-text>
@@ -86,7 +85,6 @@
                     />
                   </b-input-group-append>
                 </b-input-group>
-                <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
             </b-form-group>
 
@@ -97,7 +95,7 @@
                 v-model="status"
                 name="checkbox-1"
               >
-                Remember Me
+                로그인 상태 유지
               </b-form-checkbox>
             </b-form-group>
 
@@ -108,51 +106,18 @@
               block
               :disabled="invalid"
             >
-              Sign in
+              로그인
             </b-button>
           </b-form>
         </validation-observer>
 
         <b-card-text class="text-center mt-2">
-          <span>New on our platform? </span>
+          <span>처음 방문하셨나요? </span>
           <b-link :to="{name:'auth-register-v1'}">
-            <span>Create an account</span>
+            <span>회원 가입</span>
           </b-link>
         </b-card-text>
 
-        <div class="divider my-2">
-          <div class="divider-text">
-            or
-          </div>
-        </div>
-
-        <!-- social button -->
-        <div class="auth-footer-btn d-flex justify-content-center">
-          <b-button
-            href="javascript:void(0)"
-            variant="facebook"
-          >
-            <feather-icon icon="FacebookIcon" />
-          </b-button>
-          <b-button
-            href="javascript:void(0)"
-            variant="twitter"
-          >
-            <feather-icon icon="TwitterIcon" />
-          </b-button>
-          <b-button
-            href="javascript:void(0)"
-            variant="google"
-          >
-            <feather-icon icon="MailIcon" />
-          </b-button>
-          <b-button
-            href="javascript:void(0)"
-            variant="github"
-          >
-            <feather-icon icon="GithubIcon" />
-          </b-button>
-        </div>
       </b-card>
       <!-- /Login v1 -->
     </div>
@@ -167,6 +132,7 @@ import {
 import VuexyLogo from '@core/layouts/components/Logo.vue'
 import { required, email } from '@validations'
 import { togglePasswordVisibility } from '@core/mixins/ui/forms'
+import axios from 'axios'
 
 export default {
   components: {
@@ -196,11 +162,6 @@ export default {
       required,
       email,
     }
-  },
-  computed: {
-    passwordToggleIcon() {
-      return this.passwordFieldType === 'password' ? 'EyeIcon' : 'EyeOffIcon'
-    },
   },
 }
 </script>

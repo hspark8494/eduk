@@ -95,6 +95,7 @@
 		function setTimer(){
 			$("#time").text("남은 유효시간 04:59");
 		}
+		
 	});
 </script>
 </head>
