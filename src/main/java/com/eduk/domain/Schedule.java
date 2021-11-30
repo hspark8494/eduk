@@ -1,38 +1,36 @@
 package com.eduk.domain;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Board {
-
+@Builder
+public class Schedule {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long boardId;
+	private Long scheduleId;
 	
-	private int state;
+	private String title;
 	
-	private String boardName;
+	private String scheduleDate;
 	
-	@OneToOne
+	private String color;
+	
+	@ManyToOne
 	@JoinColumn(name="channelId")
 	private Channel channel;
-
 }
