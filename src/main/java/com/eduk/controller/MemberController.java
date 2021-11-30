@@ -26,8 +26,8 @@ public class MemberController {
 	/**
 	 * 회원 가입, 유효성 확인
 	 */
-	//@PostMapping("/register")
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	@PostMapping("/register")
+	//@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register(@Valid Member member, Errors errors, Model model) { //model 객체 - 유효성 검사에서 통과 못한 필드 에러값 저장
 		System.out.printf("%s %s %s\n", member.getEmail(), member.getName(), member.getPassword());
 		
