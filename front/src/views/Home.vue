@@ -1,34 +1,48 @@
 <template>
   <div>
-    <b-card title="Kick start your project 🚀">
+    <b-alert
+      variant="primary"
+      show
+    >
+      <div class="alert-body">
+        <p>
+          <strong>Info: </strong>
+          <span>Please check the </span>
+          <b-link
+            class="alert-link"
+            href="https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/documentation/guide/layout/page-layout-examples.html#layout-without-menu"
+            target="blank"
+          >Layout Without Navigation Menu documentation</b-link>
+          <span> for more details.</span>
+        </p>
+      </div>
+    </b-alert>
+    
+    <b-card title="Home 🙌">
       <b-card-text>All the best for your new project.</b-card-text>
-      <b-card-text>Please make sure to read our <b-link
-        href="https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/documentation/"
-        target="_blank"
-      >
-        Template Documentation
-      </b-link> to understand where to go from here and how to use our template.</b-card-text>
-    </b-card>
-
-    <b-card title="Want to integrate JWT? 🔒">
-      <b-card-text>We carefully crafted JWT flow so you can implement JWT with ease and with minimum efforts.</b-card-text>
-      <b-card-text>Please read our  JWT Documentation to get more out of JWT authentication.</b-card-text>
     </b-card>
   </div>
 </template>
 
 <script>
-import { BCard, BCardText, BLink } from 'bootstrap-vue'
+import { BAlert, BLink, BCard } from 'bootstrap-vue'
 
 export default {
   components: {
-    BCard,
-    BCardText,
+    BAlert,
     BLink,
+    BCard,
+  },
+  data() {
+    return {
+      menuHidden: this.$store.state.appConfig.layout.menu.hidden,
+    }
+  },
+  created() {
+    this.$store.commit('appConfig/UPDATE_NAV_MENU_HIDDEN', true)
+  },
+  destroyed() {
+    this.$store.commit('appConfig/UPDATE_NAV_MENU_HIDDEN', this.menuHidden)
   },
 }
 </script>
-
-<style>
-
-</style>

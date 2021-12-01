@@ -1,16 +1,16 @@
 <template>
   <p class="clearfix mb-0">
     <span class="float-md-left d-block d-md-inline-block mt-25">
-      COPYRIGHT  © {{ new Date().getFullYear() }}
+      COPYRIGHT  © 2021 Kosta 222nd
       <b-link
         class="ml-25"
-        href="https://1.envato.market/pixinvent_portfolio"
+        href="https://github.com/hspark8494/eduk"
         target="_blank"
-      >Pixinvent</b-link>
+      >scopa</b-link>
       <span class="d-none d-sm-inline-block">, All rights Reserved</span>
     </span>
 
-    <span class="float-md-right d-none d-md-block">Hand-crafted &amp; Made with
+    <span class="float-md-right d-none d-md-block">eduKation
       <feather-icon
         icon="HeartIcon"
         size="21"

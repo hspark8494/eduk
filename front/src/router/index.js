@@ -11,23 +11,26 @@ const router = new VueRouter({
   },
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: () => import('@/views/pages/Home.vue'),
-      meta: {
-        pageTitle: 'Home',
-        breadcrumb: [
-          {
-            text: 'Home',
-            active: true,
-          },
-        ],
-      },
+    path: '/',
+    name: 'home',
+    component: () => import('@/views/Home.vue'),
+    meta: {
+      pageTitle: 'Home',
+      breadcrumb: [
+        {
+          text: 'Home',
+        },
+        {
+          text: 'Layout Without Menu',
+          active: true,
+        },
+      ],
+    },
     },
     {
       path: '/second-page',
       name: 'second-page',
-      component: () => import('@/views/pages/SecondPage.vue'),
+      component: () => import('@/views/SecondPage.vue'),
       meta: {
         pageTitle: 'Second Page',
         breadcrumb: [
