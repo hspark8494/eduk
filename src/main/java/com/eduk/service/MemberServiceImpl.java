@@ -41,9 +41,10 @@ public class MemberServiceImpl implements MemberService{
 	 * 이메일 중복 체크
 	 */
 	public Member findByEmail(String email) {
-		Member member = memberRep.findByEmail(email);
-		
-		return member;
+		return null;
+//		Member member = memberRep.findByEmail(email);
+//		
+//		return member;
 	}
 
 	/**
