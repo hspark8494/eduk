@@ -2,7 +2,7 @@
   <div class="navbar-container d-flex content align-items-center">
 
     <!-- Left Col -->
-    <div class="bookmark-wrapper align-items-center flex-grow-1 d-none d-lg-flex">
+    <div>
       <a href="/">
         <img alt="logo" src="testlogo.png" width="100px" height="30px">
       </a>

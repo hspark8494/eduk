@@ -24,6 +24,7 @@ export default {
       email : "",
       password : "",
       users : [],
+      navbarHidden: this.$store.state.appConfig.layout.navbar.type,
       }
   },
     methods:{
@@ -43,8 +44,13 @@ export default {
         (err) => alert(`에러 : ${err}`)
       )
     }
-
-  }
+  },
+  created() {
+    this.$store.commit('appConfig/UPDATE_NAVBAR_CONFIG', {type: 'hidden'})
+  },
+  destroyed() {
+    this.$store.commit('appConfig/UPDATE_NAVBAR_CONFIG', {type: this.navbarHidden})
+  },
 }
 </script>
 
