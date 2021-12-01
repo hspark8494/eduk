@@ -6,7 +6,7 @@ import com.eduk.domain.Board;
 
 public interface BoardService {
 	/**
-	 * 등록
+	 * 게시판 등록
 	 */
 	void insert(Board board);
 
@@ -16,7 +16,7 @@ public interface BoardService {
 	List<Board> selectAll();
 	
 	/**
-	 * 삭제
+	 * 게시판 삭제
 	 */
 	void delete(Long boardId);
 }

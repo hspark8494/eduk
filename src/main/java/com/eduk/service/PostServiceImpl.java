@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.eduk.domain.Board;
 import com.eduk.domain.Post;
 import com.eduk.repository.PostRepository;
 
@@ -30,6 +31,7 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public Post update(Post post) {
 		Post dbPost = postRepository.findById(post.getPostId()).orElse(null);
+		if(dbPost == null) throw new RuntimeException("게시물 번호 오류로 수정할 수 없습니다.");
 		
 		dbPost.setPostTitle(post.getPostTitle());
 		dbPost.setPostContent(post.getPostContent());
@@ -39,6 +41,9 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public void delete(Long postId) {
+		Post dbPost = postRepository.findById(postId).orElse(null);
+		if(dbPost == null) throw new RuntimeException("게시물 번호 오류로 삭제할 수 없습니다.");
+		
 		postRepository.deleteById(postId);
 	}
 

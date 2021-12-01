@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eduk.domain.Board;
+import com.eduk.domain.Schedule;
 import com.eduk.exception.EdukException;
 import com.eduk.repository.BoardRepository;
 
@@ -30,6 +31,9 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void delete(Long boardId) {
+		Board dbBoard = boardRepository.findById(boardId).orElse(null);
+		if(dbBoard == null) throw new RuntimeException("게시판 번호 오류로 삭제할 수 없습니다.");
+		
 		boardRepository.deleteById(boardId);
 	}
 

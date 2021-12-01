@@ -3,6 +3,7 @@ package com.eduk.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,7 @@ import com.eduk.domain.Post;
 import com.eduk.service.PostService;
 
 @RestController
-@RequestMapping("/post")
+@RequestMapping("/{channelId}/{boardId}/post")
 public class PostController {
 	
 	@Autowired
@@ -24,7 +25,7 @@ public class PostController {
 	 * 게시물 등록
 	 */
 	@PostMapping("/insert")
-	public String insert(Post post, Long boardId) {
+	public String insert(Post post, @PathVariable Long boardId) {
 		
 		//부모글번호를 Post에 세팅
 		post.setBoard(Board.builder().boardId(boardId).build());
@@ -38,7 +39,7 @@ public class PostController {
 	 * 전체 검색
 	 */
 	@GetMapping("/list")
-	public void list(Long boardId) {
+	public void list(@PathVariable Long boardId) {
 		//model.addAttribute("boardId", boardId); //부모글번호
 		postService.selectAll(boardId);
 	}
@@ -51,8 +52,8 @@ public class PostController {
 	/**
 	 * 게시물 수정
 	 */
-	@PutMapping("/update")
-	public ModelAndView update(Post post) {
+	@PutMapping("/update/{postId}")
+	public ModelAndView update(Post post, @PathVariable Long postId) {
 		Post dbPost = postService.update(post);
 		
 		return new ModelAndView("", "post", dbPost);
@@ -62,8 +63,8 @@ public class PostController {
 	/**
 	 * 게시물 삭제
 	 */
-	@DeleteMapping("/delete")
-	public String delete(Long postId) {
+	@DeleteMapping("/delete/{postId}")
+	public String delete(@PathVariable Long postId) {
 		postService.delete(postId);
 		
 		return "";
