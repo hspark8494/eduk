@@ -9,15 +9,5 @@ import org.springframework.data.jpa.repository.Query;
 import com.eduk.domain.Member;
 
 public interface MemberRepository extends JpaRepository<Member, Long>{
-
-	/**
-	 * 이메일 중복 체크
-	 */
-	
-	public Member findByEmail(String email);
-	
-	/**
-	 * 회원 등록 
-	 */
 	
 }
