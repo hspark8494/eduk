@@ -3,7 +3,7 @@
   "version": "6.4.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --port 2000",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },

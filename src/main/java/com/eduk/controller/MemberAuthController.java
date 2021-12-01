@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eduk.domain.Member;
-import com.eduk.service.MemberAuthService;
+import com.eduk.service.MemberAuthServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class MemberAuthController {
-	private final MemberAuthService memberAuthService;
+	private final MemberAuthServiceImpl memberAuthService;
 
 	
 	//TODO : 예외처리
