@@ -48,6 +48,7 @@ public class Member { //@size
 	@NotBlank(message="이름은 필수 입력 값입니다.")
 	private String name;
 	
+	//1 - 활동상태, 0 - 탈퇴
 	private int state;
 	
 	@CreationTimestamp

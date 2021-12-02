@@ -1,5 +1,6 @@
 package com.eduk.service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -56,7 +57,45 @@ public class MemberServiceImpl implements MemberService{
 		memberRep.save(member);
 		return 0;
 	}
-	
-	
+
+	/**
+	 * 회원 정보 조회
+	 */
+	@Override
+	public Optional<Member> selectMemberInfo(Long memberId) {
+		
+		return memberRep.findById(memberId);
+	}
+
+	/**
+	 * 회원정보 수정
+	 */
+	@Override
+	public void updateMemberInfo(Member member) {
+		
+		memberRep.save(member);
+		
+	}
+
+	/**
+	 * 회원의 강의목록 조회
+	 * @return 
+	 */
+	@Override
+	public Optional<Member> selectMemberClassRoom(Long memberId) {
+		
+		return memberRep.findById(memberId);
+		
+	}
+
+	/**
+	 * 회원 탈퇴
+	 */
+	@Override
+	public void deleteMember(Member member) {
+		
+		memberRep.save(member);
+		
+	}
 
 }

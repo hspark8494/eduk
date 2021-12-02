@@ -1,20 +1,16 @@
 package com.eduk.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.eduk.domain.Member;
+import org.junit.Test;
 
 class MemberControllerTest {
 
+	private MemberController memberController;
+
 	@Test
-	@RequestMapping("/test")
-	void test() {
-	
+	public void test() {
+
+		memberController.selectMember((long) 1);
+
 	}
 
 }
