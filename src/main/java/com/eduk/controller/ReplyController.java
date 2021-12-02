@@ -13,7 +13,7 @@ import com.eduk.domain.Reply;
 import com.eduk.service.ReplyService;
 
 @RestController
-@RequestMapping("/{channelId}/{boardId}/{postId}/reply")
+@RequestMapping("/{postId}/reply")
 public class ReplyController {
 	
 	@Autowired
@@ -23,12 +23,9 @@ public class ReplyController {
 	 * 댓글 등록
 	 */
 	@PostMapping("/insert")
-	public String insert(Reply reply, @PathVariable Long postId) {
+	public void insert(Reply reply, @PathVariable Long postId) {
 		reply.setPost(Post.builder().postId(postId).build());
-		
 		replyService.insert(reply);
-		
-		return "";
 	}
 	
 	/**
@@ -45,9 +42,7 @@ public class ReplyController {
 	 * 댓글 삭제
 	 */
 	@DeleteMapping("/delete/{replyId}")
-	public String delete(@PathVariable Long replyId) {
+	public void delete(@PathVariable Long replyId) {
 		replyService.delete(replyId);
-		
-		return "";
 	}
 }

@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,9 +30,11 @@ public class Files {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long fileId;
 	
+	private MultipartFile file;
+	
 	private String fileName;
 	private String realName;
-	private int fileSize;
+	private Long fileSize;
 	private String fileType;
 	private String scope;
 	
