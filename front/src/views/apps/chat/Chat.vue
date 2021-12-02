@@ -1,120 +1,9 @@
 <template>
   <!-- Need to add height inherit because Vue 2 don't support multiple root ele -->
   <div style="height: inherit">
-    <div
-      class="body-content-overlay"
-      :class="{'show': shallShowUserProfileSidebar || shallShowActiveChatContactSidebar || mqShallShowLeftSidebar}"
-      @click="mqShallShowLeftSidebar=shallShowActiveChatContactSidebar=shallShowUserProfileSidebar=false"
-    />
 
     <!-- Main Area -->
     <section class="chat-app-window">
-
-      <!-- Start Chat Logo -->
-      <div
-        v-if="!activeChat.contact"
-        class="start-chat-area"
-      >
-        <div class="mb-1 start-chat-icon">
-          <feather-icon
-            icon="MessageSquareIcon"
-            size="56"
-          />
-        </div>
-        <h4
-          class="sidebar-toggle start-chat-text"
-          @click="startConversation"
-        >
-          Start Conversation
-        </h4>
-      </div>
-
-      <!-- Chat Content -->
-      <div
-        v-else
-        class="active-chat"
-      >
-        <!-- Chat Navbar -->
-        <div class="chat-navbar">
-          <header class="chat-header">
-
-            <!-- Avatar & Name -->
-            <div class="d-flex align-items-center">
-
-              <!-- Toggle Icon -->
-              <div class="sidebar-toggle d-block d-lg-none mr-1">
-                <feather-icon
-                  icon="MenuIcon"
-                  class="cursor-pointer"
-                  size="21"
-                  @click="mqShallShowLeftSidebar = true"
-                />
-              </div>
-
-              <b-avatar
-                size="36"
-                :src="activeChat.contact.avatar"
-                class="mr-1 cursor-pointer badge-minimal"
-                badge
-                :badge-variant="resolveAvatarBadgeVariant(activeChat.contact.status)"
-                @click.native="shallShowActiveChatContactSidebar=true"
-              />
-              <h6 class="mb-0">
-                {{ activeChat.contact.fullName }}
-              </h6>
-            </div>
-
-            <!-- Contact Actions -->
-            <div class="d-flex align-items-center">
-              <feather-icon
-                icon="PhoneCallIcon"
-                size="17"
-                class="cursor-pointer d-sm-block d-none mr-1"
-              />
-              <feather-icon
-                icon="VideoIcon"
-                size="17"
-                class="cursor-pointer d-sm-block d-none mr-1"
-              />
-              <feather-icon
-                icon="SearchIcon"
-                size="17"
-                class="cursor-pointer d-sm-block d-none mr-50"
-              />
-              <div class="dropdown">
-                <b-dropdown
-                  variant="link"
-                  no-caret
-                  toggle-class="p-0"
-                  right
-                >
-                  <template #button-content>
-                    <feather-icon
-                      icon="MoreVerticalIcon"
-                      size="17"
-                      class="align-middle text-body"
-                    />
-                  </template>
-                  <b-dropdown-item>
-                    View Contact
-                  </b-dropdown-item>
-                  <b-dropdown-item>
-                    Mute Notifications
-                  </b-dropdown-item>
-                  <b-dropdown-item>
-                    Block Contact
-                  </b-dropdown-item>
-                  <b-dropdown-item>
-                    Clear Chat
-                  </b-dropdown-item>
-                  <b-dropdown-item>
-                    Report
-                  </b-dropdown-item>
-                </b-dropdown>
-              </div>
-            </div>
-          </header>
-        </div>
 
         <!-- User Chat Area -->
         <vue-perfect-scrollbar
@@ -146,29 +35,8 @@
             Send
           </b-button>
         </b-form>
-      </div>
     </section>
 
-    <!-- Active Chat Contact Details Sidebar -->
-    <chat-active-chat-content-details-sidedbar
-      :shall-show-active-chat-contact-sidebar.sync="shallShowActiveChatContactSidebar"
-      :contact="activeChat.contact || {}"
-    />
-
-    <!-- Sidebar -->
-    <portal to="content-renderer-sidebar-left">
-      <chat-left-sidebar
-        :chats-contacts="chatsContacts"
-        :contacts="contacts"
-        :active-chat-contact-id="activeChat.contact ? activeChat.contact.id : null"
-        :shall-show-user-profile-sidebar.sync="shallShowUserProfileSidebar"
-        :profile-user-data="profileUserData"
-        :profile-user-minimal-data="profileUserDataMinimal"
-        :mq-shall-show-left-sidebar.sync="mqShallShowLeftSidebar"
-        @show-user-profile="showUserProfileSidebar"
-        @open-chat="openChatOfContact"
-      />
-    </portal>
   </div>
 </template>
 
@@ -184,9 +52,7 @@ import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 // import { formatDate } from '@core/utils/filter'
 import { $themeBreakpoints } from '@themeConfig'
 import { useResponsiveAppLeftSidebarVisibility } from '@core/comp-functions/ui/app'
-import ChatLeftSidebar from './ChatLeftSidebar.vue'
 import chatStoreModule from './chatStoreModule'
-import ChatActiveChatContentDetailsSidedbar from './ChatActiveChatContentDetailsSidedbar.vue'
 import ChatLog from './ChatLog.vue'
 import useChat from './useChat'
 
@@ -206,8 +72,6 @@ export default {
     VuePerfectScrollbar,
 
     // SFC
-    ChatLeftSidebar,
-    ChatActiveChatContentDetailsSidedbar,
     ChatLog,
   },
   data() {

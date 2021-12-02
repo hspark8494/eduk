@@ -101,6 +101,21 @@ const router = new VueRouter({
       path: '*',
       redirect: 'error-404',
     },
+    {
+    path: '/apps/calendar',
+    name: 'apps-calendar',
+    component: () => import('@/views/apps/calendar/Calendar.vue'),
+    },
+
+    {
+    path: '/apps/chat',
+    name: 'apps-chat',
+    component: () => import('@/views/apps/chat/Chat.vue'),
+    meta: {
+      contentRenderer: 'sidebar-left',
+      contentClass: 'chat-application',
+    },
+  },
   ],
 })
 

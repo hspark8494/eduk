@@ -24,6 +24,7 @@ $chat-profile-sidebar-head-height: 200px;
   .content-area-wrapper {
     border: 1px solid $border-color;
     border-radius: $card-border-radius;
+    height: 100%;
   }
 
   // chat admin profile sidebar
@@ -202,7 +203,9 @@ $chat-profile-sidebar-head-height: 200px;
       }
     }
   }
-
+  .content-right {
+    width: 100%;
+  }
   // User chat window css
   .chat-app-window {
     height: 100%;
@@ -214,6 +217,7 @@ $chat-profile-sidebar-head-height: 200px;
       background-color: $chat-image-back-color;
       background-repeat: repeat;
       background-size: 210px;
+      height: calc(100% - 65px - 0px);
     }
     .start-chat-area {
       height: inherit;
