@@ -41,8 +41,6 @@ public class MemberAuthController {
 		System.out.println(member);
 		Map<String, Object> responseMap = memberAuthService.register(member);
 		
-
-		
 		return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 	}
 	

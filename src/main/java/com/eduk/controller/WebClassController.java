@@ -1,7 +1,9 @@
 package com.eduk.controller;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,4 +29,27 @@ public class WebClassController {
 		webClass.setChannel(Channel.builder().channelId(channelId).build());
 		webClassServiceImpl.createWebClass(webClass);
 	}
+	
+	/**
+	 * 화상수업 수정 
+	 * */
+	@PutMapping("/webClass/{webClassId}")
+	public WebClass updateWebClass(@RequestBody WebClass webClass, @PathVariable Long webClassId) {
+		WebClass webClassEntity = webClassServiceImpl.updateWebClass(webClass);
+		return webClassEntity;
+	}
+	
+	/**
+	 * 화상수업 삭제 
+	 * */
+	@DeleteMapping("/webClass/{webClassId}")
+	public void deleteWebClass(@PathVariable Long webClassId) {
+		webClassServiceImpl.deleteWebClass(webClassId);
+	}
 }
+
+
+
+
+
+

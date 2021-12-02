@@ -16,6 +16,10 @@ public interface BoardService {
 	List<Board> selectAll();
 	
 	/**
+	 * 상세 검색
+	 */
+	
+	/**
 	 * 게시판 삭제
 	 */
 	void delete(Long boardId);

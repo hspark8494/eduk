@@ -2,6 +2,7 @@ package com.eduk.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +41,13 @@ public class ChannelController {
 		channelServiceImpl.createChannel(channel);
 	}
 	
-	
+	/**
+	 * 채널삭제 
+	 * */
+	@DeleteMapping("/channel/{channelId}")
+	public void deleteChannel(@PathVariable Long classRoomId) {
+		channelServiceImpl.deleteChannel(classRoomId);
+	}
 }
 
 

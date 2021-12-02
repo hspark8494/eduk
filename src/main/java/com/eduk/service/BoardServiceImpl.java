@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eduk.domain.Board;
-import com.eduk.domain.Schedule;
-import com.eduk.exception.EdukException;
 import com.eduk.repository.BoardRepository;
 
 @Service 

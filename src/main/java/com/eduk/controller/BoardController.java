@@ -1,5 +1,7 @@
 package com.eduk.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eduk.domain.Board;
+import com.eduk.domain.Channel;
 import com.eduk.service.BoardService;
 
 @RestController
@@ -22,27 +25,31 @@ public class BoardController {
 	 * 게시판 등록
 	 */
 	@PostMapping("/insert")
-	public String insert(Board board) {
+	public void insert(Board board, @PathVariable Long channelId) {
+		board.setChannel(Channel.builder().channelId(channelId).build());
 		boardService.insert(board);
-		
-		return "";
 	}
 	
 	/**
 	 * 게시판 전체 검색
 	 */
 	@GetMapping("/list")
-	public void list() {
-		boardService.selectAll();
+	public List<Board> list() {
+		List<Board> boardList = boardService.selectAll();
+		
+		return boardList;
 	}
+	
+	/**
+	 * 상세 검색
+	 */
+	
 	
 	/**
 	 * 게시판 삭제
 	 */
-	@DeleteMapping("/delete")
-	public String delete(@PathVariable Long boardId) {
+	@DeleteMapping("/delete/{boardId}")
+	public void delete(@PathVariable Long boardId) {
 		boardService.delete(boardId);
-		
-		return "";
 	}
 }

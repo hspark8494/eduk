@@ -1,6 +1,8 @@
 package com.eduk.controller;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -9,10 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.eduk.domain.Member;
 import com.eduk.service.MemberService;
@@ -54,7 +59,7 @@ public class MemberController {
 		}
 		
 		//회원 추가
-		memberService.saveMember(member);
+		//memberService.saveMember(member);
 		
 		
 		return "";
@@ -89,23 +94,42 @@ public class MemberController {
 	}
 	
 	/**
+	 * 회원 탈퇴
+	 */
+	public void deleteMember(@PathVariable Long memberId, Member member) {
+		member.setState(0);
+		memberService.deleteMember(member);
+	}
+	
+	/**
 	 * 회원정보 조회
 	 */
-	public String selectMember() {
+	@GetMapping("/selectMemberInfo")
+	public String selectMember(@PathVariable Long memberId) {
+		Optional<Member> member = memberService.selectMemberInfo(memberId);
+		
 		return "";
 	}
 
 	/**
-	 * 회원정보 수정 - 여기서도 유효성 검사 필요 - 서비스만 잘 연결해서 쓰기
+	 * 회원정보 수정 + 프로필 이미지
 	 */
-	public String updateMember() {
+	@PutMapping("/updateMemberInfo")
+	public String updateMember(Member member) {
+		
+		memberService.updateMemberInfo(member);
+		
 		return "";
 	}
 	
 	/**
-	 * 나의 강의목록 조회
+	 * 회원의 강의목록 조회
 	 */
-	public String selectMemberClass() {
+	@GetMapping("/selectClass")
+	public String selectMemberClass(@PathVariable Long memberId) {
+		
+		Optional<Member> member = memberService.selectMemberClassRoom(memberId);
+		
 		return "";
 	}
 	

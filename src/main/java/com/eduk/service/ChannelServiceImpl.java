@@ -29,4 +29,9 @@ public class ChannelServiceImpl implements ChannelService {
 		return channelRepository.findAll();
 	}
 
+	@Override
+	public void deleteChannel(Long classRoomId) {
+		channelRepository.deleteById(classRoomId);
+	}
+
 }
