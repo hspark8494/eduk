@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eduk.domain.Member;
@@ -16,6 +17,7 @@ import com.eduk.service.StudentManagementService;
  * 강사가 수강생 목록 조회 및 학생정보조회, 출결사항, <특정학생 권한부여> 및 벤 
  * */
 @RestController
+@RequestMapping("/{classRoomId}")
 public class StudentManagementController {
 	@Autowired
 	private StudentManagementService studentManagementService;

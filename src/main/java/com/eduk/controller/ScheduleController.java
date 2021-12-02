@@ -25,7 +25,7 @@ public class ScheduleController {
 	private ScheduleServiceImpl scheduleServiceImpl;
 	
 	/**
-	 * 스케줄 작성 
+	 * 스케줄 생성 
 	 * */
 	@PostMapping("/schedule")
 	public void createSchedule(@RequestBody Schedule schedule, @PathVariable Long channelId) {

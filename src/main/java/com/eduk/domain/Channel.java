@@ -27,7 +27,6 @@ public class Channel {
 	private Long channelId;
 	
 	private String channelType;
-	private String channelName; 
 	
 	private int state;
 	
