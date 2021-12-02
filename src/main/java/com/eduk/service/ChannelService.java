@@ -8,4 +8,6 @@ public interface ChannelService {
 	void createChannel(Channel channel);
 	
 	List<Channel> selectChannel();
+	
+	void deleteChannel(Long classRoomId);
 }
