@@ -41,6 +41,10 @@ public class StudentManagementController {
 	}
 	
 	/**
+	 * <특정학생 권한부여>
+	 * */
+	
+	/**
 	 * 특정학생 탈퇴 
 	 * */
 	@DeleteMapping("/admin/member/{memberId}")

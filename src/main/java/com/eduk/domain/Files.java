@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -30,6 +31,7 @@ public class Files {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long fileId;
 	
+	@Transient
 	private MultipartFile file;
 	
 	private String fileName;
