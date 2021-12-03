@@ -34,6 +34,12 @@ public class ReferenceRoomController {
 	/**
 	 * 자료실 상세 검색
 	 */
+	@GetMapping("/read/{referenceRoomId}")
+	public ReferenceRoom read(@PathVariable Long referenceRoomId) {
+		ReferenceRoom referenceRoom = referenceRoomService.selectByReferenceRoomId(referenceRoomId);
+		
+		return referenceRoom;
+	}
 	
 	/**
 	 * 자료실 등록

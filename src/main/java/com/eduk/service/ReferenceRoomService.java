@@ -13,6 +13,7 @@ public interface ReferenceRoomService {
 	/**
 	 * 자료실 상세 검색
 	 */
+	ReferenceRoom selectByReferenceRoomId(Long referenceRoomId);
 	
 	/**
 	 * 자료실 등록
