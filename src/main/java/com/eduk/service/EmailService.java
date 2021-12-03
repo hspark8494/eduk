@@ -19,15 +19,15 @@ import lombok.RequiredArgsConstructor;
 public class EmailService{
 
 	private final JavaMailSender emailSender;
-    public static final String ePw = createKey();
+    public static final String ePw = createKey(); //인증번호 저장
 
-    private MimeMessage createMessage(String to) throws Exception{
-        System.out.println("보내는 대상 : "+ to);
+    private MimeMessage createMessage(String email) throws Exception{
+        System.out.println("보내는 대상 : "+ email);
         System.out.println("인증 번호 : " + ePw);
         MimeMessage  message = emailSender.createMimeMessage();
 
         String code = createCode(ePw);
-        message.addRecipients(RecipientType.TO, to); //보내는 대상
+        message.addRecipients(RecipientType.TO, email); //보내는 대상
         message.setSubject("eduK 회원가입 인증번호가 도착했습니다. "); //제목
 
         String msgg="";
@@ -53,22 +53,22 @@ public class EmailService{
     // 인증코드 만들기
     public static String createKey() {
         StringBuffer key = new StringBuffer();
-        Random rnd = new Random();
+        Random random = new Random();
 
         for (int i = 0; i < 8; i++) { // 인증코드 8자리
-			int index = rnd.nextInt(3); // 0~2 까지 랜덤
+			int index = random.nextInt(3); // int형 수 0~2 까지 랜덤으로 반환
 
 			switch (index) {
 			case 0:
-				key.append((char) ((int) (rnd.nextInt(26)) + 97));
+				key.append((char) ((int) (random.nextInt(26)) + 97));
 				//  a~z  (ex. 1+97=98 => (char)98 = 'b')
 				break;
 			case 1:
-				key.append((char) ((int) (rnd.nextInt(26)) + 65));
+				key.append((char) ((int) (random.nextInt(26)) + 65));
 				//  A~Z 
 				break;
 			case 2:
-				key.append((rnd.nextInt(10)));
+				key.append((random.nextInt(10)));
 				// 0~9
 				break;
 			}
@@ -77,7 +77,7 @@ public class EmailService{
         return key.toString();
     }
 
-    public void sendSimpleMessage(String email)throws Exception {
+    public void sendSimpleMessage(String email) throws Exception {
         MimeMessage message = createMessage(email);
         try{//예외처리
             emailSender.send(message);

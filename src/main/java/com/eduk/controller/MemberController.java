@@ -37,15 +37,21 @@ public class MemberController {
 	@Autowired
 	EmailService emailService;
 
+	/**
+	 * 회원 이메일 입력 후 인증 이메일 발송
+	 */
 	//@PostMapping("/mail")
 	@ResponseBody
 	@RequestMapping(value = "/mail", method = RequestMethod.GET)
 	public void emailConfirm(Member member) throws Exception {
-		System.out.println("post emailConfirm");
 		System.out.println("전달 받은 이메일 : " + member.getEmail());
 		emailService.sendSimpleMessage(member.getEmail());
 	}
 
+	/**
+	 * 인증코드 받고 맞는지 확인
+	 * 인증코드 일치 - 1, 불일치 - 0
+	 */
 	@PostMapping("/verifyCode")
 	@ResponseBody
 	public int verifyCode(String code) {
