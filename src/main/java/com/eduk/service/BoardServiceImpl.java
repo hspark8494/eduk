@@ -35,4 +35,12 @@ public class BoardServiceImpl implements BoardService {
 		boardRepository.deleteById(boardId);
 	}
 
+	@Override
+	public Board selectByBoardId(Long boardId) {
+		Board dbBoard = boardRepository.findById(boardId).orElse(null);
+		if(dbBoard == null) throw new RuntimeException("게시판 번호 오류입니다.");
+		
+		return dbBoard;
+	}
+
 }

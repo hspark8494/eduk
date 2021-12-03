@@ -43,6 +43,12 @@ public class BoardController {
 	/**
 	 * 상세 검색
 	 */
+	@GetMapping("/read/{boardId}")
+	public Board read(@PathVariable Long boardId) {
+		Board board = boardService.selectByBoardId(boardId);
+		
+		return board;
+	}
 	
 	
 	/**

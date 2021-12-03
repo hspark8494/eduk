@@ -18,6 +18,7 @@ public interface BoardService {
 	/**
 	 * 상세 검색
 	 */
+	Board selectByBoardId(Long boardId);
 	
 	/**
 	 * 게시판 삭제

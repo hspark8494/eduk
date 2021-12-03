@@ -47,4 +47,12 @@ public class PostServiceImpl implements PostService {
 		postRepository.deleteById(postId);
 	}
 
+	@Override
+	public Post selectByPostId(Long postId) {
+		Post dbPost = postRepository.findById(postId).orElse(null);
+		if(dbPost == null) throw new RuntimeException("게시물 번호 오류입니다.");
+		
+		return dbPost;
+	}
+
 }

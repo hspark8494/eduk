@@ -19,6 +19,7 @@ public interface PostService {
 	/**
 	 * 상세 검색
 	 */
+	Post selectByPostId(Long postId);
 	
 	/**
 	 * 수정
