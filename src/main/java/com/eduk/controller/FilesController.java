@@ -23,20 +23,18 @@ public class FilesController {
 	 */
 	@PostMapping("/upload")
 	public String upload(Files files, @PathVariable Long memberId, HttpSession session) {;
-		files.setMember(Member.builder().memberId(memberId).build());
-		String path = session.getServletContext().getRealPath("/WEB-INF/save");
-	    
-	    MultipartFile file = files.getFile();
-	    
-	    try {
-			file.transferTo(new File(path+"/" + file.getOriginalFilename()));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	    
-	    files.setFileName(file.getOriginalFilename());
-	    files.setFileSize(file.getSize());
-	    files.setFileType(file.getContentType());
+		/*
+		 * files.setMember(Member.builder().memberId(memberId).build()); String path =
+		 * session.getServletContext().getRealPath("/WEB-INF/save");
+		 * 
+		 * MultipartFile file = files.getFile();
+		 * 
+		 * try { file.transferTo(new File(path+"/" + file.getOriginalFilename())); }
+		 * catch (Exception e) { e.printStackTrace(); }
+		 * 
+		 * files.setFileName(file.getOriginalFilename());
+		 * files.setFileSize(file.getSize()); files.setFileType(file.getContentType());
+		 */
 		
 		return "uploadResult";
 	}

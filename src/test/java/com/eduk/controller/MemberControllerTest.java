@@ -1,16 +1,17 @@
 package com.eduk.controller;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 class MemberControllerTest {
 
-	private MemberController memberController;
-
 	@Test
-	public void test() {
-
-		memberController.selectMember((long) 1);
-
+	void testIdCheck() {
+		MemberController controller = new MemberController();
+		controller.idCheck("park@naver.com");
 	}
+
 
 }
