@@ -35,4 +35,12 @@ public class ReferenceRoomServiceImpl implements ReferenceRoomService{
 		referenceRoomRepository.deleteById(referenceRoomId);
 	}
 
+	@Override
+	public ReferenceRoom selectByReferenceRoomId(Long referenceRoomId) {
+		ReferenceRoom dbReferenceRoom = referenceRoomRepository.findById(referenceRoomId).orElse(null);
+		if(dbReferenceRoom == null) throw new RuntimeException("자료실 번호 오류입니다.");
+		
+		return dbReferenceRoom;
+	}
+
 }

@@ -27,7 +27,9 @@ import lombok.RequiredArgsConstructor;
 public class MemberAuthController {
 	private final MemberAuthServiceImpl memberAuthService;
 
-	
+	/**
+	 * 로그인
+	 */
 	//TODO : 예외처리
 	@PostMapping("/login-test")
 	public ResponseEntity<Map<String, Object>> login(@RequestBody Member member) throws Exception {
@@ -36,6 +38,10 @@ public class MemberAuthController {
 		return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 	}
 	
+	
+	/**
+	 * 회원 가입
+	 */
 	@PostMapping("/register-test")
 	public ResponseEntity<Map<String, Object>> register(@RequestBody Member member) throws Exception {
 		System.out.println(member);
@@ -44,7 +50,11 @@ public class MemberAuthController {
 		return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 	}
 	
+	//로그아웃
 	
+	/**
+	 * 테스트
+	 */
 	@PostMapping("/test")
 	public ResponseEntity<String> test(@RequestHeader Map<String, String> headers) {
 		System.out.println(headers);

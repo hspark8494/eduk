@@ -3,6 +3,7 @@ package com.eduk.service;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 import org.springframework.validation.Errors;
 
@@ -13,26 +14,36 @@ public interface MemberService {
 	/**
 	 * 회원가입 , 유효성 체크
 	 */
-	 public Map<String, String> register(Errors errors) throws EdukException;
-	 
-	 /**
-	  * 아이디 중복 체크
-	  */
-	 public Member findByEmail(String email);
-	 
-	 /**
-	  * 회원 등록
-	  */
-	 public int saveMember(Member member);
-	 
-	 /**
-	  * 회원 정보 조회
-	  */
-	 public Optional<Member> selectMemberInfo(Long memberId);
+	public Map<String, String> register(Errors errors) throws EdukException;
 
-	 /**
-	  * 회원 정보 수정
-	  */
+	/**
+	 * 아이디 중복 체크
+	 */
+	public Optional<Member> findByEmail(String email);
+
+	/**
+	 * 회원 등록
+	 */
+	public int saveMember(Member member);
+
+	/**
+	 * 이메일 유효성 검사
+	 */
+	public boolean isEmail(String str);
+
+	/**
+	 * 비밀번호 유효성 검사
+	 */
+	public boolean isPassword(String str);
+
+	/**
+	 * 회원 정보 조회
+	 */
+	public Optional<Member> selectMemberInfo(Long memberId);
+
+	/**
+	 * 회원 정보 수정
+	 */
 	public void updateMemberInfo(Member member);
 
 	/**
@@ -44,5 +55,10 @@ public interface MemberService {
 	 * 회원 탈퇴
 	 */
 	public void deleteMember(Member member);
+
+	/**
+	 * 이메일 인증
+	 */
+	public void signUp(Member member);
 
 }

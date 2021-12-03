@@ -3,6 +3,7 @@ package com.eduk.service;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,13 +40,26 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	/**
-	 * 이메일 중복 체크
+	 * 이메일 유효성 검사
 	 */
-	public Member findByEmail(String email) {
-		return null;
-//		Member member = memberRep.findByEmail(email);
-//		
-//		return member;
+	public boolean isEmail(String str) {
+	    return Pattern.matches("^[a-z0-9A-Z._-]*@[a-z0-9A-Z]*.[a-zA-Z.]*$", str);
+	}
+	
+	/**
+	 * 비밀번호 유효성 검사
+	 */
+	public boolean isPassword(String str) {
+	    return Pattern.matches("?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\\\W)(?=\\\\S+$).{8,16}", str);
+	}
+	
+	/**
+	 * 이메일 중복 체크
+	 * @return 
+	 */
+	public Optional<Member> findByEmail(String email) {
+		
+		return memberRep.findByEmail(email);
 	}
 
 	/**
@@ -95,6 +109,12 @@ public class MemberServiceImpl implements MemberService{
 	public void deleteMember(Member member) {
 		
 		memberRep.save(member);
+		
+	}
+
+	@Override
+	public void signUp(Member member) {
+		// TODO Auto-generated method stub
 		
 	}
 
