@@ -39,6 +39,8 @@ public class ClassRoom {
 	
 	private String classRoomImage;
 	
-	
+	public ClassRoom(Long classRoomId) {
+		this.classRoomId = classRoomId;
+	}
 	
 }

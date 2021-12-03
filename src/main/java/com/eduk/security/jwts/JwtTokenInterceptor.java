@@ -24,11 +24,8 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
       throws IOException {
 
-    String accessToken = request.getHeader("accessToken");
-    System.out.println("AccessToken:" + accessToken);
-    String refreshToken = request.getHeader("refreshToken");
-    System.out.println("RefreshToken:" + refreshToken);
-
+    String accessToken = request.getHeader("authorization");
+System.out.println("인터셉터 accessToken : " + accessToken);
     if (accessToken != null) {
       if (tokenProvider.isValidToken(accessToken)) {
         return true;
@@ -39,7 +36,6 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
     
     response.setStatus(401);
     response.setHeader("accessToken", accessToken);
-    response.setHeader("refreshToken", refreshToken);
     response.setHeader("msg", "Check the tokens.");
     return false;
   }

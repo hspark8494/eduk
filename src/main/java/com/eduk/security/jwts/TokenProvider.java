@@ -9,6 +9,7 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import com.eduk.domain.Member;
@@ -27,15 +28,12 @@ import io.jsonwebtoken.SignatureAlgorithm;
  */
 @Service
 public class TokenProvider {
-	@Value("${jwt.token.secret.key}")
-	private final String SECRET_KEY ="842338B972F2329CD3C8E9C919666";	//서버측 비밀키
-	@Value("${jwt.token.refresh.key}")
-	private final String REFRESH_KEY ="F3DD56F233DF8FDF6C5B33846CF3B";	//리프레쉬 키
-	@Value("${jwt.token.issuer}")
-	private final String ISSUER ="eduk";	//토큰 발급자
+	private final static String SECRET_KEY ="842338B972F2329CD3C8E9C919666";	//서버측 비밀키
+	private final static String REFRESH_KEY ="F3DD56F233DF8FDF6C5B33846CF3B";	//리프레쉬 키
+	private final static String ISSUER ="eduk";	//토큰 발급자
 	
-	private final long TOKEN_TTL = 1000L*60*60; //토큰 만료 기간 (1시간)
-	private final long REFRESH_TOKEN_TTL = 1000L*60*60*24*14; //리프레쉬 토큰 만료 기간 (14일)
+	private final static long TOKEN_TTL = 1000L*60*60; //토큰 만료 기간 (1시간)
+	private final static long REFRESH_TOKEN_TTL = 1000L*60*60*24*14; //리프레쉬 토큰 만료 기간 (14일)
 
 	
 	/**
@@ -46,7 +44,7 @@ public class TokenProvider {
 	 */
 	public String generateToken(Member member) {
 		return Jwts.builder()
-				.setSubject(member.getMemberId()+"")
+				.setSubject(member.getEmail())
 				.setHeader(createHeader())
 				.setClaims(createClaims(member)).setExpiration(createExpireDate(TOKEN_TTL))
 				.signWith(SignatureAlgorithm.HS256, createSigningKey(SECRET_KEY)).compact();
@@ -58,7 +56,7 @@ public class TokenProvider {
 	 * @return 암호화된 리프레쉬 토큰 문자열
 	 */
 	public String saveRefreshToken(Member member) {
-		return Jwts.builder().setSubject(member.getMemberId()+"").setHeader(createHeader())
+		return Jwts.builder().setSubject(member.getEmail()).setHeader(createHeader())
 				.setClaims(createClaims(member)).setExpiration(createExpireDate(REFRESH_TOKEN_TTL))
 				.signWith(SignatureAlgorithm.HS256, createSigningKey(REFRESH_KEY)).compact();
 	}
@@ -93,7 +91,7 @@ public class TokenProvider {
 	 */
 	public boolean isValidRefreshToken(String token) {
 		try {
-			Claims accessClaims = getClaimsToken(token);
+			Claims accessClaims = getClaimsFormToken(token);
 			System.out.println("Access expireTime: " + accessClaims.getExpiration());
 			System.out.println("Access member: " + accessClaims.get("email"));
 			return true;
@@ -108,6 +106,7 @@ public class TokenProvider {
 			return false;
 		}
 	}
+	
 
 	private Date createExpireDate(long expireDate) {
 		long curTime = System.currentTimeMillis();
@@ -126,7 +125,7 @@ public class TokenProvider {
 
 	private Map<String, Object> createClaims(Member member) {
 		Map<String, Object> claims = new HashMap<>();
-		claims.put("email", member.getEmail());
+		claims.put("id", member.getMemberId());
 		return claims;
 	}
 
@@ -135,13 +134,18 @@ public class TokenProvider {
 		return new SecretKeySpec(apiKeySecretBytes, SignatureAlgorithm.HS256.getJcaName());
 	}
 
-	private Claims getClaimsFormToken(String token) {
+	public static final Claims getClaimsFormToken(String token) {
 		return Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY)).parseClaimsJws(token)
 				.getBody();
 	}
-
-	private Claims getClaimsToken(String token) {
-		return Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(REFRESH_KEY)).parseClaimsJws(token)
-				.getBody();
+	
+	public static final long getIdFromToken(String token) {
+		return Long.valueOf(String.valueOf(getClaimsFormToken(token).get("id")));
 	}
+	
+	public static final Long getIdFormHeader(HttpHeaders headers) {
+		String token =  headers.get("authorization").get(0);
+		return getIdFromToken(token);
+	}
+
 }

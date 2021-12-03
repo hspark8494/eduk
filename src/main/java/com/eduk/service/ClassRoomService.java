@@ -1,16 +1,22 @@
 package com.eduk.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
 import com.eduk.domain.ClassRoom;
+import com.eduk.domain.Member;
+import com.eduk.domain.Participant;
 
-@Service
 public interface ClassRoomService {
 	
-	void regClassRoom(ClassRoom classRoom);
+	ClassRoom regClassRoom(ClassRoom classRoom);
 	
 	ClassRoom updateClassRoom(ClassRoom classRoom);
 	
 	void deleteClassRoom(Long classRoomId);
 	
+	ClassRoom createWithJoin(ClassRoom classRoom, Member member);
+	
+	void addParticipant(long memberId, long classRoomId);
+	
+	List<ClassRoom> findAllByMemberId(Long memberId);
 }

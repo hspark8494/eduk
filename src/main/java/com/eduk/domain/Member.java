@@ -11,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -57,8 +56,8 @@ public class Member { //@size
 	private LocalDateTime updateTime;
 	
 	private String profileImage;
-	
-	@ManyToOne
-	@JoinColumn(name="classRoomId")
-	private ClassRoom classRoom;
+
+	public Member(Long memberId) {
+		this.memberId = memberId;
+	}
 }
