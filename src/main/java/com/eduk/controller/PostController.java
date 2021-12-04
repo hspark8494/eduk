@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,7 +29,7 @@ public class PostController {
 	 * 게시물 등록
 	 */
 	@PostMapping("/insert")
-	public void insert(Post post, @PathVariable Long boardId) {
+	public void insert(@RequestBody Post post, @PathVariable Long boardId) {
 		post.setBoard(Board.builder().boardId(boardId).build());
 		postService.insert(post);
 	}
@@ -58,7 +59,7 @@ public class PostController {
 	 * 게시물 수정
 	 */
 	@PutMapping("/update/{postId}")
-	public Post update(Post post, @PathVariable Long postId) {
+	public Post update(@RequestBody Post post, @PathVariable Long postId) {
 		Post dbPost = postService.update(post);
 		
 		return dbPost;
