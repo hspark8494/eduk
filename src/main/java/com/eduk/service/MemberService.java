@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import org.springframework.validation.Errors;
 
+import com.eduk.domain.ClassRoom;
 import com.eduk.domain.Member;
 import com.eduk.exception.EdukException;
 
@@ -24,7 +25,7 @@ public interface MemberService {
 	/**
 	 * 회원 등록
 	 */
-	public int saveMember(Member member);
+	public void saveMember(Member member);
 
 	/**
 	 * 이메일 유효성 검사
@@ -49,16 +50,11 @@ public interface MemberService {
 	/**
 	 * 회원의 강의목록 조회
 	 */
-	public Optional<Member> selectMemberClassRoom(Long memberId);
+	public List<ClassRoom> selectMemberClassRoom(Long memberId);
 
 	/**
 	 * 회원 탈퇴
 	 */
 	public void deleteMember(Member member);
-
-	/**
-	 * 이메일 인증
-	 */
-	public void signUp(Member member);
 
 }

@@ -5,21 +5,35 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
+import javax.transaction.Transactional;
+
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
+import com.eduk.domain.ClassRoom;
 import com.eduk.domain.Member;
 import com.eduk.exception.EdukException;
 import com.eduk.repository.MemberRepository;
+import com.eduk.repository.ParticipantRepository;
+import com.eduk.repository.TokenRepository;
+import com.eduk.security.jwts.TokenProvider;
 
-@Service("memberService")
+import lombok.RequiredArgsConstructor;
+
+@Service
+@Transactional
 public class MemberServiceImpl implements MemberService{
-	
-	@Autowired 
+
+	@Autowired
 	private MemberRepository memberRep;
+	
+	@Autowired
+	private ParticipantRepository participantRep;
+	
 
 	//유효성 체크
 	@Override
@@ -48,9 +62,10 @@ public class MemberServiceImpl implements MemberService{
 	
 	/**
 	 * 비밀번호 유효성 검사
+	 * 특수문자, 영문, 숫자 조합 (8~10 자리)
 	 */
 	public boolean isPassword(String str) {
-	    return Pattern.matches("?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\\\W)(?=\\\\S+$).{8,16}", str);
+	    return Pattern.matches("^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,10}$", str);
 	}
 	
 	/**
@@ -59,17 +74,21 @@ public class MemberServiceImpl implements MemberService{
 	 */
 	public Optional<Member> findByEmail(String email) {
 		
-		return memberRep.findByEmail(email);
+		Optional<Member> member = memberRep.findByEmail(email);
+		
+		System.out.println(member.get().toString());
+		
+		
+		return member;
 	}
 
 	/**
 	  * 회원 등록
 	  */
 	@Override
-	public int saveMember(Member member) {
+	public void saveMember(Member member) {
 		
 		memberRep.save(member);
-		return 0;
 	}
 
 	/**
@@ -96,9 +115,11 @@ public class MemberServiceImpl implements MemberService{
 	 * @return 
 	 */
 	@Override
-	public Optional<Member> selectMemberClassRoom(Long memberId) {
+	public List<ClassRoom> selectMemberClassRoom(Long memberId) {
 		
-		return memberRep.findById(memberId);
+		List<ClassRoom> classRoom = participantRep.findAllByMember(memberId);
+		
+		return null;
 		
 	}
 
@@ -109,12 +130,6 @@ public class MemberServiceImpl implements MemberService{
 	public void deleteMember(Member member) {
 		
 		memberRep.save(member);
-		
-	}
-
-	@Override
-	public void signUp(Member member) {
-		// TODO Auto-generated method stub
 		
 	}
 

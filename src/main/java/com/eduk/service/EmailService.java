@@ -34,12 +34,12 @@ public class EmailService{
         msgg+= "<div style='margin:100px;'>";
        	msgg+= "<h1> 안녕하세요. eduK입니다. </h1>";
         msgg+= "<br>";
-        msgg+= "<p>아래 코드를 회원가입 창으로 돌아가 입력하세요<p>";
+        msgg+= "<p>회원가입 창으로 돌아가 아래 코드를 입력하세요.<p>";
         msgg+= "<br>";
-        msgg+= "<p>감사합니다!<p>";
+        msgg+= "<p>감사합니다.<p>";
         msgg+= "<br>";
-		msgg+= "<div align='center' style='border:1px solid black; font-family:verdana';>";
-		msgg+= "<h3 style='color:blue;'>회원가입 코드입니다.</h3>";
+		msgg+= "<div align='center' font-family:verdana'>";
+		msgg+= "<h3>회원가입 코드입니다.</h3>";
 		msgg+= "<div style='font-size:130%'>";
 		msgg+= "CODE : <strong>";
 		msgg+= ePw+"</strong><div><br/> ";
