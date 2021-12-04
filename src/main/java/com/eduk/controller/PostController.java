@@ -48,8 +48,10 @@ public class PostController {
 	 * 상세 검색
 	 */
 	@GetMapping("/read/{postId}")
-	public Post read(@PathVariable Long postId) {
-		Post post = postService.selectByPostId(postId);
+	public Post read(@PathVariable Long postId, String flag) {
+		boolean state = flag==null;
+		
+		Post post = postService.selectByPostId(postId, state);
 		
 		return post;
 	}

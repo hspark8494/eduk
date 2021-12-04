@@ -18,8 +18,9 @@ public interface PostService {
 	
 	/**
 	 * 상세 검색
+	 * 		: 조회수 증가 - state가 true면 조회수 증가
 	 */
-	Post selectByPostId(Long postId);
+	Post selectByPostId(Long postId, boolean state);
 	
 	/**
 	 * 수정

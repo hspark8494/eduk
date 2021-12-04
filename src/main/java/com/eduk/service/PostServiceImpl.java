@@ -48,7 +48,13 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public Post selectByPostId(Long postId) {
+	public Post selectByPostId(Long postId, boolean state) {
+		if(state) {
+			if(postRepository.readnumUpdate(postId) == 0 ) {
+				throw new RuntimeException("게시물 번호 오류로 조회수 증가에 실패하였습니다.");
+			}
+		}
+		
 		Post dbPost = postRepository.findById(postId).orElse(null);
 		if(dbPost == null) throw new RuntimeException("게시물 번호 오류입니다.");
 		
