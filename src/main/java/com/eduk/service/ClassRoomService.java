@@ -12,7 +12,7 @@ public interface ClassRoomService {
 	
 	ClassRoom updateClassRoom(ClassRoom classRoom);
 	
-	void deleteClassRoom(Long classRoomId);
+	ClassRoom deleteClassRoom(Long classRoomId);
 	
 	ClassRoom createWithJoin(ClassRoom classRoom, Member member);
 	

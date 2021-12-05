@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,9 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.eduk.domain.ClassRoom;
 import com.eduk.domain.Member;
 import com.eduk.domain.Participant;
+import com.eduk.repository.ClassRoomRepository;
 import com.eduk.security.jwts.TokenProvider;
 import com.eduk.service.ClassRoomService;
-//import com.eduk.service.ClassRoomServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,8 +32,8 @@ import lombok.RequiredArgsConstructor;
 public class ClassRoomController {
 	
 	@Autowired
+	private ClassRoomRepository classRoomRepository;
 	private ClassRoomService classRoomService;
-	//private ClassRoomServiceImpl classRoomServiceImpl;
 	
 	//강의 생성
 	@PostMapping("/class-room")
@@ -46,6 +47,20 @@ public class ClassRoomController {
 		respMap.put("newClassRoom", newClassRoom);
 		
 		return new ResponseEntity<Map<String,Object>>(respMap, HttpStatus.OK);
+	}
+	//성공 처리
+	private ResponseEntity<Map<String, Object>> handleSuccess(Object data){
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("Success", true);
+		resultMap.put("data", data);
+		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+	}
+	//예외 처리
+	private ResponseEntity<Map<String, Object>> handleException(Exception e){
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("success", false);
+		resultMap.put("data", e.getMessage());
+		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@GetMapping("/class-room-list")
@@ -63,20 +78,30 @@ public class ClassRoomController {
 			@RequestParam String classRoomImage) {
 		return "";
 	}
-	/*
-	//강의 설정
-	@PutMapping("/classRoom/{classRoomId}")
-	public ClassRoom updateClassRoom(@RequestBody ClassRoom classRoom, @PathVariable Long classRoomId) {
 	
-		return classRoomRepository.findById(classRoomId).map(classRoom ->
-		{
-			classRoom.;
-	}*/
+	//강의 설정
+	@PutMapping("/updateclassRoom/{classRoomId}")
+	public ResponseEntity <Map<String, Object>> updateClassRoom(@RequestBody ClassRoom classRoom, @PathVariable Long classRoomId) {
+		ResponseEntity<Map<String, Object>> entity = null;
+		try {
+			ClassRoom result = classRoomService.updateClassRoom(classRoom);
+			entity = handleSuccess(result);
+		} catch(RuntimeException e) {
+			entity = handleException(e);
+		}
+		return entity;
+	}
 	
 	//강의 삭제
-	@DeleteMapping("/classRoom/{classRoomId}")
-	public void deleteClassRoom(@PathVariable Long classRoomId) {
-		//ClassRoomRepository.deleteById(classRoomId);
-		return ;
+	@DeleteMapping("/deleteClassRoom/{classRoomId}")
+	public ResponseEntity <Map<String, Object>> deleteClassRoom(@PathVariable Long classRoomId) {
+		ResponseEntity<Map<String, Object>> entity = null;
+		try {
+			ClassRoom result = classRoomService.deleteClassRoom(classRoomId);
+			entity = handleSuccess(result);
+		} catch(RuntimeException e) {
+		entity = handleException(e);
+		}
+		return entity;
 	}
 }

@@ -55,9 +55,8 @@ public class ClassRoomServiceImpl implements ClassRoomService{
 	}
 
 	@Override
-	public void deleteClassRoom(Long classRoomId) {
-		// TODO Auto-generated method stub
-		
+	public ClassRoom deleteClassRoom(Long classRoomId) {
+		return null;		
 	}
 	
 
