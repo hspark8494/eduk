@@ -1,20 +1,25 @@
 package com.eduk.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.eduk.domain.Board;
+import com.eduk.domain.Member;
 import com.eduk.domain.Post;
 import com.eduk.domain.Reply;
+import com.eduk.security.jwts.TokenProvider;
 import com.eduk.service.ReplyService;
 
 @RestController
-@RequestMapping("/{postId}/reply")
+@RequestMapping("/{postId}")
 public class ReplyController {
 	
 	@Autowired
@@ -23,16 +28,21 @@ public class ReplyController {
 	/**
 	 * 댓글 등록
 	 */
-	@PostMapping("/insert")
-	public void insert(@RequestBody Reply reply, @PathVariable Long postId) {
+	@PostMapping("/reply")
+	public Reply insert(@RequestBody Reply reply, @PathVariable Long postId, @RequestHeader HttpHeaders headers) {
+		Long id = TokenProvider.getIdFormHeader(headers);
 		reply.setPost(Post.builder().postId(postId).build());
-		replyService.insert(reply);
+		reply.setMember(new Member(id));
+		
+		Reply dbReply = replyService.insert(reply);
+		
+		return dbReply;
 	}
 	
 	/**
 	 * 댓글 수정
 	 */
-	@PutMapping("/update/{replyId}")
+	@PutMapping("/reply/{replyId}")
 	public Reply update(@RequestBody Reply reply, @PathVariable Long replyId) {
 		Reply dbReply = replyService.update(reply);
 		
@@ -42,7 +52,7 @@ public class ReplyController {
 	/**
 	 * 댓글 삭제
 	 */
-	@DeleteMapping("/delete/{replyId}")
+	@DeleteMapping("/reply/{replyId}")
 	public void delete(@PathVariable Long replyId) {
 		replyService.delete(replyId);
 	}

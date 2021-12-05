@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -47,4 +48,8 @@ public class Post {
 	@ManyToOne
 	@JoinColumn(name="memberId")
 	private Member member;
+	
+	@OneToMany
+	@JoinColumn(name = "replyId")
+	private Reply reply;
 }

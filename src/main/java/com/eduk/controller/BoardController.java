@@ -16,7 +16,7 @@ import com.eduk.domain.Channel;
 import com.eduk.service.BoardService;
 
 @RestController
-@RequestMapping("/{channelId}/board")
+@RequestMapping("/{channelId}")
 public class BoardController {
 	
 	@Autowired
@@ -25,7 +25,7 @@ public class BoardController {
 	/**
 	 * 게시판 등록
 	 */
-	@PostMapping("/insert")
+	@PostMapping("/board")
 	public void insert(@RequestBody Board board, @PathVariable Long channelId) {
 		board.setChannel(Channel.builder().channelId(channelId).build());
 		boardService.insert(board);
@@ -34,7 +34,7 @@ public class BoardController {
 	/**
 	 * 게시판 전체 검색
 	 */
-	@GetMapping("/list")
+	@GetMapping("/board")
 	public List<Board> list() {
 		List<Board> boardList = boardService.selectAll();
 		
@@ -44,7 +44,7 @@ public class BoardController {
 	/**
 	 * 상세 검색
 	 */
-	@GetMapping("/read/{boardId}")
+	@GetMapping("/board/{boardId}")
 	public Board read(@PathVariable Long boardId) {
 		Board board = boardService.selectByBoardId(boardId);
 		
@@ -54,7 +54,7 @@ public class BoardController {
 	/**
 	 * 게시판 삭제
 	 */
-	@DeleteMapping("/delete/{boardId}")
+	@DeleteMapping("/board/{boardId}")
 	public void delete(@PathVariable Long boardId) {
 		boardService.delete(boardId);
 	}

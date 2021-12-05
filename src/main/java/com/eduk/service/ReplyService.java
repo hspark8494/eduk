@@ -6,7 +6,7 @@ public interface ReplyService {
 	/**
 	 * 댓글 등록
 	 */
-	void insert(Reply reply);
+	Reply insert(Reply reply);
 	
 	/**
 	 * 댓글 수정

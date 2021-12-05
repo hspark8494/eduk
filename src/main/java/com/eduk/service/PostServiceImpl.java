@@ -7,7 +7,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eduk.domain.Board;
 import com.eduk.domain.Post;
 import com.eduk.repository.PostRepository;
 
@@ -19,8 +18,8 @@ public class PostServiceImpl implements PostService {
 	private PostRepository postRepository;
 	
 	@Override
-	public void insert(Post post) {
-		postRepository.save(post);
+	public Post insert(Post post) {
+		return postRepository.save(post);
 	}
 
 	@Override

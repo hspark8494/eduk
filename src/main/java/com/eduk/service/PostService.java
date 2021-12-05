@@ -9,7 +9,7 @@ public interface PostService {
 	/**
 	 * 등록
 	 */
-	void insert(Post post);
+	Post insert(Post post);
 	
 	/**
 	 * 전체 검색
