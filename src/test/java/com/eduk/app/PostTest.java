@@ -24,7 +24,7 @@ public class PostTest {
 	@Test
 	public void insert() {
 		for (int i = 0; i <= 5; i++) {
-			postRepository.save(new Post(null, "도와주세요~! "+i, "어려웡ㅇ", null, null, i, null, null));
+			//postRepository.save(new Post(null, "도와주세요~! "+i, "어려웡ㅇ", null, null, i, null, null));
 		}
 	}
 }

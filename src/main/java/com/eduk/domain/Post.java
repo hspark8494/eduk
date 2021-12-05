@@ -1,7 +1,9 @@
 package com.eduk.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -49,7 +51,6 @@ public class Post {
 	@JoinColumn(name="memberId")
 	private Member member;
 	
-	@OneToMany
-	@JoinColumn(name = "replyId")
-	private Reply reply;
+	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<Reply> reply;
 }

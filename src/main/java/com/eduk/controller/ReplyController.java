@@ -43,7 +43,7 @@ public class ReplyController {
 	 * 댓글 수정
 	 */
 	@PutMapping("/reply/{replyId}")
-	public Reply update(@RequestBody Reply reply, @PathVariable Long replyId) {
+	public Reply update(@RequestBody Reply reply, @PathVariable Long replyId, @RequestHeader HttpHeaders headers) {
 		Reply dbReply = replyService.update(reply);
 		
 		return dbReply;
@@ -53,7 +53,7 @@ public class ReplyController {
 	 * 댓글 삭제
 	 */
 	@DeleteMapping("/reply/{replyId}")
-	public void delete(@PathVariable Long replyId) {
+	public void delete(@PathVariable Long replyId, @RequestHeader HttpHeaders headers) {
 		replyService.delete(replyId);
 	}
 }

@@ -67,7 +67,9 @@ public class PostController {
 	 * 게시물 수정
 	 */
 	@PutMapping("/post/{postId}")
-	public Post update(@RequestBody Post post, @PathVariable Long postId) {
+	public Post update(@RequestBody Post post, @PathVariable Long postId, @RequestHeader HttpHeaders headers) {
+		Long id = TokenProvider.getIdFormHeader(headers);
+		
 		Post dbPost = postService.update(post);
 		
 		return dbPost;
@@ -77,7 +79,9 @@ public class PostController {
 	 * 게시물 삭제
 	 */
 	@DeleteMapping("/post/{postId}")
-	public void delete(@PathVariable Long postId) {
+	public void delete(@PathVariable Long postId, @RequestHeader HttpHeaders headers) {
+		Long id = TokenProvider.getIdFormHeader(headers);
+		
 		postService.delete(postId);
 	}
 }
