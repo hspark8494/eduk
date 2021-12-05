@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.eduk.domain.Channel;
 import com.eduk.domain.WebClass;
+import com.eduk.service.WebClassService;
 import com.eduk.service.WebClassServiceImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/{channelId}")
 public class WebClassController {
 	
-	private final WebClassServiceImpl webClassServiceImpl;
+	//private final WebClassServiceImpl webClassServiceImpl;
+	private final WebClassService webClassService;
 	
 	/**
 	 * 화상수업 생성 
@@ -27,7 +29,7 @@ public class WebClassController {
 	@PostMapping("/webClass")
 	public void createWebClass(@RequestBody WebClass webClass, @PathVariable Long channelId) {
 		webClass.setChannel(Channel.builder().channelId(channelId).build());
-		webClassServiceImpl.createWebClass(webClass);
+		webClassService.createWebClass(webClass);
 	}
 	
 	/**
@@ -35,7 +37,7 @@ public class WebClassController {
 	 * */
 	@PutMapping("/webClass/{webClassId}")
 	public WebClass updateWebClass(@RequestBody WebClass webClass, @PathVariable Long webClassId) {
-		WebClass webClassEntity = webClassServiceImpl.updateWebClass(webClass);
+		WebClass webClassEntity = webClassService.updateWebClass(webClass);
 		return webClassEntity;
 	}
 	
@@ -44,7 +46,7 @@ public class WebClassController {
 	 * */
 	@DeleteMapping("/webClass/{webClassId}")
 	public void deleteWebClass(@PathVariable Long webClassId) {
-		webClassServiceImpl.deleteWebClass(webClassId);
+		webClassService.deleteWebClass(webClassId);
 	}
 }
 

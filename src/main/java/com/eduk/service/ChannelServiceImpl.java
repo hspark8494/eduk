@@ -30,8 +30,11 @@ public class ChannelServiceImpl implements ChannelService {
 	}
 
 	@Override
-	public void deleteChannel(Long classRoomId) {
-		channelRepository.deleteById(classRoomId);
+	public void deleteChannel(Long channelId) {
+		Channel channelEntity = channelRepository.findById(channelId).orElse(null);
+		if(channelEntity==null) throw new RuntimeException("삭제할 수 없습니다.");
+		
+		channelRepository.deleteById(channelId);
 	}
 
 }

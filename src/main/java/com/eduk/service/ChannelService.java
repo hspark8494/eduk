@@ -9,5 +9,5 @@ public interface ChannelService {
 	
 	List<Channel> selectChannel();
 	
-	void deleteChannel(Long classRoomId);
+	void deleteChannel(Long channelId);
 }

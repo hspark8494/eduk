@@ -14,7 +14,7 @@ import com.eduk.domain.Member;
 import com.eduk.service.StudentManagementService;
 
 /**
- * 강사가 수강생 목록 조회 및 학생정보조회, 출결사항, <특정학생 권한부여> 및 벤 
+ * 강사가 수강생 목록 조회 및 학생정보조회, 출결사항, 회원추방 
  * */
 @RestController
 @RequestMapping("/{classRoomId}")
@@ -39,10 +39,7 @@ public class StudentManagementController {
 		Member member = studentManagementService.selectByMemberId(memberId);
 		return member;
 	}
-	
-	/**
-	 * <특정학생 권한부여>
-	 * */
+
 	
 	/**
 	 * 특정학생 탈퇴 
