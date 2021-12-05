@@ -84,4 +84,9 @@ public class PostController {
 		
 		postService.delete(postId);
 	}
+	
+	/**
+	 * 댓글 전체검색
+	 */
+	
 }
