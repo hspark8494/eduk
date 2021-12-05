@@ -119,7 +119,7 @@ public class MemberServiceImpl implements MemberService{
 		
 		List<ClassRoom> classRoom = participantRep.findAllByMember(memberId);
 		
-		return null;
+		return classRoom;
 		
 	}
 
