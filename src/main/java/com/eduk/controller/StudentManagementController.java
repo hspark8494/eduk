@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,6 +45,15 @@ public class StudentManagementController {
 	public Member selectByMemberId(@PathVariable Long memberId) {
 		Member member = studentManagementService.selectByMemberId(memberId);
 		return member;
+	}
+	
+	/**
+	 * 학생정보 수정 
+	 * */
+	@PutMapping("/admin/member/{memberId}")
+	public Member updateMember(@PathVariable Long memberId, @RequestBody Member member) {
+		Member memberEntity = studentManagementService.updateMember(member);
+		return memberEntity;
 	}
 
 	

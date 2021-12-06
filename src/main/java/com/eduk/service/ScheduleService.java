@@ -6,7 +6,7 @@ public interface ScheduleService {
 	/**
 	 * 시간표 생성 
 	 * */
-	void createSchedule(Schedule schedule);
+	Schedule createSchedule(Schedule schedule);
 	
 	/**
 	 * 시간표 수정

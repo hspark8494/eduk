@@ -25,10 +25,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public Board selectAll(Long channelId) {
-		Board board = boardRepository.findByChannel(new Channel(channelId));
+	public List<Board> selectAll(Long channelId) {
+		List<Board> boardList = boardRepository.selectByChannelId(channelId);
 		
-		return board;
+		return boardList;
+//		return boardList.stream().filter(board -> channelId == board.getChannel().getChannelId()).collect(Collectors.toList());
 	}
 
 	@Override

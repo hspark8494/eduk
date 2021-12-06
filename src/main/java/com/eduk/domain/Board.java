@@ -37,7 +37,7 @@ public class Board {//게시판
 	@JoinColumn(name="channelId")
 	private Channel channel;
 	
-	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-	 private List<Post> postList;
+//	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+//	 private List<Post> postList;
 
 }

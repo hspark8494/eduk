@@ -13,7 +13,7 @@ public interface BoardService {
 	/**
 	 * 전체검색
 	 */
-	Board selectAll(Long channelId);
+	List<Board> selectAll(Long channelId);
 	
 	/**
 	 * 상세 검색

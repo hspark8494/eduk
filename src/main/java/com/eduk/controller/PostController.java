@@ -1,7 +1,13 @@
 package com.eduk.controller;
 
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.Map;
+=======
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+>>>>>>> 8a5d8e38a1f00c550cfc2dfe458498f0f5c3990b
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,17 +40,35 @@ public class PostController {
 	private PostService postService;
 	
 	/**
+	 * 업로드 된 파일을 저장할 위치를 선언한다. 
+	 * */
+	private final String SAVE_PATH="/Users/sungkyu-kim/springDownload";
+	
+	/**
 	 * 게시물 등록
 	 */
 	@PostMapping("/post")
-    public Post insert(@RequestBody Post post, @PathVariable Long boardId, @RequestHeader HttpHeaders headers) {
+    public Post insert(
+    		@RequestBody Post post, 
+    		@PathVariable Long boardId, 
+    		@RequestHeader HttpHeaders headers
+    		){
         Long id = TokenProvider.getIdFormHeader(headers);
         post.setBoard(Board.builder().boardId(boardId).build());
         post.setMember(new Member(id));
         Post dbPost = postService.insert(post);
-
+        
         return dbPost;
     }
+	
+	/**
+	 * 다운로드
+	 * */
+	@RequestMapping("/down")
+	public File down(String fname) {
+		File file = new File(SAVE_PATH+"/"+fname);
+		return file;
+	}
 	
 	/**
 	 * 전체 검색
@@ -80,7 +104,6 @@ public class PostController {
 		
 		return post;
 	}
-	
 	
 	/**
 	 * 게시물 수정

@@ -26,21 +26,11 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public Page<Post> selectAllById(Pageable pageable, Long boardId) {//
-		System.out.println("boardId : " + boardId);
-		
+	public Page<Post> selectAllById(Pageable pageable, Long boardId) {
 		Page<Post> postList = postRepository.selectByBoardId(pageable, boardId);
 		
 		return postList;
 	}
-	
-//	@Override
-//	public List<Post> selectAll(Long boardId) {
-//		List<Post> postList = postRepository.findAll();
-//		
-//		return postList.stream().filter(post -> boardId == post.getBoard().getBoardId()).collect(Collectors.toList());
-////		return null;
-//	}
 
 	@Override
 	public Post update(Post post) {

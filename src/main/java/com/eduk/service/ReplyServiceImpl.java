@@ -43,9 +43,10 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Override
 	public List<Reply> selectAll(Long postId) {
-		List<Reply> replyList = replyRepository.findAll();
+		List<Reply> replyList = replyRepository.selectByPostId(postId);
 		
-		return replyList.stream().filter(reply -> postId == reply.getPost().getPostId()).collect(Collectors.toList());
+		return replyList;
+//		return replyList.stream().filter(reply -> postId == reply.getPost().getPostId()).collect(Collectors.toList());
 	}
 
 }
