@@ -10,5 +10,4 @@ import com.eduk.domain.ClassRoom;
 
 
 public interface ClassRoomRepository extends JpaRepository<ClassRoom, Long>{
-	
 }

@@ -43,4 +43,8 @@ public class ClassRoom {
 		this.classRoomId = classRoomId;
 	}
 	
+	public Long getClassRoomId() {
+		return classRoomId;
+	}
+	
 }

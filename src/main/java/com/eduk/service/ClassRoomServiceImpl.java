@@ -15,8 +15,12 @@ import com.eduk.repository.ParticipantRepository;
 @Service
 @Transactional
 public class ClassRoomServiceImpl implements ClassRoomService{
+	
 	@Autowired private ClassRoomRepository classRoomRep;
 	@Autowired private ParticipantRepository participantRep;
+	@Autowired public ClassRoomServiceImpl(ClassRoomRepository classRoomRep) {
+		this.classRoomRep = classRoomRep;
+	}
 
 
 	@Override
@@ -50,53 +54,15 @@ public class ClassRoomServiceImpl implements ClassRoomService{
 
 	@Override
 	public ClassRoom updateClassRoom(ClassRoom classRoom) {
-		// TODO Auto-generated method stub
-		return null;
+		ClassRoom classRoomEntity = classRoomRep.findById(classRoom.getClassRoomId()).orElse(null);
+			return classRoomEntity;
 	}
 
-	@Override
-	public ClassRoom deleteClassRoom(Long classRoomId) {
-		return null;		
-	}
-	
-
-	
-	
-}
-/*
-@Service
-@RequiredArgsConstructor
-@Transactional
-public class ClassRoomServiceImpl implements ClassRoomService{
-
-	
-	//강의 생성하기
-	@Override
-	public void regClassRoom(ClassRoom classRoom) {
-		ClassRoom classRoom = ClassRoomRepository.save(classRoom);
-		System.out.println(classRoom.getClassRoomName());
-		
-	}
-	//강의 설정하기
-	@Override
-	public ClassRoom updateClassRoom(ClassRoom classRoom) {
-		ClassRoom classRoom = classRoomRepository.findbyId(classRoom.getClassRoomId()).orElse(null);
-		if(classRoom==null) throw new RuntimeException("강의실번호 오류로 삭제할 수 없습니다.");
-		
-		classRoom.setClassRoomName(classRoom.getClassRoomName().replace);
-		classRoom.setDetail(classRoom.getDetail());
-		classRoom.setState(classRoom.getState());
-		classRoom.setClassRoomImage(classRoom.getClassRoomImage());
-		return classRoom;
-	}
-	//강의 삭제하기
 	@Override
 	public void deleteClassRoom(Long classRoomId) {
-		ClassRoom classRoom = ClassRoomRepository.findById(classRoomId).orElse(null);
-		if(classRoom==null) throw new RuntimeException("강의실번호 오류로 삭제할 수 없습니다.");
-		
-		ClassRoomRepository.delete(classRoom);
+		ClassRoom classRoomEntity = classRoomRep.findById(classRoomId).orElse(null);
+		classRoomRep.deleteById(classRoomId);
 	}
 	
-	
-}*/
+}
+

@@ -94,14 +94,7 @@ public class ClassRoomController {
 	
 	//강의 삭제
 	@DeleteMapping("/deleteClassRoom/{classRoomId}")
-	public ResponseEntity <Map<String, Object>> deleteClassRoom(@PathVariable Long classRoomId) {
-		ResponseEntity<Map<String, Object>> entity = null;
-		try {
-			ClassRoom result = classRoomService.deleteClassRoom(classRoomId);
-			entity = handleSuccess(result);
-		} catch(RuntimeException e) {
-		entity = handleException(e);
-		}
-		return entity;
+	public void deleteClassRoom(@PathVariable Long classRoomId) {
+		classRoomService.deleteClassRoom(classRoomId);
 	}
 }
