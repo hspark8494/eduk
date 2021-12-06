@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.eduk.domain.Post;
@@ -24,12 +26,21 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<Post> selectAll(Long boardId) {
-		List<Post> postList = postRepository.findAll();
+	public Page<Post> selectAllById(Pageable pageable, Long boardId) {//
+		System.out.println("boardId : " + boardId);
 		
-		return postList.stream().filter(post -> boardId == post.getBoard().getBoardId()).collect(Collectors.toList());
-//		return null;
+		Page<Post> postList = postRepository.selectByBoardId(pageable, boardId);
+		
+		return postList;
 	}
+	
+//	@Override
+//	public List<Post> selectAll(Long boardId) {
+//		List<Post> postList = postRepository.findAll();
+//		
+//		return postList.stream().filter(post -> boardId == post.getBoard().getBoardId()).collect(Collectors.toList());
+////		return null;
+//	}
 
 	@Override
 	public Post update(Post post) {

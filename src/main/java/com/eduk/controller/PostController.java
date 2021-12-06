@@ -1,8 +1,13 @@
 package com.eduk.controller;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eduk.domain.Board;
@@ -44,11 +50,24 @@ public class PostController {
 	 * 전체 검색
 	 */
 	@GetMapping("/post")
-	public List<Post> list(@PathVariable Long boardId) {
-		List<Post> postList = postService.selectAll(boardId);
+	public Map<String, Object> list(@PathVariable Long boardId, @RequestParam(defaultValue = "1") int nowPage) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		
-		return postList;
+		Pageable pageable = PageRequest.of((nowPage-1), 10, Direction.DESC, "post_id");
+		Page<Post> postList = postService.selectAllById(pageable, boardId);
+		
+		int blockCount = 5;
+		int temp = (nowPage-1)%blockCount;
+		int startPage = nowPage-temp;
+		
+		map.put("postList", postList);
+		map.put("blockCount", blockCount);
+		map.put("nowPage", nowPage);
+		map.put("startPage", startPage);
+		
+		return map;
 	}
+
 	
 	/**
 	 * 상세 검색

@@ -1,6 +1,7 @@
 package com.eduk.service;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.eduk.domain.Post;
 
@@ -14,7 +15,7 @@ public interface PostService {
 	/**
 	 * 전체 검색
 	 */
-	List<Post> selectAll(Long boardId);
+	Page<Post> selectAllById(Pageable pageable, Long boardId);
 	
 	/**
 	 * 상세 검색
