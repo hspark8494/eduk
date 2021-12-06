@@ -13,6 +13,8 @@ public interface StudentManagementService {
 	Page<Member>selectMember(Pageable pageable);
 	
 	Member selectByMemberId(Long memberId);
+	
+	Member updateMember(Member member);
 
 	void deleteMember(Long memberId);
 	

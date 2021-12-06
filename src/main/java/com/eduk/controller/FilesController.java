@@ -8,39 +8,34 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.eduk.domain.Files;
-import com.eduk.domain.Member;
 
 @RestController
-//@RequestMapping("/{memberId}")
+@RequestMapping("/file")
 public class FilesController {
 	
 	/**
 	 * 파일 업로드
 	 */
-	@PostMapping("/upload")
-	public String upload(Files files, @PathVariable Long memberId, HttpSession session) {;
-		
-//		files.setMember(Member.builder().memberId(memberId).build());
-//		String path = session.getServletContext().getRealPath("/WEB-INF/save");
-//
-//		MultipartFile file = files.getFile();
-//
-//		try {
-//			file.transferTo(new File(path + "/" + file.getOriginalFilename()));
-//		} catch (Exception e) {
-//			e.printStackTrace();
+	@PostMapping("/uploadfile")
+	public void uploadFile(@RequestParam("file") MultipartFile file) { 
+		if(file.isEmpty()){ //파일 업로드가 안됐을 시 처리 
+			
 //		}
-//
-//		files.setFileName(file.getOriginalFilename());
-//		files.setFileSize(file.getSize());
-//		files.setFileType(file.getContentType());
-		 
-		
-		return "uploadResult";
+//			String fileName = fileStorageService.storeFile(file); 
+//			//확장자만 추출하는 형태 ex) exe , png, jpg ... 
+//			String fileExt = fileName.replaceAll("^.*\\.(.*)$", "$1"); 
+//			String fileOriginalName = StringUtils.cleanPath(file.getOriginalFilename()); 
+//			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+//					.path("/file/downloadfile/")
+//					.path(fileName)
+//					.toUriString(); 
+//			return new File(fileName, fileOriginalName, fileExt, fileDownloadUri); 
+			}
 	}
 	
 	/**

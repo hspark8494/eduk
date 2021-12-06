@@ -16,8 +16,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 	private ScheduleRepository scheduleRepository;
 	
 	@Override
-	public void createSchedule(Schedule schedule) {
-		scheduleRepository.save(schedule);
+	public Schedule createSchedule(Schedule schedule) {
+		return scheduleRepository.save(schedule);
 	}
 
 	@Override
