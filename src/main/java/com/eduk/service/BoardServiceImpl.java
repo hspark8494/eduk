@@ -1,6 +1,7 @@
 package com.eduk.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eduk.domain.Board;
+import com.eduk.domain.Channel;
 import com.eduk.repository.BoardRepository;
 
 @Service 
@@ -23,8 +25,10 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<Board> selectAll() {
-		return boardRepository.findAll();
+	public Board selectAll(Long channelId) {
+		Board board = boardRepository.findByChannel(new Channel(channelId));
+		
+		return board;
 	}
 
 	@Override

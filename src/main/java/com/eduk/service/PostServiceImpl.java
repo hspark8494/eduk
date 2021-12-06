@@ -1,6 +1,7 @@
 package com.eduk.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -24,7 +25,10 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public List<Post> selectAll(Long boardId) {
-		return postRepository.findAll();
+		List<Post> postList = postRepository.findAll();
+		
+		return postList.stream().filter(post -> boardId == post.getBoard().getBoardId()).collect(Collectors.toList());
+//		return null;
 	}
 
 	@Override

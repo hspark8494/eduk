@@ -38,4 +38,8 @@ public class Channel {
 	@JoinColumn(name="authId")
 	private Authentication authentication;
 	
+	public Channel(Long channelId) {
+		this.channelId = channelId;
+	}
+	
 }

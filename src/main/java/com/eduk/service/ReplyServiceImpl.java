@@ -1,5 +1,8 @@
 package com.eduk.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +39,13 @@ public class ReplyServiceImpl implements ReplyService {
 		if(dbReply == null) throw new RuntimeException("댓글 번호 오류로 삭제할 수 없습니다.");
 		
 		replyRepository.deleteById(replyId);
+	}
+
+	@Override
+	public List<Reply> selectAll(Long postId) {
+		List<Reply> replyList = replyRepository.findAll();
+		
+		return replyList.stream().filter(reply -> postId == reply.getPost().getPostId()).collect(Collectors.toList());
 	}
 
 }

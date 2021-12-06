@@ -1,7 +1,6 @@
 package com.eduk.domain;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -26,7 +24,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Post {
+public class Post {//게시파
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long postId;
@@ -49,7 +47,4 @@ public class Post {
 	@ManyToOne
 	@JoinColumn(name="memberId")
 	private Member member;
-	
-	@Transient
-    private List<Reply> reply;
 }

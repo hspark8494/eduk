@@ -33,7 +33,7 @@ public class BoardTests {
 	@Test
 	public void insert() {
 		for (int i = 0; i <= 50; i++) {
-			boardRepository.save(new Board(null, i, "게시판 " + i, null));
+			//boardRepository.save(new Board(null, i, "게시판 " + i, null));
 		}
 	}
 	

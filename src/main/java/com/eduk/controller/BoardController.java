@@ -35,10 +35,11 @@ public class BoardController {
 	 * 게시판 전체 검색
 	 */
 	@GetMapping("/board")
-	public List<Board> list() {
-		List<Board> boardList = boardService.selectAll();
+	public Board list(@PathVariable Long channelId) {
+		Board board = boardService.selectAll(channelId);
+		board.getPostList();
 		
-		return boardList;
+		return board;
 	}
 	
 	/**
