@@ -17,8 +17,8 @@ public class WebClassServiceImpl implements WebClassService {
 	private final WebClassRepository webClassRepository;
 	
 	@Override
-	public void createWebClass(WebClass webClass) {
-		webClassRepository.save(webClass);
+	public WebClass createWebClass(WebClass webClass) {
+		return webClassRepository.save(webClass);
 	}
 
 	@Override

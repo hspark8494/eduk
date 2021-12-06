@@ -5,9 +5,11 @@ import java.util.List;
 import com.eduk.domain.Channel;
 
 public interface ChannelService {
-	void createChannel(Channel channel);
+	Channel createChannel(Channel channel);
 	
 	List<Channel> selectChannel();
+	
+	Channel updateChannel(Channel channel);
 	
 	void deleteChannel(Long channelId);
 }

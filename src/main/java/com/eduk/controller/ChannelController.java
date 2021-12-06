@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,22 @@ public class ChannelController {
 	private final ChannelService channelService;
 	
 	/**
+	 * 채널추가  
+	 * */
+	@PostMapping("/channel")
+	public Channel createChannel(
+			@RequestBody Channel channel, 
+			@PathVariable Long classRoomId,
+			@RequestHeader HttpHeaders headers
+			) {
+		Long id = TokenProvider.getIdFormHeader(headers);
+		channel.setClassRoom(ClassRoom.builder().classRoomId(classRoomId).build());
+		//Member member = new Member(id);
+		Channel channelEntity = channelService.createChannel(channel);
+		return channelEntity;
+	}
+	
+	/**
 	 * 채널목록 
 	 * */
 	@GetMapping("/channel/all")
@@ -42,35 +59,22 @@ public class ChannelController {
 		return channelList;
 	} 
 	
+	
 	/**
-	 * 채널추가  
+	 * 채널수정 
 	 * */
-	@PostMapping("/channel")
-	public void createChannel(@RequestBody Channel channel, @PathVariable Long classRoomId) {
-		channel.setClassRoom(ClassRoom.builder().classRoomId(classRoomId).build());
-		channelService.createChannel(channel);
+	@PutMapping("/channel/{channelId}")
+	public Channel updateChannel(@RequestBody Channel channel, @PathVariable Long channelId) {
+		Channel channelEntity = channelService.updateChannel(channel);
+		return channelEntity;
 	}
-//	@PostMapping("/channel")
-//	public ResponseEntity<Map<String, Object>> createClassRoom(@RequestBody Channel channel, @RequestHeader HttpHeaders headers){
-//		System.out.println(headers);
-//		Long id = TokenProvider.getIdFormHeader(headers);
-//		System.out.println(id);
-//	    channel.setClassRoom(ClassRoom.builder().classRoomId(classRoomId).build());
-//		Channel newChannel = channelServiceImpl.createChannel(channel, new Member(id));
-//		
-//		Map<String, Object> respMap = new HashMap<String, Object>();
-//		respMap.put("newChannel", newChannel);
-//		
-//		return new ResponseEntity<Map<String,Object>>(respMap, HttpStatus.OK);
-//	}
-	
-	
+
 	/**
 	 * 채널삭제 
 	 * */
 	@DeleteMapping("/channel/{channelId}")
-	public void deleteChannel(@PathVariable Long classRoomId) {
-		channelService.deleteChannel(classRoomId);
+	public void deleteChannel(@PathVariable Long channelId) {
+		channelService.deleteChannel(channelId);
 	}
 }
 
