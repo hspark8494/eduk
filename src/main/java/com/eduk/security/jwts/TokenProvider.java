@@ -32,7 +32,7 @@ public class TokenProvider {
 	private final static String REFRESH_KEY ="F3DD56F233DF8FDF6C5B33846CF3B";	//리프레쉬 키
 	private final static String ISSUER ="eduk";	//토큰 발급자
 	
-	private final static long TOKEN_TTL = 1000L*60*60; //토큰 만료 기간 (1시간)
+	private final static long TOKEN_TTL = 10000L*60*60; //토큰 만료 기간 (1시간)
 	private final static long REFRESH_TOKEN_TTL = 1000L*60*60*24*14; //리프레쉬 토큰 만료 기간 (14일)
 
 	
