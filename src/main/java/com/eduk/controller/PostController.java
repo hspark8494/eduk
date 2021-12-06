@@ -1,13 +1,11 @@
 package com.eduk.controller;
 
-<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.Map;
-=======
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
->>>>>>> 8a5d8e38a1f00c550cfc2dfe458498f0f5c3990b
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
