@@ -12,6 +12,7 @@ import com.eduk.domain.ClassRoom;
 import com.eduk.domain.Member;
 import com.eduk.domain.Participant;
 import com.eduk.repository.ClassRoomRepository;
+import com.eduk.repository.MemberRepository;
 import com.eduk.repository.ParticipantRepository;
 
 @Service
@@ -19,6 +20,13 @@ import com.eduk.repository.ParticipantRepository;
 public class ClassRoomServiceImpl implements ClassRoomService{
 	@Autowired private ClassRoomRepository classRoomRep;
 	@Autowired private ParticipantRepository participantRep;
+	@Autowired private MemberRepository memberRepo;
+
+	@Override
+	public Member getParticipantInfo(Long memberId) {
+		Member member = memberRepo.getById(memberId);
+		return member;
+	}
 
 
 	@Override
