@@ -3,6 +3,10 @@ export default [
     header: '채널',
   },
   {
+    title: '과제 게시판',
+    route: 'post-list',
+  },
+  {
     title: 'Chat',
     route: 'apps-chat',
     icon: 'MessageSquareIcon',
