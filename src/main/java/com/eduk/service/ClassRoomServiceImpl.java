@@ -31,13 +31,16 @@ public class ClassRoomServiceImpl implements ClassRoomService{
 	}
 	
 	
-	
 	@Override
+	@Transactional
 	public ClassRoom getClassRoom(Long roomId){
-		return classRoomRep.getById(roomId);
+		ClassRoom cr = classRoomRep.getById(roomId);
+		System.out.println(cr);
+		return cr;
 	}
 	
 	@Override
+	@Transactional
 	public List<Participant> getParticipants(Long roomId){
 		return participantRep.findAllByClassRoom(new ClassRoom(roomId));
 	}

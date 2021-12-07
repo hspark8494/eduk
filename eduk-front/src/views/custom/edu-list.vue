@@ -1,0 +1,107 @@
+<template>
+  <b-container class="mt-5">
+    <button @click="fetchEduList">강의 가져오기</button>
+    <button @click="createClassRoom">강의 생성하기</button><br />
+    <input v-model="classRoomName" /><br />
+    <input v-model="detail" /><br />
+    <input v-model="classRoomImage" /><br />
+
+    <b-row class="match-height">
+      {{ eduList }}
+
+      <!-- <b-col
+      md="4"
+      lg="3" v-for="edu in eduList" :key="edu"
+    >
+      <b-card
+        :img-src="{{edu.classRoomImage}}"
+        img-alt="Card image cap"
+        img-top
+      >
+      <b-card-title v-model="{{edu.classRoomName}}">
+        <b-card-text>
+          {{edu.detail}}
+        </b-card-text>
+        <b-button
+          v-ripple.400="'rgba(113, 102, 240, 0.15)'"
+          variant="outline-primary" class="w-100"
+        >
+          Go Somewhere
+        </b-button>
+      </b-card>
+    </b-col>-->
+    </b-row>
+  </b-container>
+</template>
+
+<script>
+import {
+  BCard,
+  BCardText,
+  BButton,
+  BRow,
+  BCol,
+  BImg,
+  BCardBody,
+  BCardTitle,
+  BCardSubTitle,
+  BLink,
+  BContainer,
+  BNavbar,
+  BNavbarToggle,
+  BCollapse,
+  BTabs,
+  BNavItem,
+} from "bootstrap-vue";
+import Ripple from "vue-ripple-directive";
+
+export default {
+  components: {
+    BCard,
+    BCardText,
+    BButton,
+    BCardBody,
+    BCardTitle,
+    BCardSubTitle,
+    BRow,
+    BCol,
+    BLink,
+    BImg,
+    BContainer,
+    BTabs,
+    BNavItem,
+    BNavbar,
+    BNavbarToggle,
+    BCollapse,
+  },
+  directives: {
+    Ripple,
+  },
+  data() {
+    return {
+      eduList: [],
+      classRoomName: "",
+      detail: "",
+      classRoomImage: "",
+    };
+  },
+  methods: {
+    fetchEduList() {
+      this.$http
+        .get("class-room-list")
+        .then((resp) => (this.eduList = resp.data), console.log);
+    },
+    createClassRoom() {
+      this.$http.post("class-room", {
+        classRoomName: this.classRoomName,
+        detail: this.detail,
+        classRoomImage: this.classRoomImage,
+        memberId: 165,
+      });
+    },
+  },
+};
+</script>
+
+<style scoped>
+</style>

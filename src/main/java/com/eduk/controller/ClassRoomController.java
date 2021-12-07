@@ -81,7 +81,7 @@ public class ClassRoomController {
 	public Map<String,Object> getClassRoomInfo(@PathVariable Long classRoomId, @RequestHeader HttpHeaders headers) {
 		Map<String, Object> respMap = new HashMap<String, Object>();
 		respMap.put("classRoom", classRoomService.getClassRoom(classRoomId));
-		respMap.put("participants", classRoomService.getParticipants(classRoomId));
+		//respMap.put("participants", classRoomService.getParticipants(classRoomId));
 		return respMap;
 	}
 	
