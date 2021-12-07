@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.eduk.domain.Files;
 import com.eduk.dto.FileDTO;
 import com.eduk.repository.FileRepository;
@@ -35,11 +35,13 @@ public class FilesController {
 	 * 파일 업로드
 	 */
 	@PostMapping("/uploadfile")
-	public Files uploadFile(@RequestPart MultipartFile file) throws IOException{ 
+	public Files uploadFile(@RequestPart MultipartFile file, HttpServletRequest request) throws IOException{ 
 		    if(file.getSize()>0) {
 		    	String fname=file.getOriginalFilename();
 		    	long fsize = file.getSize();
 		    	String fileType = file.getContentType();
+		    	
+		    	//String saveDir=request.getServletContext().getRealPath("/resources/save");
 		    	
 		    	Files fileEntity = new Files();
 		    	fileEntity.setFileName(fname);
@@ -56,10 +58,21 @@ public class FilesController {
 	/**
 	 * 파일 다운로드
 	 */
-	@GetMapping("/down")
-	public ModelAndView down(/*HttpSession session,*/String fname) {
+	@GetMapping("/down/{fname}")
+	public ModelAndView down(@PathVariable String fname) {
+		System.out.println("fname : " +fname);
 		File file = new File(SAVE_PATH+"/"+fname);
 		
 		return new ModelAndView("downLoadView","fname", file); // 뷰이름이downLoadView ->BeanName찾고 ->UrlBase -> InternalViewResolver
 	}
 }
+
+
+
+
+
+
+
+
+
+
