@@ -25,7 +25,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Post {//게시판
+public class Post {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long postId;

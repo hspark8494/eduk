@@ -28,7 +28,7 @@ public class ReplyController {
 	private ReplyService replyService;
 	
 	/**
-	 * 댓글 or 대댓글 등록
+	 * 댓글 등록
 	 */
 	@PostMapping("/reply")
 	public Reply insert(@RequestBody Reply reply, @PathVariable Long postId, @RequestHeader HttpHeaders headers) {
@@ -36,7 +36,21 @@ public class ReplyController {
 		reply.setPost(Post.builder().postId(postId).build());
 		reply.setMember(new Member(id));
 		
+		Reply dbReply = replyService.insert(reply);
 		
+		return dbReply;
+	}
+	
+	/**
+	 * 대댓글 등록
+	 */
+	@PostMapping("/rereply")
+	public Reply rereplyInsert(@RequestBody Reply reply, @PathVariable Long replyId, @PathVariable Long postId, @RequestHeader HttpHeaders headers) {
+		Long id = TokenProvider.getIdFormHeader(headers);
+		
+		reply.setPost(Post.builder().postId(postId).build());
+		reply.setMember(new Member(id));
+		reply.setReply(Reply.builder().replyId(replyId).build());
 		
 		Reply dbReply = replyService.insert(reply);
 		
@@ -48,6 +62,8 @@ public class ReplyController {
 	 */
 	@PutMapping("/reply/{replyId}")
 	public Reply update(@RequestBody Reply reply, @PathVariable Long replyId, @RequestHeader HttpHeaders headers) {
+		Long id = TokenProvider.getIdFormHeader(headers);
+		
 		Reply dbReply = replyService.update(reply);
 		
 		return dbReply;
@@ -58,6 +74,7 @@ public class ReplyController {
 	 */
 	@DeleteMapping("/reply/{replyId}")
 	public void delete(@PathVariable Long replyId, @RequestHeader HttpHeaders headers) {
+		Long id = TokenProvider.getIdFormHeader(headers);
 		replyService.delete(replyId);
 	}
 	

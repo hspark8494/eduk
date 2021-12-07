@@ -8,7 +8,7 @@ public interface BoardService {
 	/**
 	 * 게시판 등록
 	 */
-	void insert(Board board);
+	Board insert(Board board);
 
 	/**
 	 * 전체검색
