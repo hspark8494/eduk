@@ -31,7 +31,7 @@ public class MemberAuthController {
 	 * 로그인
 	 */
 	//TODO : 예외처리
-	@PostMapping("/login-test")
+	@PostMapping("/login")
 	public ResponseEntity<Map<String, Object>> login(@RequestBody Member member) throws Exception {
 		Map<String, Object> responseMap = memberAuthService.login(member);
 
@@ -42,7 +42,7 @@ public class MemberAuthController {
 	/**
 	 * 회원 가입
 	 */
-	@PostMapping("/register-test")
+	@PostMapping("/register")
 	public ResponseEntity<Map<String, Object>> register(@RequestBody Member member) throws Exception {
 		System.out.println(member);
 		Map<String, Object> responseMap = memberAuthService.register(member);
@@ -60,4 +60,6 @@ public class MemberAuthController {
 		System.out.println(headers);
 		return new ResponseEntity<String>("Hello!", HttpStatus.OK);
 	}
+	
+	
 }

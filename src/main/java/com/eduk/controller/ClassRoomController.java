@@ -30,9 +30,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class ClassRoomController {
-	
 	@Autowired
-	private ClassRoomRepository classRoomRepository;
 	private ClassRoomService classRoomService;
 	
 	//강의 생성
@@ -63,20 +61,28 @@ public class ClassRoomController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@GetMapping("/class-room-list")
+	@GetMapping("/class-room/list")
 	public List<ClassRoom> getClassRoomList(@RequestHeader HttpHeaders headers){
 		System.out.println(headers);
 		//System.out.println(headers);
-		//Long id = TokenProvider.getIdFormHeader(headers);
-		return classRoomService.findAllByMemberId(1L);
+		Long id = TokenProvider.getIdFormHeader(headers);
+		System.out.println(id);
+		List<ClassRoom> classRoom = classRoomService.findAllByMemberId(id);
+		return classRoom;
 	}
 	
-	@GetMapping("/regClassRoom")
-	public String regClassRoom(@RequestParam String classRoomName, 
-			@RequestParam String detail, @RequestParam LocalDateTime createTime, 
-			@RequestParam LocalDateTime updateTime, @RequestParam int state, 
-			@RequestParam String classRoomImage) {
-		return "";
+	/**
+	 * 강의 정보 가져오기
+	 * @param classRoomId
+	 * @param headers
+	 * @return
+	 */
+	@GetMapping("/class-room/{classRoomId}")
+	public Map<String,Object> getClassRoomInfo(@PathVariable Long classRoomId, @RequestHeader HttpHeaders headers) {
+		Map<String, Object> respMap = new HashMap<String, Object>();
+		respMap.put("classRoom", classRoomService.getClassRoom(classRoomId));
+		respMap.put("participants", classRoomService.getParticipants(classRoomId));
+		return respMap;
 	}
 	
 	//강의 설정

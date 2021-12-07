@@ -1,5 +1,6 @@
 package com.eduk.domain;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -15,6 +16,8 @@ import javax.validation.constraints.NotBlank;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,7 +32,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Member { //@size
+public class Member implements Serializable{ //@size
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long memberId;
@@ -42,6 +45,7 @@ public class Member { //@size
 	@NotBlank(message="비밀번호는 필수 입력 값입니다.")
 //	@Pattern(regexp="(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,16}",
 //            message = "비밀번호는 영문 대문자, 소문자, 숫자, 특수문자 중 최소 1가지 이상 포함된 문자조합 8-16자로 입력해주세요.")	
+	@JsonIgnore
 	private String password;
 	
 	@NotBlank(message="이름은 필수 입력 값입니다.")

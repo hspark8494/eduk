@@ -1,6 +1,7 @@
 package com.eduk.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.eduk.domain.ClassRoom;
 import com.eduk.domain.Member;
@@ -19,4 +20,7 @@ public interface ClassRoomService {
 	void addParticipant(long memberId, long classRoomId);
 	
 	List<ClassRoom> findAllByMemberId(Long memberId);
+	ClassRoom getClassRoom(Long roomId);
+
+	List<Participant> getParticipants(Long roomId);
 }

@@ -13,6 +13,9 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long>{
 	@Query("select p.classRoom from Participant p where p.member.id = ?1")
 	List<ClassRoom> findAllByMember(Long memberId);
 	
+	List<Participant> findAllByClassRoom(ClassRoom classRoom);
+	
+	
 	//@Query("select p from Participant p where p.member.id = ?1 and p.classRoom.id = 2?")
 	//Participant findByMemberAndClassRoom(Long memberId, Long classRoomId);
 }

@@ -1,6 +1,8 @@
 package com.eduk.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,16 +17,12 @@ import com.eduk.repository.ParticipantRepository;
 @Service
 @Transactional
 public class ClassRoomServiceImpl implements ClassRoomService{
-	
 	@Autowired private ClassRoomRepository classRoomRep;
 	@Autowired private ParticipantRepository participantRep;
-	@Autowired public ClassRoomServiceImpl(ClassRoomRepository classRoomRep) {
-		this.classRoomRep = classRoomRep;
-	}
 
 
 	@Override
-	@Transactional
+	//@Transactional
 	public ClassRoom createWithJoin(ClassRoom classRoom, Member member) {
 		classRoom = regClassRoom(classRoom);
 		addParticipant(member.getMemberId(), classRoom.getClassRoomId());
@@ -32,14 +30,26 @@ public class ClassRoomServiceImpl implements ClassRoomService{
 		return classRoom;
 	}
 	
+	
+	
 	@Override
-	@Transactional
+	public ClassRoom getClassRoom(Long roomId){
+		return classRoomRep.getById(roomId);
+	}
+	
+	@Override
+	public List<Participant> getParticipants(Long roomId){
+		return participantRep.findAllByClassRoom(new ClassRoom(roomId));
+	}
+	
+	@Override
+	//@Transactional
 	public ClassRoom regClassRoom(ClassRoom classRoom) {
 		return classRoomRep.save(classRoom);
 	}
 	
 	@Override
-	@Transactional
+	//@Transactional
 	public void addParticipant(long memberId, long classRoomId) {
 		Participant participant = new Participant();
 		participant.setMember(new Member(memberId));

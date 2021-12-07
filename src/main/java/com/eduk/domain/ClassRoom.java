@@ -1,5 +1,6 @@
 package com.eduk.domain;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -22,7 +23,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ClassRoom {
+public class ClassRoom implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long classRoomId;
@@ -32,6 +33,7 @@ public class ClassRoom {
 	
 	@CreationTimestamp
 	private LocalDateTime createTime;
+	
 	@UpdateTimestamp
 	private LocalDateTime updateTime;
 	
