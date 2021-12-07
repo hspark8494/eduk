@@ -30,8 +30,7 @@ public class Participant implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long participantId;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonIgnore
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="memberId")
 	@NonNull
 	private Member member;

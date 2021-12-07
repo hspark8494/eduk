@@ -1,4 +1,5 @@
 import mock from '@/@fake-db/mock'
+import axios from "axios"
 
 const date = new Date()
 const nextDay = new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
@@ -128,7 +129,13 @@ const data = {
 mock.onGet('/apps/calendar/events').reply(config => {
   // Get requested calendars as Array
   const calendars = config.params.calendars.split(',')
-
+  axios.post(config.baseURL + "/get-calendar").then((resp) => {
+    let tmp = resp.data.calendarContent.replace(/\\/ig, "");
+    console.log(tmp);
+    console.log(JSON.parse(tmp))
+    //let dd = JSON.parse(resp.data.calendarContent)
+    //console.log(dd)
+  })
   return [200, data.events.filter(event => calendars.includes(event.extendedProps.calendar))]
 })
 
@@ -138,7 +145,7 @@ mock.onGet('/apps/calendar/events').reply(config => {
 mock.onPost('/apps/calendar/events').reply(config => {
   // Get event from post data
   const { event } = JSON.parse(config.data)
-
+  console.log(event)
   const { length } = data.events
   let lastIndex = 0
   if (length) {
@@ -148,7 +155,10 @@ mock.onPost('/apps/calendar/events').reply(config => {
 
   data.events.push(event)
 
-  return [201, { event }]
+  let trasnfer = JSON.stringify(data.events);
+  console.log(trasnfer)
+  //axios.post(config.baseURL + "/calendar", { "data": trasnfer })
+  return [201, { event }];
 })
 
 // ------------------------------------------------
@@ -156,13 +166,15 @@ mock.onPost('/apps/calendar/events').reply(config => {
 // ------------------------------------------------
 mock.onPost(/\/apps\/calendar\/events\/\d+/).reply(config => {
   const { event: eventData } = JSON.parse(config.data)
-
+  console.log(event)
   // Convert Id to number
   eventData.id = Number(eventData.id)
 
   const event = data.events.find(e => e.id === Number(eventData.id))
   Object.assign(event, eventData)
-
+  let trasnfer = JSON.stringify(data.events);
+  console.log(trasnfer)
+  //axios.post(config.baseURL + "/calendar", { "data": trasnfer })
   return [200, { event }]
 })
 
@@ -178,5 +190,8 @@ mock.onDelete(/\/apps\/calendar\/events\/\d+/).reply(config => {
 
   const eventIndex = data.events.findIndex(e => e.id === eventId)
   data.events.splice(eventIndex, 1)
+  let trasnfer = JSON.stringify(data.events);
+  console.log(trasnfer)
+  //axios.post(config.baseURL + "/calendar", { "data": trasnfer })
   return [200]
 })

@@ -27,7 +27,7 @@ public class WebConfig implements WebMvcConfigurer {
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**") // 모든 URL
-				.allowedOrigins(CLIENT_URL).allowedMethods("*"); // 모든 메소드 (GET, POST, PUT ...)
+				.allowedOrigins(CLIENT_URL,"**","*").allowedMethods("*"); // 모든 메소드 (GET, POST, PUT ...)
 	}
 
 	/**

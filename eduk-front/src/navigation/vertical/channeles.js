@@ -3,6 +3,11 @@ export default [
     header: '채널',
   },
   {
+    title: 'Lesson',
+    route: 'lesson',
+    icon: 'VideoIcon',
+  },
+  {
     title: 'Chat',
     route: 'apps-chat',
     icon: 'MessageSquareIcon',

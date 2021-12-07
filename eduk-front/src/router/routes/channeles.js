@@ -222,22 +222,19 @@ export default [
     component: () => import('@/views/apps/invoice/invoice-edit/InvoiceEdit.vue'),
   },
   {
+    path: '/lesson',
+    name: 'lesson',
+    component: () => import('@/views/custom/lesson.vue'),
+  },
+  {
     path: '/main/edu-list',
-    name: '/main/edu-list',
+    name: 'main-edu-list',
     component: () => import('@/views/custom/edu-list.vue'),
     meta: {
       layout: 'full',
       pageTitle: 'Wishlist',
       contentClass: 'ecommerce-application',
-      breadcrumb: [
-        {
-          text: 'ECommerce',
-        },
-        {
-          text: 'Wishlist',
-          active: true,
-        },
-      ],
     },
   },
+
 ]

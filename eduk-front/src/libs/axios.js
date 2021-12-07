@@ -4,7 +4,7 @@ import Vue from 'vue'
 import axios from 'axios'
 
 const axiosIns = axios.create({
-  baseURL: "http://localhost:1234",
+  baseURL: "https://localhost:1234",
   timeout: 3000,
   headers: { "Content-Type": "application/json" }
 

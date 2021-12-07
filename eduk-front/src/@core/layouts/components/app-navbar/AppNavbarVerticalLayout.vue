@@ -22,7 +22,7 @@
       <dark-Toggler class="d-none d-lg-block" />
       <search-bar />
       <!--<cart-dropdown />-->
-      <notification-dropdown />
+      <!--<notification-dropdown />-->
       <user-dropdown />
     </b-navbar-nav>
   </div>
@@ -35,7 +35,7 @@ import Bookmarks from "./components/Bookmarks.vue";
 import SearchBar from "./components/SearchBar.vue";
 import DarkToggler from "./components/DarkToggler.vue";
 //import CartDropdown from './components/CartDropdown.vue'
-import NotificationDropdown from "./components/NotificationDropdown.vue";
+//import NotificationDropdown from "./components/NotificationDropdown.vue";
 import UserDropdown from "./components/UserDropdown.vue";
 
 export default {
@@ -49,7 +49,7 @@ export default {
     SearchBar,
     DarkToggler,
     //CartDropdown,
-    NotificationDropdown,
+    //NotificationDropdown,
     UserDropdown,
   },
   props: {

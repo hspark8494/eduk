@@ -177,8 +177,7 @@ export default {
             })
             .then((response) => {
               console.log(response);
-              var userData = response.data.member;
-              member = response.data.member;
+              let userData = response.data.member;
               console.log(userData);
               userData.id = userData.memberId;
               userData.username = userData.email;

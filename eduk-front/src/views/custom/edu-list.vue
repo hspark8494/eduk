@@ -9,27 +9,29 @@
     <b-row class="match-height">
       {{ eduList }}
 
-      <!-- <b-col
-      md="4"
-      lg="3" v-for="edu in eduList" :key="edu"
-    >
-      <b-card
-        :img-src="{{edu.classRoomImage}}"
-        img-alt="Card image cap"
-        img-top
-      >
-      <b-card-title v-model="{{edu.classRoomName}}">
-        <b-card-text>
-          {{edu.detail}}
-        </b-card-text>
-        <b-button
-          v-ripple.400="'rgba(113, 102, 240, 0.15)'"
-          variant="outline-primary" class="w-100"
+      <b-col cols="3" v-for="edu in eduList" :key="edu.classRoomId">
+        <b-card
+          img-src="https://picsum.photos/600/300/?image=25"
+          img-alt="Image"
+          img-top
+          tag="article"
+          class="mb-1"
+          li
         >
-          Go Somewhere
-        </b-button>
-      </b-card>
-    </b-col>-->
+          <b-card-title>{{ edu.classRoomName }}</b-card-title>
+          <b-card-text>
+            {{ edu.detail }}
+          </b-card-text>
+
+          <b-button
+            href="#"
+            variant="primary"
+            class="w-100"
+            @click="joinClassRoom(edu.classRoomId)"
+            >강의 입장</b-button
+          >
+        </b-card>
+      </b-col>
     </b-row>
   </b-container>
 </template>
@@ -85,10 +87,14 @@ export default {
       classRoomImage: "",
     };
   },
+
+  created() {
+    this.fetchEduList();
+  },
   methods: {
     fetchEduList() {
       this.$http
-        .get("class-room-list")
+        .get("class-room/list")
         .then((resp) => (this.eduList = resp.data), console.log);
     },
     createClassRoom() {
@@ -98,6 +104,10 @@ export default {
         classRoomImage: this.classRoomImage,
         memberId: 165,
       });
+    },
+
+    joinClassRoom(classRoomId) {
+      console.log(classRoomId);
     },
   },
 };

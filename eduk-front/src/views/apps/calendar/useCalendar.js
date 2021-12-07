@@ -59,7 +59,6 @@ export default function userCalendar() {
   const clearEventData = () => {
     event.value = JSON.parse(JSON.stringify(blankEvent))
   }
-
   // *===========================================================================---*
   // *--------- Calendar API Function/Utils --------------------------------------------*
   // Template Future Update: We might move this utils function in its own file

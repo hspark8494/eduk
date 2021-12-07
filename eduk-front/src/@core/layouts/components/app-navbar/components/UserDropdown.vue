@@ -7,9 +7,11 @@
     <template #button-content>
       <div class="d-sm-flex d-none user-nav">
         <p class="user-name font-weight-bolder mb-0">
-          {{ userData.fullName || userData.username }}
+          {{ userData.email }}
         </p>
-        <span class="user-status">{{ userData.role }}</span>
+        <span class="user-status">{{
+          userData.fullName || userData.username
+        }}</span>
       </div>
       <b-avatar
         size="40"
@@ -28,28 +30,21 @@
       link-class="d-flex align-items-center"
     >
       <feather-icon size="16" icon="UserIcon" class="mr-50" />
-      <span>Profile</span>
+      <span>프로필</span>
     </b-dropdown-item>
     <b-dropdown-item
       :to="{ name: 'apps-email' }"
       link-class="d-flex align-items-center"
     >
-      <feather-icon size="16" icon="MailIcon" class="mr-50" />
-      <span>Inbox</span>
+      <feather-icon size="16" icon="BookOpenIcon" class="mr-50" />
+      <span>수업</span>
     </b-dropdown-item>
     <b-dropdown-item
       :to="{ name: 'apps-todo' }"
       link-class="d-flex align-items-center"
     >
-      <feather-icon size="16" icon="CheckSquareIcon" class="mr-50" />
-      <span>Task</span>
-    </b-dropdown-item>
-    <b-dropdown-item
-      :to="{ name: 'apps-chat' }"
-      link-class="d-flex align-items-center"
-    >
       <feather-icon size="16" icon="MessageSquareIcon" class="mr-50" />
-      <span>Chat</span>
+      <span>채팅</span>
     </b-dropdown-item>
 
     <b-dropdown-divider />
@@ -59,25 +54,18 @@
       link-class="d-flex align-items-center"
     >
       <feather-icon size="16" icon="SettingsIcon" class="mr-50" />
-      <span>Settings</span>
+      <span>설정</span>
     </b-dropdown-item>
     <b-dropdown-item
-      :to="{ name: 'pages-pricing' }"
+      :to="{ name: 'main-edu-list' }"
       link-class="d-flex align-items-center"
     >
-      <feather-icon size="16" icon="CreditCardIcon" class="mr-50" />
-      <span>Pricing</span>
-    </b-dropdown-item>
-    <b-dropdown-item
-      :to="{ name: 'pages-faq' }"
-      link-class="d-flex align-items-center"
-    >
-      <feather-icon size="16" icon="HelpCircleIcon" class="mr-50" />
-      <span>FAQ</span>
+      <feather-icon size="16" icon="ArrowRightIcon" class="mr-50" />
+      <span>강의 목록</span>
     </b-dropdown-item>
     <b-dropdown-item link-class="d-flex align-items-center" @click="logout">
       <feather-icon size="16" icon="LogOutIcon" class="mr-50" />
-      <span>Logout</span>
+      <span>로그아웃</span>
     </b-dropdown-item></b-nav-item-dropdown
   >
 </template>
