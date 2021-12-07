@@ -14,9 +14,7 @@ import lombok.Setter;
 public class FileDTO {
 	  private String name;
 	  private MultipartFile file; //폼에서 name="file"
-	  
 	  private String fileName;
-	  private String originalFileName;
 	  
 	  private long fileSize;
 }

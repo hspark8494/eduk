@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.eduk.domain.Board;
 import com.eduk.domain.Member;
@@ -38,35 +39,23 @@ public class PostController {
 	private PostService postService;
 	
 	/**
-	 * 업로드 된 파일을 저장할 위치를 선언한다. 
-	 * */
-	private final String SAVE_PATH="/Users/sungkyu-kim/springDownload";
-	
-	/**
 	 * 게시물 등록
 	 */
 	@PostMapping("/post")
     public Post insert(
     		@RequestBody Post post, 
     		@PathVariable Long boardId, 
-    		@RequestHeader HttpHeaders headers
+    		@RequestHeader HttpHeaders headers,
+    		@RequestParam MultipartFile file
     		){
         Long id = TokenProvider.getIdFormHeader(headers);
         post.setBoard(Board.builder().boardId(boardId).build());
         post.setMember(new Member(id));
+       
         Post dbPost = postService.insert(post);
         
         return dbPost;
     }
-	
-	/**
-	 * 다운로드
-	 * */
-	@RequestMapping("/down")
-	public File down(String fname) {
-		File file = new File(SAVE_PATH+"/"+fname);
-		return file;
-	}
 	
 	/**
 	 * 전체 검색

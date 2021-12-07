@@ -33,10 +33,10 @@ public class Files {
 	private Long fileId;
 	
 	private String fileName;
-	private String realName;
+	
 	private Long fileSize;
+	
 	private String fileType;
-	private String scope;
 	
 	@CreationTimestamp
 	private LocalDateTime createTime;
@@ -54,5 +54,10 @@ public class Files {
 	@ManyToOne
 	@JoinColumn(name="memberId")
 	private Member member;
+	
+	public Files(String fileName, Long fileSize) {
+		this.fileName=fileName;
+		this.fileSize=fileSize;
+	}
 	
 }

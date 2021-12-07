@@ -1,5 +1,6 @@
 package com.eduk.controller;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ import com.eduk.domain.ClassRoom;
 import com.eduk.domain.Member;
 import com.eduk.domain.Participant;
 import com.eduk.repository.ClassRoomRepository;
+import com.eduk.repository.MemberRepository;
 import com.eduk.security.jwts.TokenProvider;
 import com.eduk.service.ClassRoomService;
 
@@ -32,6 +34,16 @@ import lombok.RequiredArgsConstructor;
 public class ClassRoomController {
 	@Autowired
 	private ClassRoomService classRoomService;
+	private MemberRepository memberRepo;
+	
+	//수강생 정보 출력
+	@GetMapping("/class-participant")
+	public ArrayList<Member> readParticipant(
+			@RequestParam("memberId") Long memberId, @RequestParam("profileImage") String profileImage, @RequestParam("state") int state)
+			{
+				return memberRepo.findByMemberId(memberId);
+			}
+	
 	
 	//강의 생성
 	@PostMapping("/class-room")

@@ -9,6 +9,8 @@ import com.eduk.domain.Participant;
 
 public interface ClassRoomService {
 	
+	Member getParticipantInfo(Long memberId);
+	
 	ClassRoom regClassRoom(ClassRoom classRoom);
 	
 	ClassRoom updateClassRoom(ClassRoom classRoom);

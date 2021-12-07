@@ -35,9 +35,9 @@ public class DownLoadCustomView extends AbstractView{
 		String fileName = null;
 		
 		if(isInternetExplorer)
-			fileName = URLEncoder.encode(file.getName() , "UTF-8");
+			fileName = URLEncoder.encode(file.getName(), "UTF-8");
 		else
-			fileName = new String(file.getName().getBytes("UTF-8") , "iso-8859-1") ;
+			fileName = new String(file.getName().getBytes("UTF-8"), "iso-8859-1") ;
 		
 		
 		response.setHeader("Content-Disposition","attachment;filename=\"" + fileName.replace("+", "%20") + "\";");
@@ -48,6 +48,7 @@ public class DownLoadCustomView extends AbstractView{
 		try{
 			fis = new FileInputStream(file);
 			FileCopyUtils.copy(fis, out);
+			System.out.println("되니?");
 			
 		}catch(Exception e){
 			//map.put("error", e.toString());
