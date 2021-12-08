@@ -105,6 +105,8 @@ export default {
       subscribers: [],
       mySessionId: "room",
       myUserName: userData.username,
+      OVScreen : undefined,
+      sessionScreen = undefined
     };
   },
 
@@ -302,74 +304,38 @@ export default {
      *
      */
 
-    shareScreen() {
-      const scOV = new OpenVidu();
-
-      // --- Init a session ---
-      const sessionScreen = scOV.initSession();
-
-      sessionScreen.on("streamCreated", ({ stream }) => {
-        const subscriber = sessionScreen.subscribe(stream);
-        this.subscribers.push(subscriber);
-      });
-      sessionScreen.on("streamDestroyed", ({ stream }) => {
-        const index = this.subscribers.indexOf(stream.streamManager, 0);
-        if (index >= 0) {
-          this.subscribers.splice(index, 1);
-        }
-      });
-      this.session.on("exception", ({ exception }) => {
-        console.warn(exception);
-      });
-      this.getToken(this.mySessionId).then((token) => {
-        this.session
-          .connect(token, { clientData: this.myUserName })
-          .then(() => {
-            // --- Get your own camera stream with the desired properties ---
-
-            let publisher = this.OV.initPublisher(undefined, {
-              audioSource: undefined, // The source of audio. If undefined default microphone
-              videoSource: undefined, // The source of video. If undefined default webcam
-              publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
-              publishVideo: true, // Whether you want to start publishing with your video enabled or not
-              resolution: "340x280", // The resolution of your video
-              frameRate: 30, // The frame rate of your video
-              insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-              mirror: false, // Whether to mirror your local video or not
-            });
-
-            this.mainStreamManager = publisher;
-            this.publisher = publisher;
-
-            // --- Publish your stream ---
-
-            this.session.publish(this.publisher);
-          })
-          .catch((error) => {
-            console.log(
-              "There was an error connecting to the session:",
-              error.code,
-              error.message
-            );
-          });
-      });
-
-      var publisher = scOV.initPublisher("html-element-id", {
+    publishScreenShare() {
+      // --- 9.1) To create a publisherScreen it is very important that the property 'videoSource' is set to 'screen'
+      var publisherScreen = OVScreen.initPublisher("container-screens", {
         videoSource: "screen",
       });
 
-      publisher.once("accessAllowed", (event) => {
-        publisher.stream
+      // --- 9.2) If the user grants access to the screen share function, publish the screen stream
+      publisherScreen.once("accessAllowed", (event) => {
+        document.getElementById("buttonScreenShare").style.visibility =
+          "hidden";
+        screensharing = true;
+        // It is very important to define what to do when the stream ends.
+        publisherScreen.stream
           .getMediaStream()
           .getVideoTracks()[0]
           .addEventListener("ended", () => {
             console.log('User pressed the "Stop sharing" button');
+            sessionScreen.unpublish(publisherScreen);
+            document.getElementById("buttonScreenShare").style.visibility =
+              "visible";
+            screensharing = false;
           });
-        sessionScreen.publish(publisher);
+        sessionScreen.publish(publisherScreen);
       });
 
-      publisher.once("accessDenied", (event) => {
-        console.warn("ScreenShare: Access Denied");
+      publisherScreen.on("videoElementCreated", function (event) {
+        appendUserData(event.element, sessionScreen.connection);
+        event.element["muted"] = true;
+      });
+
+      publisherScreen.once("accessDenied", (event) => {
+        console.error("Screen Share: Access Denied");
       });
     },
   },
