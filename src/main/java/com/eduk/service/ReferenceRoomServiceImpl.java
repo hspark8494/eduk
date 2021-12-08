@@ -18,8 +18,10 @@ public class ReferenceRoomServiceImpl implements ReferenceRoomService{
 	private ReferenceRoomRepository referenceRoomRepository;
 	
 	@Override
-	public List<ReferenceRoom> selectAll() {
-		return referenceRoomRepository.findAll();
+	public List<ReferenceRoom> selectAll(Long channelId) {
+		List<ReferenceRoom> referenceRoomList = referenceRoomRepository.selectByChannelId(channelId);
+		
+		return referenceRoomList;
 	}
 
 	@Override

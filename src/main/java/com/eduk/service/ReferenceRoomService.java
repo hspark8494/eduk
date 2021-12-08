@@ -8,7 +8,7 @@ public interface ReferenceRoomService {
 	/**
 	 * 자료실 전체 검색
 	 */
-	List<ReferenceRoom> selectAll();
+	List<ReferenceRoom> selectAll(Long channelId);
 	
 	/**
 	 * 자료실 상세 검색

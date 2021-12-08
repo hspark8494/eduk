@@ -26,8 +26,8 @@ public class ReferenceRoomController {
 	 * 자료실 전체 검색
 	 */
 	@GetMapping("/referenceroom")
-	public List<ReferenceRoom> list() {
-		List<ReferenceRoom> referenceRoomList = referenceRoomService.selectAll();
+	public List<ReferenceRoom> list(@PathVariable Long channelId) {
+		List<ReferenceRoom> referenceRoomList = referenceRoomService.selectAll(channelId);
 		
 		return referenceRoomList;
 	}

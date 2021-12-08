@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,9 +29,9 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class ClassRoomController {
-	@Autowired
-	private ClassRoomService classRoomService;
-	private MemberRepository memberRepo;
+	
+	private final ClassRoomService classRoomService;
+	private final MemberRepository memberRepo;
 	
 	//수강생 정보 출력
 	@GetMapping("/class-participant")
