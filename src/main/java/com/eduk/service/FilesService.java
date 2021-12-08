@@ -4,4 +4,6 @@ import com.eduk.domain.Files;
 
 public interface FilesService {
 	void storeFile(Files files);
+	
+	Files fileInfo(Long postId);
 }

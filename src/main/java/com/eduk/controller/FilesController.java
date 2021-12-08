@@ -35,7 +35,8 @@ public class FilesController {
 	 * 파일 업로드
 	 */
 	@PostMapping("/uploadfile")
-	public Files uploadFile(@RequestPart MultipartFile file, HttpServletRequest request) throws IOException{
+	public Files uploadFile(@RequestPart MultipartFile file, HttpServletRequest request, @RequestParam Long postId) throws IOException{
+		System.out.println("postId : " + postId);
 		Files fileEntity = new Files();
 		    if(file.getSize()>0) {
 		    	String fname=file.getOriginalFilename();
@@ -47,6 +48,7 @@ public class FilesController {
 		    	fileEntity.setFileName(fname);
 		    	fileEntity.setFileSize(fsize);
 		    	fileEntity.setFileType(fileType);
+		    	fileEntity.setPostId(postId);
 		    	
 		    	file.transferTo(new File(SAVE_PATH+"/" + fname));
 		    	fileRepository.save(fileEntity);
@@ -64,6 +66,16 @@ public class FilesController {
 		File file = new File(SAVE_PATH+"/"+fname);
 		
 		return new ModelAndView("downLoadView","fname", file); // 뷰이름이downLoadView ->BeanName찾고 ->UrlBase -> InternalViewResolver
+	}
+	
+	/**
+	 * 파일 정보 가져오기
+	 * */
+	@GetMapping("/info/{postId}")
+	public Files fileInfo(@PathVariable Long postId) {
+		Files file = fileRepository.findByPostId(postId);
+		System.out.println(file);
+		return file;
 	}
 }
 

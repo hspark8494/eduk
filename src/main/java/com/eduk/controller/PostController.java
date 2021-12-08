@@ -46,13 +46,11 @@ public class PostController {
     public Post insert(
     		@RequestBody Post post, 
     		@PathVariable Long boardId, 
-    		@RequestHeader HttpHeaders headers,
-    		@RequestParam String fileName
+    		@RequestHeader HttpHeaders headers
     		){
         Long id = TokenProvider.getIdFormHeader(headers);
         post.setBoard(Board.builder().boardId(boardId).build());
         post.setMember(new Member(id));
-        post.setFile(new Files(fileName));
        
         Post dbPost = postService.insert(post);
         

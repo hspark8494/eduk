@@ -39,7 +39,22 @@
         </b-col>
         <!--/ blogs -->
 
-        <!-- Leave a Blog Comment -->
+        <b-col>
+          <h6 class="section-label">
+            첨부파일
+          </h6>
+          <b-card>
+            <a class="fileDownload"
+              :href="downURL">
+            <feather-icon
+                  icon="DownloadIcon"
+                  size="18"
+                />
+            <span class="fileSpan">{{fileName}}</span>
+            </a>
+          </b-card>
+        </b-col>
+
         <b-col
           cols="12"
           class="mt-2"
@@ -72,7 +87,6 @@
             </b-form>
           </b-card>
         </b-col>
-        <!--/ Leave a Blog Comment -->
 
         <!-- blog comment -->
         <b-col
@@ -191,23 +205,32 @@ export default {
             postTitle : "",
             postContent : ""
       },
-      replies: []
+      replies: [],
+      fileName : '',
+      downURL: 'https://localhost:1234'
     }
   },  
   created() {
-    this.$http.get('http://localhost:1234/'+this.$route.params.boardId+'/read/'+this.$route.params.postId)
+    this.$http.get('/'+this.$route.params.boardId+'/post/'+this.$route.params.postId)
     .then(res => { this.postDetail = res.data; console.log(res.data);
-      this.$http.get('http://localhost:1234/'+this.$route.params.postId+'/reply')
+      this.$http.get('/file/info/'+this.$route.params.postId)
+      .then(response => {this.fileName = response.data.fileName; this.downURL = this.downURL+'/file/down/'+this.fileName;});
+      this.$http.get('/'+this.$route.params.postId+'/reply')
       .then(resp => { this.replies = res.data; console.log(resp.data) })
     })
   },
   methods: {
     kFormatter,
     write(){
-      this.$http.post('http://localhost:1234/'+this.$route.params.postId+'/reply/insert')
+      this.$http.post('/'+this.$route.params.postId+'/reply/insert')
       .then(res => {
         this.$router.push('/'+this.$route.params.boardId+'/postRead/'+this.$route.params.postId)
       })
+    },
+    down(){
+      this.$http.get('/file/down/'+this.fileName)
+      .then(resp => {console.log('success')})
+      .catch(err => {console.log(err)})
     }
   },
 }
@@ -215,4 +238,14 @@ export default {
 
 <style lang="scss">
 @import '@core/scss/vue/pages/page-blog.scss';
+</style>
+<style>
+  .fileSpan{
+    color: #000;
+    margin-left: 5px;
+  }
+  .fileDownload :hover{
+      color: #6C74EF;
+      cursor: pointer;
+  }
 </style>

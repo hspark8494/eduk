@@ -56,9 +56,7 @@ public class Files {
 	@JoinColumn(name="memberId")
 	private Member member;
 	
-	/*@OneToOne
-	@JoinColumn(name="postId")
-	private Post post;*/
+	private Long postId;
 	
 	public Files(String fileName) {
 		this.fileName=fileName;

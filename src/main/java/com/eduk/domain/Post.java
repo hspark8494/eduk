@@ -50,7 +50,9 @@ public class Post {
 	@JoinColumn(name="memberId")
 	private Member member;
 	
-	@OneToOne
-	@JoinColumn(name="fileName")
-	private Files file;
+	/*@OneToOne
+	@JoinColumn(name="fileId")
+	private Files file;*/
+	
+	private String fileName;
 }

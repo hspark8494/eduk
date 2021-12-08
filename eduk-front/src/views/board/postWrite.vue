@@ -131,26 +131,34 @@ export default {
   },
   methods:{
     postWrite(){
-      this.$http.post('/'+this.boardId+'/post', {"postTitle": this.postTitle, "postContent": this.postContent, "fileName": this.file.name})
+      this.$http.post('/'+this.boardId+'/post', {"postTitle": this.postTitle, "postContent": this.postContent})
       .then(res => {
         this.postId = res.data.postId
-        var frm = new FormData();
-        var thisFile = document.getElementById("uploadFile");
-        frm.append("file", thisFile.files[0]),
-        axios.post('http://localhost:1234/file/uploadfile', frm, {
-          headers:{
-            'Content-Type': 'multipart/form-data'
-          }})
-        .then(resp => {
-          this.$router.push('/'+this.boardId+'/postRead/res.data.postId')
-        })
-        .catch(error => {
-          console.log(error)
-        })
+        if(this.file != null){
+          var frm = new FormData();
+          var thisFile = document.getElementById("uploadFile");
+          frm.append("file", thisFile.files[0]),
+          frm.append("postId", this.postId),
+          axios.post('https://localhost:1234/file/uploadfile', frm, {
+            headers:{
+              'Content-Type': 'multipart/form-data'
+            }})
+          .then(resp => {
+            this.postRead()
+          })
+          .catch(error => {
+            console.log(error)
+            this.$router.push('/error-404')
+          })
+        }
+        this.postRead()
       })          
       .catch(err => {
         console.log(err)
       })
+    },
+    postRead(){
+      this.$router.push('/'+this.boardId+'/postRead/'+this.postId)
     },
     cancel(){
       this.$router.go(-1)
