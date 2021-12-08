@@ -39,7 +39,9 @@
         </b-col>
         <!--/ blogs -->
 
-        <b-col>
+        <b-col
+          v-if="fileName != null"
+        >
           <h6 class="section-label">
             첨부파일
           </h6>
@@ -68,6 +70,7 @@
                 <b-col cols="12">
                   <b-form-group class="mb-2">
                     <b-form-textarea
+                      v-model="replyWrite"
                       name="textarea"
                       rows="4"
                       placeholder="댓글 입력"
@@ -97,9 +100,11 @@
           <h6 class="section-label">
             댓글
           </h6>
+          <div
+          v-for="(reply,index) in replies"
+            :key="index">
           <b-card
-            v-for="(reply,index) in replies"
-            :key="index"
+            v-if="reply.parentId==null"
           >
             <b-media no-body>
               <b-media-aside class="mr-15">
@@ -116,8 +121,9 @@
                 <b-card-text>
                   {{ reply.replyContent }}
                 </b-card-text>
-                <b-link @click="write">
-                  <div class="d-inline-flex align-items-center">
+                <b-link>
+                  <div class="d-inline-flex align-items-center"
+                  @click="showArea">
                     <feather-icon
                       icon="CornerUpLeftIcon"
                       size="18"
@@ -126,30 +132,49 @@
                     <span>답글</span>
                   </div>
                 </b-link>
-              </b-media-body>
-            </b-media>
-
-            <b-media no-body
-              v-for="(rep,index) in reply.replyList"
-              :key="index"
-            >
-              <b-media-aside class="ml-48">
-                <b-avatar
-                  :src="rep.member.profileImage"
-                  size="38"
-                />
-              </b-media-aside>
-              <b-media-body>
-                <h6 class="font-weight-bolder mb-25">
-                  {{ rep.member.name}}
-                </h6>
-                <b-card-text>{{ rep.createdTime }}</b-card-text>
-                <b-card-text>
-                  {{ rep.replyContent }}
-                </b-card-text>
+                <div v-if="hiddenArea">
+                  <b-col cols="12">
+                      <b-form-group class="mb-2">
+                        <b-form-textarea
+                          v-model="reReplyWrite"
+                          rows="2"
+                          placeholder="답글 입력"
+                        />
+                      </b-form-group>
+                    </b-col>
+                    <b-col cols="12">
+                      <b-button
+                        v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+                        variant="primary"
+                        @click="write"
+                      >
+                        작성
+                      </b-button>
+                    </b-col>
+                  </div>
+                <!-- <div
+                  v-if="reply.parentId!=reply.replyId"
+                    >
+                      <div>
+                        <b-avatar
+                          :src="rep.member.profileImage"
+                          size="26"
+                        />
+                      </div>
+                      <div>
+                        <h6 class="font-weight-bolder mb-25">
+                          {{ rep.member.name}}
+                        </h6>
+                        <b-card-text>{{ rep.createdTime }}</b-card-text>
+                        <b-card-text>
+                          {{ rep.replyContent }}
+                        </b-card-text>
+                      </div>
+                    </div> -->
               </b-media-body>
             </b-media>
           </b-card>
+          </div>
         </b-col>
         <!--/ blog comment -->
 
@@ -199,6 +224,8 @@ export default {
     return {
       search_query: '',
       commentCheckmark: '',
+      replyWrite:'',
+      reReplyWrite:'',
       postDetail: {
             member : { name : "" } ,
             createdTime : "",
@@ -206,31 +233,40 @@ export default {
             postContent : ""
       },
       replies: [],
-      fileName : '',
-      downURL: 'https://localhost:1234'
+      fileName : null,
+      downURL: 'https://localhost:1234',
+      hiddenArea: false,
     }
   },  
   created() {
     this.$http.get('/'+this.$route.params.boardId+'/post/'+this.$route.params.postId)
     .then(res => { this.postDetail = res.data; console.log(res.data);
       this.$http.get('/file/info/'+this.$route.params.postId)
-      .then(response => {this.fileName = response.data.fileName; this.downURL = this.downURL+'/file/down/'+this.fileName;});
-      this.$http.get('/'+this.$route.params.postId+'/reply')
-      .then(resp => { this.replies = res.data; console.log(resp.data) })
+      .then(response => {this.fileName = response.data.fileName; this.downURL = this.downURL+'/file/down/'+this.fileName;})
+      this.refreshReply()
     })
   },
   methods: {
     kFormatter,
     write(){
-      this.$http.post('/'+this.$route.params.postId+'/reply/insert')
+      this.$http.post('/'+this.$route.params.postId+'/reply',
+       {"replyContent":this.replyWrite, })
       .then(res => {
-        this.$router.push('/'+this.$route.params.boardId+'/postRead/'+this.$route.params.postId)
+        this.refreshReply()
       })
     },
     down(){
       this.$http.get('/file/down/'+this.fileName)
       .then(resp => {console.log('success')})
       .catch(err => {console.log(err)})
+    },
+    refreshReply: function(){
+      this.$http.get('/'+this.$route.params.postId+'/reply')
+      .then(resp => { this.replies = resp.data; console.log(resp.data) })
+      .catch(err => {console.log(err)})
+    },
+    showArea(){
+      this.hiddenArea = true
     }
   },
 }
@@ -241,11 +277,12 @@ export default {
 </style>
 <style>
   .fileSpan{
-    color: #000;
     margin-left: 5px;
   }
+  .fileDownload{
+    color: #000;
+  }
   .fileDownload :hover{
-      color: #6C74EF;
       cursor: pointer;
   }
 </style>

@@ -46,7 +46,9 @@ public class Reply {
 	private Member member;
 	
 	// 재귀
-	@ManyToOne
+	/*@ManyToOne
 	@JoinColumn(name="parent_id")
-	private Reply reply;
+	private Reply reply;*/
+	
+	private Long parentId;
 }

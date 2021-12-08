@@ -44,13 +44,13 @@ public class ReplyController {
 	/**
 	 * 대댓글 등록
 	 */
-	@PostMapping("/rereply")
+	@PostMapping("/rereply/{replyId}")
 	public Reply rereplyInsert(@RequestBody Reply reply, @PathVariable Long replyId, @PathVariable Long postId, @RequestHeader HttpHeaders headers) {
 		Long id = TokenProvider.getIdFormHeader(headers);
 		
 		reply.setPost(Post.builder().postId(postId).build());
 		reply.setMember(new Member(id));
-		reply.setReply(Reply.builder().replyId(replyId).build());
+		reply.setParentId(replyId);
 		
 		Reply dbReply = replyService.insert(reply);
 		
