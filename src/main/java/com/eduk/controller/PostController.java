@@ -99,6 +99,10 @@ public class PostController {
 	public Post update(@RequestBody Post post, @PathVariable Long postId, @RequestHeader HttpHeaders headers) {
 		Long id = TokenProvider.getIdFormHeader(headers);
 		
+		if(id != post.getMember().getMemberId()) {
+			throw new RuntimeException("수정할 권한이 없습니다.");
+		}
+		
 		Post dbPost = postService.update(post);
 		
 		return dbPost;
@@ -108,8 +112,12 @@ public class PostController {
 	 * 게시물 삭제
 	 */
 	@DeleteMapping("/post/{postId}")
-	public void delete(@PathVariable Long postId, @RequestHeader HttpHeaders headers) {
+	public void delete(@RequestBody Post post, @PathVariable Long postId, @RequestHeader HttpHeaders headers) {
 		Long id = TokenProvider.getIdFormHeader(headers);
+		
+		if(id != post.getMember().getMemberId()) {
+			throw new RuntimeException("삭제할 권한이 없습니다.");
+		}
 		
 		postService.delete(postId);
 	}

@@ -31,11 +31,8 @@ public class BoardController {
 	 * 게시판 등록
 	 */
 	@PostMapping("/board")
-	public Board insert(@RequestBody Board board, @PathVariable Long channelId, @RequestHeader HttpHeaders headers) {
-		Long id = TokenProvider.getIdFormHeader(headers);
+	public Board insert(@RequestBody Board board, @PathVariable Long channelId) {
 		board.setChannel(Channel.builder().channelId(channelId).build());
-		board.setMember(new Member(id));
-		
 		Board dbBoard = boardService.insert(board);
 		
 		return dbBoard;
@@ -65,9 +62,7 @@ public class BoardController {
 	 * 게시판 삭제
 	 */
 	@DeleteMapping("/board/{boardId}")
-	public void delete(@PathVariable Long boardId, @RequestHeader HttpHeaders headers) {
-		Long id = TokenProvider.getIdFormHeader(headers);
-		
+	public void delete(@PathVariable Long boardId) {
 		boardService.delete(boardId);
 	}
 }
