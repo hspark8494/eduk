@@ -27,7 +27,7 @@
             href="#"
             variant="primary"
             class="w-100"
-            @click="joinClassRoom(edu.classRoomId)"
+            @click="enterClassRoom(edu.classRoomId)"
             >강의 입장</b-button
           >
         </b-card>
@@ -56,7 +56,7 @@ import {
   BNavItem,
 } from "bootstrap-vue";
 import Ripple from "vue-ripple-directive";
-
+import Vue from "vue";
 export default {
   components: {
     BCard,
@@ -98,16 +98,21 @@ export default {
         .then((resp) => (this.eduList = resp.data), console.log);
     },
     createClassRoom() {
+      let userData = JSON.parse(localStorage.getItem("userData"));
       this.$http.post("class-room", {
         classRoomName: this.classRoomName,
         detail: this.detail,
         classRoomImage: this.classRoomImage,
-        memberId: 165,
+        memberId: userData.id,
       });
     },
-
-    joinClassRoom(classRoomId) {
-      console.log(classRoomId);
+    enterClassRoom(classRoomId) {
+      this.$http.get("class-room/" + classRoomId).then((resp) => {
+        console.log(resp);
+        Vue.prototype.$local.classRoom = resp.data;
+        console.log(Vue.prototype.$local.classRoom);
+        this.$router.push({ name: "apps-calendar", classRoomId: classRoomId });
+      }, console.log);
     },
   },
 };

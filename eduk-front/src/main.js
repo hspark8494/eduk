@@ -26,7 +26,9 @@ import '@/@fake-db/db'
 // BSV Plugin Registration
 Vue.use(ToastPlugin)
 Vue.use(ModalPlugin)
-
+global.jQuery = require('jquery');
+var $ = global.jQuery;
+window.$ = $;
 // Composition API
 Vue.use(VueCompositionAPI)
 

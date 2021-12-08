@@ -131,6 +131,7 @@ import { togglePasswordVisibility } from "@core/mixins/ui/forms";
 import useJwt from "@/auth/jwt/useJwt";
 import { getHomeRouteForLoggedInUser } from "@/auth/utils";
 import ToastificationContent from "@core/components/toastification/ToastificationContent.vue";
+import Vue from "vue";
 
 export default {
   components: {
@@ -178,11 +179,11 @@ export default {
             .then((response) => {
               console.log(response);
               let userData = response.data.member;
-
-              let member = response.data.member;
+              Vue.prototype.$local.member = userData;
 
               console.log(userData);
               userData.id = userData.memberId;
+              userData.memberId = userData.memberId;
               userData.username = userData.email;
               userData.fullName = userData.name;
               userData.avatar = userData.profileImage;

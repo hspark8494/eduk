@@ -84,8 +84,7 @@ import { BCard, BCardText, BLink, BCardFooter, BButton } from "bootstrap-vue";
 
 import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
-import UserVideo from "./UserVideo";
-
+import Vue from "vue";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
 const OPENVIDU_SERVER_URL = "https://" + location.hostname + ":4443";
@@ -144,12 +143,14 @@ export default {
       // On every new Stream received...
       this.session.on("streamCreated", ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
+        console.log(streamCreated);
         this.subscribers.push(subscriber);
       });
 
       // On every Stream destroyed...
       this.session.on("streamDestroyed", ({ stream }) => {
         const index = this.subscribers.indexOf(stream.streamManager, 0);
+        console.log("streamDestroyed");
         if (index >= 0) {
           this.subscribers.splice(index, 1);
         }
@@ -206,6 +207,11 @@ export default {
         console.log(event.from); // Connection object of the sender
         console.log(event.type); // The type of message ("my-chat")
       });
+
+      Vue.$session.OV = this.OV;
+      Vue.$session.session = this.session;
+      Vue.$session.mainStreamManager = this.mainStreamManager;
+      Vue.$session.publisher = this.publisher;
     },
 
     leaveSession() {

@@ -16,5 +16,5 @@ const axiosIns = axios.create({
 })
 
 Vue.prototype.$http = axiosIns
-
+Vue.prototype.$local = {};
 export default axiosIns

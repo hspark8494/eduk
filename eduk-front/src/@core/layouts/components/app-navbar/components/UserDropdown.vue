@@ -80,6 +80,7 @@ import {
 import { initialAbility } from "@/libs/acl/config";
 import useJwt from "@/auth/jwt/useJwt";
 import { avatarText } from "@core/utils/filter";
+import Vue from "vue";
 
 export default {
   components: {
@@ -103,7 +104,8 @@ export default {
 
       // Remove userData from localStorage
       localStorage.removeItem("userData");
-
+      localStorage.removeItem("classRoomData");
+      Vue.prototype.$local = {};
       // Reset ability
       this.$ability.update(initialAbility);
 
