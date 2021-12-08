@@ -8,35 +8,44 @@
       <feather-icon icon="RadioIcon" size="15" class="spinner" />
     </b-link>
     <div>
-      <b-card title="Chat Room">
-        <div id="main-container" class="container">
-          <button @click="shareScreen()">화면공유</button>
-          <div id="session" v-if="session">
-            <div id="main-video" class="col-md-6">
-              <user-video :stream-manager="mainStreamManager" />
-            </div>
-            <div id="video-container" class="col-md-6">
-              <user-video
-                v-for="sub in subscribers"
-                :key="sub.stream.connection.connectionId"
-                :stream-manager="sub"
-                @click.native="updateMainVideoStreamManager(sub)"
-              />
+      <vue-perfect-scrollbar
+        :settings="perfectScrollbarSettings"
+        class="ps-customizer-area scroll-area"
+      >
+        <b-card title="강의실">
+          <div id="main-container" class="container">
+            <div id="screen-container"></div>
+
+            <button @click="shareScreen()">화면공유</button>
+            <div id="session" v-if="session">
+              <div id="main-video" class="col-md-6">
+                <user-video :stream-manager="mainStreamManager" />
+              </div>
+              <div id="video-container" class="col-md-6">
+                <user-video
+                  v-for="sub in subscribers"
+                  :key="sub.stream.connection.connectionId"
+                  :stream-manager="sub"
+                  @click.native="updateMainVideoStreamManager(sub)"
+                />
+              </div>
             </div>
           </div>
-        </div>
-      </b-card>
-      <b-card>
-        <ul>
-          <li v-for="msg in msgList" :key="msg">
-            {{ msg }}
-          </li>
-        </ul>
-        <b-card-footer>
-          <input v-model="inputMsg" />
-          <b-button variant="outline-primary" @click="sendMsg">보내기</b-button>
-        </b-card-footer>
-      </b-card>
+        </b-card>
+        <b-card>
+          <ul>
+            <li v-for="msg in msgList" :key="msg">
+              {{ msg }}
+            </li>
+          </ul>
+          <b-card-footer>
+            <input v-model="inputMsg" />
+            <b-button variant="outline-primary" @click="sendMsg"
+              >보내기</b-button
+            >
+          </b-card-footer>
+        </b-card>
+      </vue-perfect-scrollbar>
     </div>
   </div>
 </template>
@@ -53,12 +62,12 @@ import {
   BButton,
 } from "bootstrap-vue";
 import vSelect from "vue-select";
-import VuePerfectScrollbar from "vue-perfect-scrollbar";
 import useAppCustomizer from "./useAppCustomizer";
 import UserVideo from "./UserVideo";
 import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
 import Vue from "vue";
+import VuePerfectScrollbar from "vue-perfect-scrollbar";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 const OPENVIDU_SERVER_URL = "https://" + location.hostname + ":4443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
@@ -105,8 +114,6 @@ export default {
       subscribers: [],
       mySessionId: "room",
       myUserName: userData.username,
-      OVScreen : undefined,
-      sessionScreen = undefined
     };
   },
 
@@ -304,38 +311,38 @@ export default {
      *
      */
 
-    publishScreenShare() {
-      // --- 9.1) To create a publisherScreen it is very important that the property 'videoSource' is set to 'screen'
-      var publisherScreen = OVScreen.initPublisher("container-screens", {
-        videoSource: "screen",
-      });
+    shareScreen() {
+      var OV = new OpenVidu();
+      var sessionScreen = OV.initSession();
+      this.getToken().then((token) => {
+        sessionScreen
+          .connect(token)
+          .then(() => {
+            var publisher = OV.initPublisher("screen-container", {
+              videoSource: "screen",
+            });
 
-      // --- 9.2) If the user grants access to the screen share function, publish the screen stream
-      publisherScreen.once("accessAllowed", (event) => {
-        document.getElementById("buttonScreenShare").style.visibility =
-          "hidden";
-        screensharing = true;
-        // It is very important to define what to do when the stream ends.
-        publisherScreen.stream
-          .getMediaStream()
-          .getVideoTracks()[0]
-          .addEventListener("ended", () => {
-            console.log('User pressed the "Stop sharing" button');
-            sessionScreen.unpublish(publisherScreen);
-            document.getElementById("buttonScreenShare").style.visibility =
-              "visible";
-            screensharing = false;
+            publisher.once("accessAllowed", (event) => {
+              publisher.stream
+                .getMediaStream()
+                .getVideoTracks()[0]
+                .addEventListener("ended", () => {
+                  console.log('User pressed the "Stop sharing" button');
+                });
+              sessionScreen.publish(publisher);
+            });
+
+            publisher.once("accessDenied", (event) => {
+              console.warn("ScreenShare: Access Denied");
+            });
+          })
+          .catch((error) => {
+            console.warn(
+              "There was an error connecting to the session:",
+              error.code,
+              error.message
+            );
           });
-        sessionScreen.publish(publisherScreen);
-      });
-
-      publisherScreen.on("videoElementCreated", function (event) {
-        appendUserData(event.element, sessionScreen.connection);
-        event.element["muted"] = true;
-      });
-
-      publisherScreen.once("accessDenied", (event) => {
-        console.error("Screen Share: Access Denied");
       });
     },
   },
