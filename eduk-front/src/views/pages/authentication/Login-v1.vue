@@ -178,6 +178,9 @@ export default {
             .then((response) => {
               console.log(response);
               let userData = response.data.member;
+
+              let member = response.data.member;
+
               console.log(userData);
               userData.id = userData.memberId;
               userData.username = userData.email;

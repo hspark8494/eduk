@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -54,6 +55,14 @@ public class Files {
 	@ManyToOne
 	@JoinColumn(name="memberId")
 	private Member member;
+	
+	/*@OneToOne
+	@JoinColumn(name="postId")
+	private Post post;*/
+	
+	public Files(String fileName) {
+		this.fileName=fileName;
+	}
 	
 	public Files(String fileName, Long fileSize) {
 		this.fileName=fileName;

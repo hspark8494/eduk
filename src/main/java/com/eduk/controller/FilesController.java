@@ -28,14 +28,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FilesController {
 	
-	private final String SAVE_PATH="/Users/sungkyu-kim/springDownload";
+	private final String SAVE_PATH="C:\\Users\\Lee\\Desktop\\TEST\\save";
 	private final FileRepository fileRepository;
 	
 	/**
 	 * 파일 업로드
 	 */
 	@PostMapping("/uploadfile")
-	public Files uploadFile(@RequestPart MultipartFile file, HttpServletRequest request) throws IOException{ 
+	public Files uploadFile(@RequestPart MultipartFile file, HttpServletRequest request) throws IOException{
+		Files fileEntity = new Files();
 		    if(file.getSize()>0) {
 		    	String fname=file.getOriginalFilename();
 		    	long fsize = file.getSize();
@@ -43,7 +44,6 @@ public class FilesController {
 		    	
 		    	//String saveDir=request.getServletContext().getRealPath("/resources/save");
 		    	
-		    	Files fileEntity = new Files();
 		    	fileEntity.setFileName(fname);
 		    	fileEntity.setFileSize(fsize);
 		    	fileEntity.setFileType(fileType);
@@ -52,7 +52,7 @@ public class FilesController {
 		    	fileRepository.save(fileEntity);
 		    }
 
-	    return null;
+	    return fileEntity;
 	}
 	
 	/**

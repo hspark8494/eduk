@@ -24,10 +24,10 @@ public class DownLoadCustomView extends AbstractView{
 		HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		File file = (File) map.get("fname");//파일객체....(다운로드할 파일객체)
-		
+		System.out.println("file : " + file.getName());
+		System.out.println("filePath : " + file.getParent());
 		response.setContentType("application/download;charset-UTF-8");
 		response.setContentLength((int)file.length());
-	
 		
 		String userAgent = request.getHeader("User-Agent");
 		

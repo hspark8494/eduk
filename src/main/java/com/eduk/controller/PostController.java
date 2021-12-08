@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.eduk.domain.Board;
+import com.eduk.domain.Files;
 import com.eduk.domain.Member;
 import com.eduk.domain.Post;
 import com.eduk.security.jwts.TokenProvider;
@@ -46,11 +47,12 @@ public class PostController {
     		@RequestBody Post post, 
     		@PathVariable Long boardId, 
     		@RequestHeader HttpHeaders headers,
-    		@RequestParam MultipartFile file
+    		@RequestParam String fileName
     		){
         Long id = TokenProvider.getIdFormHeader(headers);
         post.setBoard(Board.builder().boardId(boardId).build());
         post.setMember(new Member(id));
+        post.setFile(new Files(fileName));
        
         Post dbPost = postService.insert(post);
         

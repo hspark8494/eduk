@@ -8,26 +8,13 @@
       no-body
       class="mb-0"
     >
-
       <div class="m-2">
-
-        <!-- Table Top -->
-        <b-row>
-
-
-          <!-- Search -->
-          <b-col
-            cols="12"
-            md="6"
-          >
-              <b-button
-                variant="primary"
-              >
-                <span class="text-nowrap">글쓰기</span>
-              </b-button>
-          </b-col>
-        </b-row>
-
+        <b-button
+        variant="primary"
+        @click="write"
+        >
+        <span class="text-nowrap">글쓰기</span>
+        </b-button>
       </div>
       
       <table>
@@ -56,7 +43,9 @@
                         {{ post.postId }}
                     </td>
                     <td>
-                      <a href="#">{{ post.postTitle }}</a>
+                      <router-link :to="{name:'post-read', params:{boardId:$route.params.boardId, postId:post.postId}}"
+                      >{{ post.postTitle }}
+                      </router-link>
                     </td>
                     <td>
                         {{ post.member.name }}
@@ -69,18 +58,16 @@
                     </td>
                 </tr>
         </table>
-
-      <div class="mx-2 mb-2">
-        <b-row>
              <nav class="pagination-container">
                 <div class="pagination">
-                    <feather-icon
-                    class="custombtn prevbtn"
-                    icon="ChevronLeftIcon"
-                    size="18"
-                    v-if="(startPage-blockCount)>0"
-                    />
                     <p class="pagination-inner">
+                      <feather-icon
+                        class="custombtn prevbtn"
+                        icon="ChevronLeftIcon"
+                        size="18"
+                        v-if="(startPage-blockCount)>0"
+                        @click="prevPage"
+                        />
                       <span
                         v-for="(p, i) in postList.content"
                         :key="i"> 
@@ -92,6 +79,7 @@
                             type="button"
                             class="custombtn"
                             v-if="i<blockCount&&postList.totalPages>=(startPage+i)&&nowPage!=(startPage+i)"
+                            @click="movePage"
                           >
                             {{startPage+i}}
                           </button>
@@ -99,21 +87,22 @@
                             type="button"
                             class="pagination-active"
                             v-if="nowPage==(startPage+i)"
+                            @click="movePage"
                           >
                             {{startPage+i}}
                           </button>
                       </span> 
-                     </p>
-                     <feather-icon
+                      <feather-icon
                         class="custombtn nextbtn"
                         icon="ChevronRightIcon"
                         size="18"
                         v-if="(startPage+blockCount)<=postList.totalPages"
+                        @click="nextPage"
                      />
+                     </p>
+                     
                   </div>
-                </nav>  
-        </b-row>
-      </div>
+                </nav>
     </b-card>
   </div>
 </template>
@@ -163,10 +152,33 @@ export default {
       nowPage: '',
     }
   },
+  watch:{
+    '$route' (to, from) {
+      this.refreshList()
+    }
+  },
   created() {
-    this.$http.get('http://localhost:1234/'+this.$route.params.boardId+'/post?nowPage='+this.$route.params.nowPage)
-    .then(res => { this.postList = res.data.postList; console.log(res.data);
-      if (res.data.postList.empty == false) this.postNull = false;
+    this.refreshList()
+  },
+  methods:{
+    write(){
+      this.$router.push('/'+this.$route.params.boardId+'/postWrite')
+    },
+    prevPage(){
+      this.$router.push('/'+this.$route.params.boardId+'/postList/'+(this.startPage-1))
+    },
+    nextPage(){
+      this.$router.push('/'+this.$route.params.boardId+'/postList/'+(this.startPage+this.blockCount))
+    },
+    movePage: function(event){
+      console.log(event)
+      const targetId = event.target.innerText;
+      this.$router.push('/'+this.$route.params.boardId+'/postList/'+targetId)
+    },
+    refreshList: function(){
+      this.$http.get(this.$route.params.boardId+'/post?nowPage='+this.$route.params.nowPage)
+        .then(res => { this.postList = res.data.postList; console.log(res.data);
+          if (res.data.postList.empty == false) this.postNull = false;
       this.blockCount = res.data.blockCount;
       this.startPage = res.data.startPage;
       this.nowPage = res.data.nowPage;
@@ -174,7 +186,8 @@ export default {
     .catch(err => {
       console.log(err)
     })
-  },
+    }
+  }
 }
 
 </script>
@@ -225,5 +238,15 @@ export default {
   .pagination-active, .prevbtn:hover, .nextbtn:hover{
     background-color: #7367F0;
     color: #fff;
+  }
+  .m-2{
+    text-align: right;
+  }
+  .pagination-container{
+    text-align: center;
+    margin-top: 15px;
+  }
+  .pagination{
+    display: inline-block;
   }
 </style>

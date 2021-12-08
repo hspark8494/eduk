@@ -46,6 +46,7 @@
               v-model="file"
               placeholder="파일을 선택하거나 여기에 올려주세요"
               data-placeholder="여기에 파일 놓기"
+              id="uploadFile"
             />
 
             <b-card-text class="my-1">
@@ -88,6 +89,7 @@ import { quillEditor } from 'vue-quill-editor'
 import Ripple from 'vue-ripple-directive'
 import { useInputImageRenderer } from '@core/comp-functions/forms/form-utils'
 import { ref } from '@vue/composition-api'
+import axios from 'axios'
 
 export default {
   components: {
@@ -120,7 +122,8 @@ export default {
       snowOption: {
         theme: 'snow',
       },
-      boardId: ''
+      boardId: '',
+      postId: ''
     }
   },
   mounted(){
@@ -128,26 +131,30 @@ export default {
   },
   methods:{
     postWrite(){
-      /* var frm = new FormData();
-      frm.append("postTitle", this.postTitle),
-      frm.append("postContent", this.postContent),
-      frm.append("file", this.file), */
-      console.log(this.postContent)
-      this.$http.post(this.boardId+'/post', {"postTitle": this.postTitle, "postContent": this.postContent} 
-        /* headers:{
-          'Content-Type': 'multipart/form-data'
-        } */
-      )
+      this.$http.post('/'+this.boardId+'/post', {"postTitle": this.postTitle, "postContent": this.postContent, "fileName": this.file.name})
       .then(res => {
-        this.$router.push('/'+this.boardId+'/postList')
-      })
+        this.postId = res.data.postId
+        var frm = new FormData();
+        var thisFile = document.getElementById("uploadFile");
+        frm.append("file", thisFile.files[0]),
+        axios.post('http://localhost:1234/file/uploadfile', frm, {
+          headers:{
+            'Content-Type': 'multipart/form-data'
+          }})
+        .then(resp => {
+          this.$router.push('/'+this.boardId+'/postRead/res.data.postId')
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      })          
       .catch(err => {
         console.log(err)
       })
     },
     cancel(){
       this.$router.go(-1)
-    },  
+    }
   },  
   setup() {
     const refInputEl = ref(null)
