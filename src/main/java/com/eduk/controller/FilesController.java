@@ -3,10 +3,8 @@ package com.eduk.controller;
 import java.io.File;
 import java.io.IOException;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,9 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.eduk.domain.Files;
-import com.eduk.dto.FileDTO;
 import com.eduk.repository.FileRepository;
-import com.eduk.service.FilesService;
 
 import lombok.RequiredArgsConstructor;
 

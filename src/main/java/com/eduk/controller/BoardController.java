@@ -3,21 +3,16 @@ package com.eduk.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eduk.domain.Board;
 import com.eduk.domain.Channel;
-import com.eduk.domain.Member;
-import com.eduk.domain.Post;
-import com.eduk.security.jwts.TokenProvider;
 import com.eduk.service.BoardService;
 
 @RestController

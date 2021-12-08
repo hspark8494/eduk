@@ -1,5 +1,5 @@
 package com.eduk.controller;
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.eduk.domain.ClassRoom;
 import com.eduk.domain.Member;
-import com.eduk.domain.Participant;
-import com.eduk.repository.ClassRoomRepository;
 import com.eduk.repository.MemberRepository;
 import com.eduk.security.jwts.TokenProvider;
 import com.eduk.service.ClassRoomService;
@@ -44,7 +42,6 @@ public class ClassRoomController {
 				return memberRepo.findByMemberId(memberId);
 			}
 	
-	
 	//강의 생성
 	@PostMapping("/class-room")
 	public ResponseEntity<Map<String, Object>> createClassRoom(@RequestBody ClassRoom classRoom, @RequestHeader HttpHeaders headers){
@@ -58,6 +55,7 @@ public class ClassRoomController {
 		
 		return new ResponseEntity<Map<String,Object>>(respMap, HttpStatus.OK);
 	}
+	
 	//성공 처리
 	private ResponseEntity<Map<String, Object>> handleSuccess(Object data){
 		Map<String, Object> resultMap = new HashMap<>();
@@ -65,6 +63,7 @@ public class ClassRoomController {
 		resultMap.put("data", data);
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
+	
 	//예외 처리
 	private ResponseEntity<Map<String, Object>> handleException(Exception e){
 		Map<String, Object> resultMap = new HashMap<>();

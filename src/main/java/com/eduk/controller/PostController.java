@@ -3,10 +3,6 @@ package com.eduk.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,10 +19,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.eduk.domain.Board;
-import com.eduk.domain.Files;
 import com.eduk.domain.Member;
 import com.eduk.domain.Post;
 import com.eduk.security.jwts.TokenProvider;

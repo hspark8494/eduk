@@ -1,7 +1,6 @@
 package com.eduk.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eduk.domain.Board;
-import com.eduk.domain.Channel;
 import com.eduk.repository.BoardRepository;
 
 @Service 
@@ -29,7 +27,6 @@ public class BoardServiceImpl implements BoardService {
 		List<Board> boardList = boardRepository.selectByChannelId(channelId);
 		
 		return boardList;
-//		return boardList.stream().filter(board -> channelId == board.getChannel().getChannelId()).collect(Collectors.toList());
 	}
 
 	@Override

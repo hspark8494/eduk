@@ -7,7 +7,6 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.eduk.domain.Channel;
-import com.eduk.domain.WebClass;
 import com.eduk.repository.ChannelRepository;
 
 import lombok.RequiredArgsConstructor;

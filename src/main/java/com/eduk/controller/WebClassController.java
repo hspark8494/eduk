@@ -15,7 +15,6 @@ import com.eduk.domain.Member;
 import com.eduk.domain.WebClass;
 import com.eduk.security.jwts.TokenProvider;
 import com.eduk.service.WebClassService;
-import com.eduk.service.WebClassServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
