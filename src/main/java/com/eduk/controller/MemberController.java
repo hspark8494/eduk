@@ -1,25 +1,28 @@
 package com.eduk.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import javax.validation.Valid;
+import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,12 +32,11 @@ import com.eduk.domain.Member;
 import com.eduk.service.EmailService;
 import com.eduk.service.MemberService;
 
-import lombok.RequiredArgsConstructor;
-
 @RestController
 @CrossOrigin(maxAge = 3600)
 @RequestMapping("/member")
 public class MemberController {
+
 	@Autowired
 	private MemberService memberService;
 
@@ -45,7 +47,6 @@ public class MemberController {
 	 * 회원 이메일 입력 후 인증 이메일 발송
 	 */
 	@ResponseBody
-	// @RequestMapping(value = "/mail", method = RequestMethod.GET)
 	@PostMapping("/mail")
 	public void emailConfirm(@RequestBody Member member) throws Exception {
 		System.out.println("전달 받은 이메일 : " + member.getEmail());
@@ -70,31 +71,66 @@ public class MemberController {
 		return result;
 	}
 
+	/*
+	 * //@PutMapping("/saveImage")
+	 * 
+	 * @RequestMapping(value = "/saveImage" , method = RequestMethod.GET) public
+	 * Member image(@RequestParam("file") MultipartFile file, @RequestBody Member
+	 * member, HttpSession session) throws Exception {
+	 * 
+	 * //이미지 링크를 memberprofileImage에 저장했을 때
+	 * 
+	 * String path = session.getServletContext().getRealPath("/WEB-INF/save");
+	 * 
+	 * try { URL url = new URL(member.getProfileImage());
+	 * 
+	 * BufferedImage image = ImageIO.read(url); File file = new File(path);
+	 * ImageIO.write(image, "jpg", file);
+	 * 
+	 * member.setProfileImage(member.getMemberId() + "/" + path);
+	 * 
+	 * } catch (IOException e) { e.printStackTrace(); }
+	 * 
+	 * return member; }
+	 * 
+	 */
+
 	/**
-	 * 회원 가입, 유효성 확인
-	 *//*
-		 * @PostMapping("/register") // @RequestMapping(value = "/register", method =
-		 * RequestMethod.GET) public String register(@Valid Member member, Errors
-		 * errors, Model model) { // model 객체 - 유효성 검사에서 통과 못한 필드 에러값 저장
-		 * System.out.printf("%s %s %s\n", member.getEmail(), member.getName(),
-		 * member.getPassword());
-		 * 
-		 * if (errors.hasErrors()) { // 회원가입 실패 시, 입력 데이터를 유지
-		 * model.addAttribute("member", member); // 유효성 통과 못한 필드와 메세지 model에 저장
-		 * Map<String, String> validatorResult = memberService.register(errors); // 유효성
-		 * 체크 for (String key : validatorResult.keySet()) { // 실패한 필드명이 들어있는 key값만 꺼내
-		 * String key로 저장. model.addAttribute(key, validatorResult.get(key)); // 키에 해당하는
-		 * 값을 꺼낸 뒤, key와 value 모두 저장 } // 입력값 형식이 맞지 않을 때 // return ""; }
-		 * 
-		 * // 아이디 중복체크 if (idCheck(member.getEmail())) { // 중복이 있을 때 // return ""; }
-		 * 
-		 * // 회원 추가 // memberService.saveMember(member); return ""; }
-		 */
+	 * 이미지 저장하기
+	 */
+	@PostMapping("/saveImage")
+	public void createFeed(@RequestParam("file") MultipartFile file, @RequestBody Member member) {
+		// src 주소를 만들어 낸다.
+		StringBuilder sb = new StringBuilder();
+
+		// file image 가 없을 경우
+		if (file.isEmpty()) {
+			sb.append("none"); // 기본 이미지 넣기
+		} else {
+			sb.append(file.getOriginalFilename()); // 업로드한 파일 명
+			//sb.append(member.getProfileImage());
+		}
+
+		if (!file.isEmpty()) {
+			File dest = new File("/META-INF/save" + sb.toString());
+			try {
+				file.transferTo(dest); // 원하는 위치에 저장
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			member.setProfileImage(sb.toString()); // db에 멤버 id/링크+파일이름 등록
+			updateMember(member);
+
+		}
+		// return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	}
 
 	/**
 	 * 아이디(이메일) 중복 체크
 	 */
-	// @RequestMapping(value = "/check", method = RequestMethod.GET) // 테스트용
 	@GetMapping("/idCheck")
 	public boolean idCheck(@PathVariable String email) {
 
@@ -112,7 +148,6 @@ public class MemberController {
 	/**
 	 * 이메일 유효성 검사
 	 */
-	// @RequestMapping(value = "/emailCheck", method = RequestMethod.GET) //테스트용
 	public boolean isEmail(@PathVariable String email) {
 		if (memberService.isEmail(email)) {
 			return true; // 이메일 형식 맞을때
@@ -124,7 +159,6 @@ public class MemberController {
 	/**
 	 * 비밀번호 유효성 검사 특수문자, 영문, 숫자 조합 (8~10 자리)
 	 */
-	// @RequestMapping(value = "/pwdCheck", method = RequestMethod.GET) //테스트용
 	public boolean isPassword(@PathVariable String pwd) {
 
 		if (memberService.isPassword(pwd)) {
@@ -145,8 +179,6 @@ public class MemberController {
 	/**
 	 * 회원정보 조회
 	 */
-	// @RequestMapping(value = "/selectMemberInfo", method = RequestMethod.GET)
-	// //테스트용
 	@GetMapping("/selectMemberInfo")
 	public Optional<Member> selectMember(@PathVariable Long memberId) {
 
@@ -187,7 +219,7 @@ public class MemberController {
 				System.out.println(classRoom.toString());
 				return classRoom;
 			}
-			
+
 		} catch (NoSuchElementException e) {
 			System.out.println("정보 없음");
 		}
