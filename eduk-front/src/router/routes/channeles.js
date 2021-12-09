@@ -236,5 +236,22 @@ export default [
       contentClass: 'ecommerce-application',
     },
   },
+  {
+    path: '/:classRoomId/refRoom',
+    name: 'ref-room',
+    component: () => import('@/views/custom/referenceRoom.vue'),
+    meta: {
+      pageTitle: '강의실',
+      breadcrumb: [
+        {
+          text: '자료실',
+        },
+        {
+          text: '모든 파일 보기',
+          active: true,
+        },
+      ],
+    },
+  },
 
 ]
