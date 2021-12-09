@@ -30,8 +30,8 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public Post update(Post post) {
-		Post dbPost = postRepository.findById(post.getPostId()).orElse(null);
+	public Post update(Post post, Long postId) {
+		Post dbPost = postRepository.findById(postId).orElse(null);
 		if(dbPost == null) throw new RuntimeException("게시물 번호 오류로 수정할 수 없습니다.");
 		
 		dbPost.setPostTitle(post.getPostTitle());

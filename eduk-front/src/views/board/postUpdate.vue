@@ -130,7 +130,7 @@ export default {
     this.postId = this.$route.params.postId
   },
   mounted(){
-    this.$http.get('http://localhost:1234/'+this.boardId+'/post/read/'+this.postId)
+    this.$http.get('/'+this.boardId+'/post/'+this.postId)
     .then(res => {
       console.log(res)
       this.postDetail = res.data
@@ -143,15 +143,7 @@ export default {
   },
   methods:{
     postUpdate(){
-      var frm = new FormData();
-      frm.append("postTitle", this.postTitle),
-      frm.append("postContent", this.postContent),
-      frm.append("file", this.file),
-      this.$http.put('http://localhost:1234/'+this.boardId+'/post/update/'+this.postId, frm, {
-        headers:{
-          'Content-Type': 'multipart/form-data'
-        }
-      })
+      this.$http.put('/'+this.boardId+'/post/'+this.postId, {"postTitle": this.postTitle, "postContent": this.postContent})
       .then(res => {
         this.$router.push('/'+this.boardId+'/postRead/'+this.postId)
       })

@@ -26,7 +26,7 @@ public interface PostService {
 	/**
 	 * 수정
 	 */
-	Post update(Post post);
+	Post update(Post post, Long postId);
 	
 	/**
 	 * 삭제
