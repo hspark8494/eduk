@@ -55,6 +55,8 @@ public class Member implements Serializable{ //@size
 	private LocalDateTime updateTime;
 	
 	private String profileImage;
+	
+	private String introduction;
 
 	public Member(Long memberId) {
 		this.memberId = memberId;

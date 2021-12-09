@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.eduk.domain.ClassRoom;
 import com.eduk.domain.Member;
+import com.eduk.security.jwts.TokenProvider;
 import com.eduk.service.EmailService;
 import com.eduk.service.MemberService;
 
@@ -93,6 +95,7 @@ public class MemberController {
 	 */
 	@PostMapping("/saveImage")
 	public void createFeed(@RequestParam("file") MultipartFile file, @RequestBody Member member) {
+		System.out.println("saveImage로 넘어옴");
 		// src 주소를 만들어 낸다.
 		StringBuilder sb = new StringBuilder();
 
@@ -173,9 +176,9 @@ public class MemberController {
 	 * 회원정보 조회
 	 */
 	@GetMapping("/selectMemberInfo")
-	public Optional<Member> selectMember(@PathVariable Long memberId) {
-
-		Optional<Member> member = memberService.selectMemberInfo(memberId);
+	public Optional<Member> selectMember(@RequestHeader HttpHeaders headers) {
+		Long id = TokenProvider.getIdFormHeader(headers);
+		Optional<Member> member = memberService.selectMemberInfo(id);
 
 		try {
 
@@ -193,7 +196,7 @@ public class MemberController {
 	 */
 	@PutMapping("/updateMemberInfo")
 	public void updateMember(@RequestBody Member member) {
-
+		System.out.println("updateMemberInfo로 넘어옴");
 		memberService.updateMemberInfo(member);
 
 	}

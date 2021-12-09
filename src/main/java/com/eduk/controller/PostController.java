@@ -93,11 +93,12 @@ public class PostController {
 	public Post update(@RequestBody Post post, @PathVariable Long postId, @RequestHeader HttpHeaders headers) {
 		Long id = TokenProvider.getIdFormHeader(headers);
 		
-		if(id != post.getMember().getMemberId()) {
-			throw new RuntimeException("수정할 권한이 없습니다.");
-		}
+		/*
+		 * if(id != post.getMember().getMemberId()) { throw new
+		 * RuntimeException("수정할 권한이 없습니다."); }
+		 */
 		
-		Post dbPost = postService.update(post);
+		Post dbPost = postService.update(post, postId);
 		
 		return dbPost;
 	}
