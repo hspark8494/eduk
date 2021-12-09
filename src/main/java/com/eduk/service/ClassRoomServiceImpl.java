@@ -74,12 +74,15 @@ public class ClassRoomServiceImpl implements ClassRoomService{
 	@Override
 	public ClassRoom updateClassRoom(ClassRoom classRoom) {
 		ClassRoom classRoomEntity = classRoomRep.findById(classRoom.getClassRoomId()).orElse(null);
+		if(classRoomEntity == null) throw new RuntimeException("강의 번호 오류로 수정할 수 없습니다.");
+		classRoomEntity.setClassRoomName(classRoom.getClassRoomName());
 			return classRoomEntity;
 	}
 
 	@Override
 	public void deleteClassRoom(Long classRoomId) {
 		ClassRoom classRoomEntity = classRoomRep.findById(classRoomId).orElse(null);
+		if(classRoomEntity == null) throw new RuntimeException("강의 번호 오류로 삭제할 수 없습니다.");
 		classRoomRep.deleteById(classRoomId);
 	}
 	
