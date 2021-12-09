@@ -80,6 +80,10 @@ export default {
   #file-box a:hover, #file-box h5:hover{
     color: #7367F0;
   }
+  #file-box b-media-aside, #file-box b-media-body{
+    margin-right: 10px;
+    float: left;
+  }
   .fileSpan{
     margin-left: 5px;
   }
@@ -91,5 +95,6 @@ export default {
   }
   .p-mb-5{
     margin-bottom:2px;
+    font-weight: bold;
   }
 </style>
