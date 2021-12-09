@@ -2,6 +2,7 @@ package com.eduk.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.eduk.domain.Files;
 import com.eduk.repository.FileRepository;
+import com.eduk.service.FilesService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,6 +29,7 @@ public class FilesController {
 	
 	private final String SAVE_PATH="C:\\Users\\Lee\\Desktop\\TEST\\save";
 	private final FileRepository fileRepository;
+	private final FilesService filesService;
 	
 	/**
 	 * 파일 업로드
@@ -72,6 +76,14 @@ public class FilesController {
 		Files file = fileRepository.findByPostId(postId);
 		System.out.println(file);
 		return file;
+	}
+	
+	/**
+	 * 파일 전체 목록
+	 */
+	@GetMapping("/list/{classRoomId}")
+	public List<Files> list(@PathVariable Long classRoomId) {
+		return filesService.selectAll(classRoomId);
 	}
 }
 

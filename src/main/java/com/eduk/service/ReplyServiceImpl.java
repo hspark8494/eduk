@@ -45,7 +45,6 @@ public class ReplyServiceImpl implements ReplyService {
 		List<Reply> replyList = replyRepository.selectByPostId(postId);
 		
 		return replyList;
-//		return replyList.stream().filter(reply -> postId == reply.getPost().getPostId()).collect(Collectors.toList());
 	}
 
 }

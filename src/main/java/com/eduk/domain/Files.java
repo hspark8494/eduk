@@ -41,8 +41,8 @@ public class Files {
 	private LocalDateTime updateTime;
 	
 	@ManyToOne
-	@JoinColumn(name="referenceRoomId")
-	private ReferenceRoom referenceRoom;
+	@JoinColumn(name="classRoomId")
+	private ClassRoom classRoom;
 	
 	@ManyToOne
 	@JoinColumn(name="chattingId")
