@@ -7,15 +7,15 @@
         <b-link class="brand-logo">
           <vuexy-logo />
           <h2 class="brand-text text-primary ml-1">
-            Vuexy
+            EduK
           </h2>
         </b-link>
 
         <b-card-title class="mb-1">
-          Adventure starts here 🚀
+          Eduk를 즉시 이용해보세요~!
         </b-card-title>
         <b-card-text class="mb-2">
-          Make your app management easy and fun!
+          Eduk는 편리하게 회의를 열어 참여하거나 교육을 수강할 수 있습니다.
         </b-card-text>
 
         <!-- form -->
@@ -108,8 +108,8 @@
                 v-model="status"
                 name="checkbox-1"
               >
-                I agree to
-                <b-link>privacy policy & terms</b-link>
+                에 동의합니다.
+                <b-link>개인정보보호정책 및 약관</b-link>
               </b-form-checkbox>
             </b-form-group>
 
@@ -119,15 +119,15 @@
               block
               type="submit"
             >
-              Sign up
+              제출
             </b-button>
           </b-form>
         </validation-observer>
 
         <b-card-text class="text-center mt-2">
-          <span>Already have an account? </span>
+          <span>이미 계정을 가지고 계신가요? </span>
           <b-link :to="{name:'auth-login-v1'}">
-            <span>Sign in instead</span>
+            <span>로그인하세요~!</span>
           </b-link>
         </b-card-text>
 
