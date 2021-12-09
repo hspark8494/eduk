@@ -188,7 +188,8 @@ export default {
               userData.memberId = userData.memberId;
               userData.username = userData.email;
               userData.fullName = userData.name;
-              userData.avatar = userData.profileImage;
+              userData.avatar =
+                "https://localhost:1234/file/down/" + userData.profileImage;
               userData.role = "admin";
               userData.ability = [{ action: "manage", subject: "all" }];
               //const { userData } = response.data

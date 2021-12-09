@@ -41,38 +41,38 @@ tagVariant
 
 // Array of sections
 //export default [...dashboard, ...appsAndPages, ...uiElements, ...formAndTable, ...chartsAndMaps, ...others]
-export default [{
-    title: '강의실',
-    route: 'lesson',
-    icon: 'VideoIcon',
-},
-{
-    title: '채팅',
-    route: 'apps-chat',
-    icon: 'MessageCircleIcon',
-},
-{
-    title: '게시판',
-    route: 'Board',
-    icon: 'Edit2Icon',
-},
-{
-    title: '일정',
-    route: 'apps-calendar',
-    icon: 'CalendarIcon',
-},
-{
-    title: '자료실',
-    route: 'forms-element-file-input',
-    icon: "HardDriveIcon"
-},
-{
-    title: '멤버',
-    route: 'User',
-    icon: 'UsersIcon',
-},
-{
-    title: '설정',
-    route: 'pages-account-setting',
-    icon: 'SettingsIcon'
-},]
+export default [
+    {
+        title: '홈',
+        route: 'Home',
+        icon: 'HomeIcon',
+    }, {
+        title: '강의실',
+        route: 'lesson',
+        icon: 'VideoIcon',
+    },
+    {
+        title: '게시판',
+        route: 'post-list',
+        icon: 'Edit2Icon',
+    },
+    {
+        title: '일정',
+        route: 'apps-calendar',
+        icon: 'CalendarIcon',
+    },
+    {
+        title: '자료실',
+        route: 'forms-element-file-input',
+        icon: "HardDriveIcon"
+    },
+    {
+        title: '멤버',
+        route: 'User',
+        icon: 'UsersIcon',
+    },
+    {
+        title: '설정',
+        route: 'pages-account-setting',
+        icon: 'SettingsIcon'
+    },]
