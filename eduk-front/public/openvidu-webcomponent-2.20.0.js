@@ -48243,13 +48243,13 @@
                         ["matTooltip", "화면 공유", "color", "warn"],
                         ["matTooltip", "화면 공유 중지"],
                         ["mat-icon-button", "", 3, "disabled", "click"],
-                        ["matTooltip", "Fullscreen"],
-                        ["matTooltip", "Enable speaker layout", "color", "warn", 4, "ngIf"],
-                        ["matTooltip", "Disable speaker layout", 4, "ngIf"],
-                        ["matTooltip", "Enable speaker layout", "color", "warn"],
-                        ["matTooltip", "Disable speaker layout"],
+                        ["matTooltip", "전체화면"],
+                        ["matTooltip", "스피커 레이아웃 활성화", "color", "warn", 4, "ngIf"],
+                        ["matTooltip", "스피커 레이아웃 비활성화", 4, "ngIf"],
+                        ["matTooltip", "스피커 레이아웃 활성화", "color", "warn"],
+                        ["matTooltip", "스피커 레이아웃 비활성화"],
                         ["mat-icon-button", "", "id", "navLeaveButton", 3, "click"],
-                        ["color", "warn", "matTooltip", "Leave the session"],
+                        ["color", "warn", "matTooltip", "종료"],
                         ["matBadgePosition", "above before", "matTooltip", "Chat", "matBadgeColor", "accent", 3, "matBadge", "matBadgeHidden"]
                     ],
                     template: function (e, t) {
@@ -48368,11 +48368,11 @@
             }
 
             function dR(e, t) {
-                1 & e && (la(0, "span"), Ya(1, "Zoom out"), ha())
+                1 & e && (la(0, "span"), Ya(1, "최소화"), ha())
             }
 
             function fR(e, t) {
-                1 & e && (la(0, "span"), Ya(1, "Zoom in"), ha())
+                1 & e && (la(0, "span"), Ya(1, "확대"), ha())
             }
 
             function pR(e, t) {
@@ -48418,11 +48418,11 @@
             }
 
             function _R(e, t) {
-                1 & e && (la(0, "span"), Ya(1, "Exit fullscreen"), ha())
+                1 & e && (la(0, "span"), Ya(1, "전체화면"), ha())
             }
 
             function kR(e, t) {
-                1 & e && (la(0, "span"), Ya(1, "Go to fullscreen"), ha())
+                1 & e && (la(0, "span"), Ya(1, "전체화면 종료"), ha())
             }
 
             function wR(e, t) {
