@@ -61,4 +61,13 @@ public class Member implements Serializable{ //@size
 	public Member(Long memberId) {
 		this.memberId = memberId;
 	}
+	
+	public Member(Long memberId, String email, String name, String password, String introduction, String profileImage) {
+		this.memberId = memberId;
+		this.email = email;
+		this.name = name;
+		this.password = password;
+		this.introduction = introduction;
+		this.profileImage = profileImage;
+	}
 }
