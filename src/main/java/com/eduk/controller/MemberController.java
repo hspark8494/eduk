@@ -6,7 +6,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -94,8 +97,18 @@ public class MemberController {
 	 * 이미지 저장하기
 	 */
 	@PostMapping("/saveImage")
-	public void createFeed(@RequestParam("file") MultipartFile file, @RequestBody Member member) {
-		System.out.println("saveImage로 넘어옴");
+	public void createFeed(@RequestParam("file") MultipartFile file,
+			@RequestParam Long memberId,
+			@RequestParam String email,
+			@RequestParam String name,
+			@RequestParam String password,
+			@RequestParam String introduction,
+			@RequestParam String profileImage,
+			HttpServletRequest request) {
+		System.out.println("saveImage call....");
+		
+		Member member = new Member(memberId, email, name, password, introduction, profileImage);
+		
 		// src 주소를 만들어 낸다.
 		StringBuilder sb = new StringBuilder();
 
@@ -106,9 +119,10 @@ public class MemberController {
 			sb.append(file.getOriginalFilename()); // 업로드한 파일 명
 			//sb.append(member.getProfileImage());
 		}
+		String saveDir=request.getServletContext().getRealPath("/save");
 
 		if (!file.isEmpty()) {
-			File dest = new File("/META-INF/save" + sb.toString());
+			File dest = new File(saveDir + "/" + sb.toString());
 			try {
 				file.transferTo(dest); // 원하는 위치에 저장
 			} catch (IllegalStateException e) {
@@ -176,7 +190,7 @@ public class MemberController {
 	 * 회원정보 조회
 	 */
 	@GetMapping("/selectMemberInfo")
-	public Optional<Member> selectMember(@RequestHeader HttpHeaders headers) {
+	public Optional<Member> selectMember(@RequestHeader HttpHeaders headers, HttpServletRequest request) {
 		Long id = TokenProvider.getIdFormHeader(headers);
 		Optional<Member> member = memberService.selectMemberInfo(id);
 
