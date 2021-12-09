@@ -12,3 +12,11 @@ html, body{
 .navigation-main .nav-item{
     margin-top: 10px;
 }
+
+app-toolbar-logo{
+    visibility: hidden !important;
+}
+
+#messageInput{
+   height:30px; 
+}
