@@ -38055,7 +38055,7 @@
                         template: function (e, t) {
                             1 & e && (Oa(EC), xa(0), xa(1, 1))
                         },
-                        styles: [".cdk-high-contrast-active .mat-toolbar{outline:solid 1px}.mat-toolbar-row,.mat-toolbar-single-row{display:flex;box-sizing:border-box;padding:0 16px;width:100%;flex-direction:row;align-items:center;white-space:nowrap}.mat-toolbar-multiple-rows{display:flex;box-sizing:border-box;flex-direction:column;width:100%}\n"],
+                        styles: [".cdk-high-contrast-active .mat-toolbar{outline:solid 1px; max-width: 3000px !important}.mat-toolbar-row,.mat-toolbar-single-row{display:flex;box-sizing:border-box;padding:0 16px;width:100%;flex-direction:row;align-items:center;white-space:nowrap}.mat-toolbar-multiple-rows{display:flex;box-sizing:border-box;flex-direction:column;width:100%}\n"],
                         encapsulation: 2,
                         changeDetection: 0
                     }), e
@@ -46137,7 +46137,7 @@
                         this.snackBar = e
                     }
                     return e.prototype.newMessage = function (e, t) {
-                        this.launchNotification(e + " sent a message", "OPEN", "messageSnackbar", 3e3).onAction().subscribe(function () {
+                        this.launchNotification(e + " 메세지 보냄", "OPEN", "messageSnackbar", 3e3).onAction().subscribe(function () {
                             t()
                         })
                     }, e.prototype.launchNotification = function (e, t, n, i) {
