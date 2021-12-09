@@ -63,7 +63,7 @@ export default [
     },
     {
         title: '자료실',
-        route: 'forms-element-file-input',
+        route: 'ref-room',
         icon: "HardDriveIcon"
     },
     {

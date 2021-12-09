@@ -47273,10 +47273,10 @@
                     decls: 3,
                     vars: 3,
                     consts: [
-                        ["class", "poster_img", "alt", "OpenVidu Logo", "src", "assets/images/poster.png", 4, "ngIf"],
+                        ["class", "poster_img", "alt", "", "src", "assets/images/poster.png", 4, "ngIf"],
                         [3, "muted"],
                         ["videoElement", ""],
-                        ["alt", "OpenVidu Logo", "src", "assets/images/poster.png", 1, "poster_img"]
+                        ["alt", "", "src", "assets/images/poster.png", 1, "poster_img"]
                     ],
                     template: function (e, t) {
                         1 & e && (oa(0, WI, 1, 0, "img", 0), da(1, "video", 1, 2)), 2 & e && (ua("ngIf", !(null != t._streamManager && null != t._streamManager.stream && t._streamManager.stream.videoActive)), Io(1), ua("muted", t.mutedSound), ia("id", t.streamManager && t._streamManager.stream ? "video-" + t._streamManager.stream.streamId : "video-undefined"))
@@ -48228,20 +48228,20 @@
                         ["mat-icon-button", "", "id", "navLeaveButton", 3, "click", 4, "ngIf"],
                         ["fxFlex", "10%", "fxFlexOrder", "3", "align", "end"],
                         ["id", "navMicrophoneButton", "mat-icon-button", "", 3, "disabled", "click"],
-                        ["matTooltip", "Mute your audio", 4, "ngIf"],
-                        ["color", "warn", "matTooltip", "Unmute your audio", 4, "ngIf"],
-                        ["matTooltip", "Mute your audio"],
-                        ["color", "warn", "matTooltip", "Unmute your audio"],
+                        ["matTooltip", "마이크 음소거", 4, "ngIf"],
+                        ["color", "warn", "matTooltip", "마이크 사용", 4, "ngIf"],
+                        ["matTooltip", "마이크 음소거"],
+                        ["color", "warn", "matTooltip", "마이크 사용"],
                         ["id", "navCameraButton", "mat-icon-button", "", 3, "disabled", "click"],
-                        ["matTooltip", "Mute your cam", 4, "ngIf"],
-                        ["color", "warn", "matTooltip", "Unmute your cam", 4, "ngIf"],
-                        ["matTooltip", "Mute your cam"],
-                        ["color", "warn", "matTooltip", "Unmute your cam"],
+                        ["matTooltip", "캠 끄기", 4, "ngIf"],
+                        ["color", "warn", "matTooltip", "캠 켜기", 4, "ngIf"],
+                        ["matTooltip", "캠 끄기"],
+                        ["color", "warn", "matTooltip", "캠 켜기"],
                         ["id", "navScreenButton", "mat-icon-button", "", 3, "disabled", "click"],
-                        ["matTooltip", "Screen share", "color", "warn", 4, "ngIf"],
-                        ["matTooltip", "Stop sharing", 4, "ngIf"],
-                        ["matTooltip", "Screen share", "color", "warn"],
-                        ["matTooltip", "Stop sharing"],
+                        ["matTooltip", "화면 공유", "color", "warn", 4, "ngIf"],
+                        ["matTooltip", "화면 공유 중지", 4, "ngIf"],
+                        ["matTooltip", "화면 공유", "color", "warn"],
+                        ["matTooltip", "화면 공유 중지"],
                         ["mat-icon-button", "", 3, "disabled", "click"],
                         ["matTooltip", "Fullscreen"],
                         ["matTooltip", "Enable speaker layout", "color", "warn", 4, "ngIf"],
@@ -48979,7 +48979,7 @@
                     })
                 }, e.prototype.toggleSpeakerLayout = function () {
                     if (!this.localUsersService.isScreenShareEnabled()) return this.isAutoLayout = !this.isAutoLayout, this.log.d("Automatic Layout ", this.isAutoLayout ? "Disabled" : "Enabled"), this.isAutoLayout ? void this.subscribeToSpeechDetection() : (this.log.d("Unsubscribe to speech detection"), this.session.off("publisherStartSpeaking"), this.resetAllBigElements(), void this.oVLayout.update());
-                    this.log.w("Screen is enabled. Speech detection has been rejected")
+                    this.log.w("화면 공유가 활성화되었습니다.")
                 }, e.prototype.onReplaceScreenTrack = function (e) {
                     this.openViduWebRTCService.replaceScreenTrack()
                 }, e.prototype.checkSizeComponent = function () {
@@ -49120,7 +49120,7 @@
                     })
                 }, e.prototype.subscribeToSpeechDetection = function () {
                     var e = this;
-                    this.log.d("Subscribe to speech detection", this.session), this.session.on("publisherStartSpeaking", function (t) {
+                    this.log.d("말하는 중 ", this.session), this.session.on("publisherStartSpeaking", function (t) {
                         var n = e.remoteUsersService.someoneIsSharingScreen();
                         if (!e.localUsersService.isScreenShareEnabled() && !n) {
                             var i = e.utilsSrv.getHTMLElementByClassName(t.connection.stream.streamManager.videos[0].video, nI.ROOT_CLASS);
