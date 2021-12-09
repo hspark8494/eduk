@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,10 +46,11 @@ public class MemberController {
 	 * 회원 이메일 입력 후 인증 이메일 발송
 	 */
 	@ResponseBody
-	@PostMapping("/mail")
-	public void emailConfirm(@RequestBody Member member) throws Exception {
-		System.out.println("전달 받은 이메일 : " + member.getEmail());
-		emailService.sendSimpleMessage(member.getEmail());
+	//@PostMapping("/mail")
+	@RequestMapping(value="/mail", method = RequestMethod.GET)
+	public void emailConfirm(/* @RequestBody */String email) throws Exception {
+		System.out.println("전달 받은 이메일 : " + email);
+		emailService.sendSimpleMessage(email);
 	}
 
 	/**
