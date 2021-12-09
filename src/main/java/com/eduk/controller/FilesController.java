@@ -39,14 +39,14 @@ public class FilesController {
 		    	long fsize = file.getSize();
 		    	String fileType = file.getContentType();
 		    	
-		    	//String saveDir=request.getServletContext().getRealPath("/resources/save");
+		    	String saveDir=request.getServletContext().getRealPath("/save");
 		    	
 		    	fileEntity.setFileName(fname);
 		    	fileEntity.setFileSize(fsize);
 		    	fileEntity.setFileType(fileType);
 		    	fileEntity.setPostId(postId);
 		    	
-		    	file.transferTo(new File(SAVE_PATH+"/" + fname));
+		    	file.transferTo(new File(saveDir+"/" + fname));
 		    	fileRepository.save(fileEntity);
 		    }
 

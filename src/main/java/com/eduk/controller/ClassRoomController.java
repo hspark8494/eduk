@@ -55,22 +55,6 @@ public class ClassRoomController {
 		return new ResponseEntity<Map<String,Object>>(respMap, HttpStatus.OK);
 	}
 	
-	//성공 처리
-	private ResponseEntity<Map<String, Object>> handleSuccess(Object data){
-		Map<String, Object> resultMap = new HashMap<>();
-		resultMap.put("Success", true);
-		resultMap.put("data", data);
-		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
-	}
-	
-	//예외 처리
-	private ResponseEntity<Map<String, Object>> handleException(Exception e){
-		Map<String, Object> resultMap = new HashMap<>();
-		resultMap.put("success", false);
-		resultMap.put("data", e.getMessage());
-		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.INTERNAL_SERVER_ERROR);
-	}
-	
 	@GetMapping("/class-room/list")
 	public List<ClassRoom> getClassRoomList(@RequestHeader HttpHeaders headers){
 		System.out.println(headers);
@@ -95,17 +79,11 @@ public class ClassRoomController {
 		return respMap;
 	}
 	
-	//강의 설정
+	//강의 설정(수정)
 	@PutMapping("/updateclassRoom/{classRoomId}")
-	public ResponseEntity <Map<String, Object>> updateClassRoom(@RequestBody ClassRoom classRoom, @PathVariable Long classRoomId) {
-		ResponseEntity<Map<String, Object>> entity = null;
-		try {
-			ClassRoom result = classRoomService.updateClassRoom(classRoom);
-			entity = handleSuccess(result);
-		} catch(RuntimeException e) {
-			entity = handleException(e);
-		}
-		return entity;
+	public ClassRoom updateClassRoom(@RequestBody ClassRoom classRoom, @PathVariable Long classRoomId) {
+		ClassRoom classRoomEntity = classRoomService.updateClassRoom(classRoom);
+		return classRoomEntity;
 	}
 	
 	//강의 삭제

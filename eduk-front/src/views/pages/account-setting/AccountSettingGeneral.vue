@@ -4,14 +4,8 @@
     <!-- media -->
     <b-media no-body>
       <b-media-aside>
-        <b-link>
-          <b-img
-            ref="previewEl"
-            rounded
-            :src="optionsLocal.avatar"
-            height="80"
-          />
-        </b-link>
+        <div id="profile-image">
+        </div>
         <!--/ avatar -->
       </b-media-aside>
 
@@ -20,7 +14,6 @@
             <span class="uploadbtn">업로드</span>
             <b-form-file
               id="image-file"
-              ref="refInputEl"
               v-model="profileFile"
               accept=".jpg, .png, .gif"
               plain
@@ -110,6 +103,7 @@ import Ripple from 'vue-ripple-directive'
 import { useInputImageRenderer } from '@core/comp-functions/forms/form-utils'
 import { ref } from '@vue/composition-api'
 import axios from 'axios'
+import ToastificationContent from "@core/components/toastification/ToastificationContent.vue";
 
 export default {
   components: {
@@ -142,6 +136,7 @@ export default {
     return {
       optionsLocal: JSON.parse(JSON.stringify(this.generalData)),
       profileFile: null,
+      profileIamge: null,
       member: {
         eamil:'',
         name:'',
@@ -157,50 +152,57 @@ export default {
       console.log('this.profileFile'+this.profileFile)
       if(this.profileFile != null){
       var frm = new FormData();
-      /* var thisFile = document.getElementById("uploadFile");
-      frm.append("file", thisFile.files[0]), */
-      frm.append("file", this.profileFile)
+      var thisFile = document.getElementById("image-file");
+      frm.append("file", thisFile.files[0])
+      //frm.append("file", this.profileFile)
       frm.append("memberId", this.member.memberId)
-      console.log('NOT NULL - this.memberId : '+this.member.memberId)
       frm.append("email", this.member.email)
-      console.log('this.email : '+this.email)
       frm.append("name", this.member.name)
-      console.log('this.name : '+this.name)
+      frm.append("password", this.member.password)
       frm.append("introduction", this.member.introduction)
-      console.log('this.introduction : '+this.introduction)
       frm.append("profileImage", this.profileFile.name)
-      console.log('this.profileFile.name : '+this.profileFile.name)
       axios.post('https://localhost:1234/member/saveImage', frm, {
         headers:{
           'Content-Type': 'multipart/form-data'
         }})
       .then(res => {
-        console.log('success')
+        this.toast()
       })
       .catch(err => {
         console.log(err)
       })
       }else{
-        console.log('NULL인 경우 - this.profileFile : '+this.profileFile)
-        console.log('this.memberId : '+this.member.memberId)
-        console.log('this.email : '+this.member.email)
-        console.log('this.name : '+this.member.name)
-        console.log('this.introduction : '+this.member.introduction)
         this.$http.put('/member/updateMemberInfo',{
           "memberId": this.member.memberId,
           "email": this.member.email,
           "name": this.member.name,
           "introduction": this.member.introduction,
+          "password": this.member.password
         })
         .then(res => {
-
+          this.toast()
         })
       }
     },
+    toast(){
+      this.$toast({
+        component: ToastificationContent,
+        position: "top-right",
+        props: {
+        title: `변경 완료`,
+        icon: "CoffeeIcon",
+        variant: "success",
+        },
+      });
+    }
   },
   created(){
     this.$http.get('/member/selectMemberInfo')
-        .then(res => { this.member= res.data; this.profileFile=res.data.profileImage; console.log(res.data)})
+        .then(res => { this.member= res.data; this.profileImage=res.data.profileImage;
+          document.getElementById("profile-image").style.backgroundRepeat="no-repeat";
+          document.getElementById("profile-image").style.backgroundImage="url('/../../../../../src/main/webapp/save/"+this.profileImage+"')";
+          document.getElementById("profile-image").style.backgroundSize="100% 100%";
+        })
         .catch(err => {console.log(err)})
   },
   setup() {
@@ -219,6 +221,10 @@ export default {
 </script>
 
 <style>
+  #profile-image{
+    width: 80px;
+    height: 80px;
+  }
   #image-file{
     display: none;
   }
