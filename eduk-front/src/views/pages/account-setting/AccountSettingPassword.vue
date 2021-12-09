@@ -5,17 +5,14 @@
       <b-row>
         <!-- old password -->
         <b-col md="6">
-          <b-form-group
-            label="Old Password"
-            label-for="account-old-password"
-          >
+          <b-form-group label="이전 비밀번호" label-for="account-old-password">
             <b-input-group class="input-group-merge">
               <b-form-input
                 id="account-old-password"
                 v-model="passwordValueOld"
                 name="old-password"
                 :type="passwordFieldTypeOld"
-                placeholder="Old Password"
+                placeholder="이전 비밀번호"
               />
               <b-input-group-append is-text>
                 <feather-icon
@@ -32,17 +29,14 @@
       <b-row>
         <!-- new password -->
         <b-col md="6">
-          <b-form-group
-            label-for="account-new-password"
-            label="New Password"
-          >
+          <b-form-group label-for="account-new-password" label="새 비밀번호">
             <b-input-group class="input-group-merge">
               <b-form-input
                 id="account-new-password"
                 v-model="newPasswordValue"
                 :type="passwordFieldTypeNew"
                 name="new-password"
-                placeholder="New Password"
+                placeholder="새 비밀번호"
               />
               <b-input-group-append is-text>
                 <feather-icon
@@ -60,7 +54,7 @@
         <b-col md="6">
           <b-form-group
             label-for="account-retype-new-password"
-            label="Retype New Password"
+            label="비밀번호 확인"
           >
             <b-input-group class="input-group-merge">
               <b-form-input
@@ -68,7 +62,7 @@
                 v-model="RetypePassword"
                 :type="passwordFieldTypeRetype"
                 name="retype-password"
-                placeholder="New Password"
+                placeholder="비밀번호 확인"
               />
               <b-input-group-append is-text>
                 <feather-icon
@@ -89,7 +83,7 @@
             variant="primary"
             class="mt-1 mr-1"
           >
-            Save changes
+            저장
           </b-button>
           <b-button
             v-ripple.400="'rgba(186, 191, 199, 0.15)'"
@@ -97,7 +91,7 @@
             variant="outline-secondary"
             class="mt-1"
           >
-            Reset
+            취소
           </b-button>
         </b-col>
         <!--/ buttons -->
@@ -108,9 +102,17 @@
 
 <script>
 import {
-  BButton, BForm, BFormGroup, BFormInput, BRow, BCol, BCard, BInputGroup, BInputGroupAppend,
-} from 'bootstrap-vue'
-import Ripple from 'vue-ripple-directive'
+  BButton,
+  BForm,
+  BFormGroup,
+  BFormInput,
+  BRow,
+  BCol,
+  BCard,
+  BInputGroup,
+  BInputGroupAppend,
+} from "bootstrap-vue";
+import Ripple from "vue-ripple-directive";
 
 export default {
   components: {
@@ -129,35 +131,44 @@ export default {
   },
   data() {
     return {
-      passwordValueOld: '',
-      newPasswordValue: '',
-      RetypePassword: '',
-      passwordFieldTypeOld: 'password',
-      passwordFieldTypeNew: 'password',
-      passwordFieldTypeRetype: 'password',
-    }
+      passwordValueOld: "",
+      newPasswordValue: "",
+      RetypePassword: "",
+      passwordFieldTypeOld: "password",
+      passwordFieldTypeNew: "password",
+      passwordFieldTypeRetype: "password",
+    };
   },
   computed: {
     passwordToggleIconOld() {
-      return this.passwordFieldTypeOld === 'password' ? 'EyeIcon' : 'EyeOffIcon'
+      return this.passwordFieldTypeOld === "password"
+        ? "EyeIcon"
+        : "EyeOffIcon";
     },
     passwordToggleIconNew() {
-      return this.passwordFieldTypeNew === 'password' ? 'EyeIcon' : 'EyeOffIcon'
+      return this.passwordFieldTypeNew === "password"
+        ? "EyeIcon"
+        : "EyeOffIcon";
     },
     passwordToggleIconRetype() {
-      return this.passwordFieldTypeRetype === 'password' ? 'EyeIcon' : 'EyeOffIcon'
+      return this.passwordFieldTypeRetype === "password"
+        ? "EyeIcon"
+        : "EyeOffIcon";
     },
   },
   methods: {
     togglePasswordOld() {
-      this.passwordFieldTypeOld = this.passwordFieldTypeOld === 'password' ? 'text' : 'password'
+      this.passwordFieldTypeOld =
+        this.passwordFieldTypeOld === "password" ? "text" : "password";
     },
     togglePasswordNew() {
-      this.passwordFieldTypeNew = this.passwordFieldTypeNew === 'password' ? 'text' : 'password'
+      this.passwordFieldTypeNew =
+        this.passwordFieldTypeNew === "password" ? "text" : "password";
     },
     togglePasswordRetype() {
-      this.passwordFieldTypeRetype = this.passwordFieldTypeRetype === 'password' ? 'text' : 'password'
+      this.passwordFieldTypeRetype =
+        this.passwordFieldTypeRetype === "password" ? "text" : "password";
     },
   },
-}
+};
 </script>

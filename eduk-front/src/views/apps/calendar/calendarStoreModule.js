@@ -6,26 +6,26 @@ export default {
     calendarOptions: [
       {
         color: 'danger',
-        label: 'Personal',
+        label: '강의',
       },
       {
         color: 'primary',
-        label: 'Business',
+        label: '일정',
       },
       {
         color: 'warning',
-        label: 'Family',
+        label: '휴강',
       },
       {
         color: 'success',
-        label: 'Holiday',
+        label: '정보',
       },
       {
         color: 'info',
-        label: 'ETC',
+        label: '기타',
       },
     ],
-    selectedCalendars: ['Personal', 'Business', 'Family', 'Holiday', 'ETC'],
+    selectedCalendars: ['강의', '일정', '휴강', '정보', '기타'],
   },
   getters: {},
   mutations: {

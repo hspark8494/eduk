@@ -13,16 +13,26 @@
     >
       <template #default="{ hide }">
         <!-- Header -->
-        <div class="d-flex justify-content-between align-items-center content-sidebar-header px-2 py-1">
-          <h5 class="mb-0">
-            {{ eventLocal.id ? 'Update': 'Add' }} Event
-          </h5>
+        <div
+          class="
+            d-flex
+            justify-content-between
+            align-items-center
+            content-sidebar-header
+            px-2
+            py-1
+          "
+        >
+          <h5 class="mb-0">일정 {{ eventLocal.id ? "수정" : "추가" }}</h5>
           <div>
             <feather-icon
               v-if="eventLocal.id"
               icon="TrashIcon"
               class="cursor-pointer"
-              @click="$emit('remove-event'); hide();"
+              @click="
+                $emit('remove-event');
+                hide();
+              "
             />
             <feather-icon
               class="ml-1 cursor-pointer"
@@ -34,35 +44,27 @@
         </div>
 
         <!-- Body -->
-        <validation-observer
-          #default="{ handleSubmit }"
-          ref="refFormObserver"
-        >
-
+        <validation-observer #default="{ handleSubmit }" ref="refFormObserver">
           <!-- Form -->
           <b-form
             class="p-2"
             @submit.prevent="handleSubmit(onSubmit)"
             @reset.prevent="resetForm"
           >
-
             <!-- Title -->
             <validation-provider
               #default="validationContext"
               name="Title"
               rules="required"
             >
-              <b-form-group
-                label="Title"
-                label-for="event-title"
-              >
+              <b-form-group label="제목" label-for="event-title">
                 <b-form-input
                   id="event-title"
                   v-model="eventLocal.title"
                   autofocus
                   :state="getValidationState(validationContext)"
                   trim
-                  placeholder="Event Title"
+                  placeholder="제목"
                 />
 
                 <b-form-invalid-feedback>
@@ -77,9 +79,8 @@
               name="Calendar"
               rules="required"
             >
-
               <b-form-group
-                label="Calendar"
+                label="라벨"
                 label-for="calendar"
                 :state="getValidationState(validationContext)"
               >
@@ -88,15 +89,14 @@
                   :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                   :options="calendarOptions"
                   label="label"
-                  :reduce="calendar => calendar.label"
+                  :reduce="(calendar) => calendar.label"
                   input-id="calendar"
                 >
-
                   <template #option="{ color, label }">
                     <div
                       class="rounded-circle d-inline-block mr-50"
                       :class="`bg-${color}`"
-                      style="height:10px;width:10px"
+                      style="height: 10px; width: 10px"
                     />
                     <span> {{ label }}</span>
                   </template>
@@ -105,13 +105,15 @@
                     <div
                       class="rounded-circle d-inline-block mr-50"
                       :class="`bg-${color}`"
-                      style="height:10px;width:10px"
+                      style="height: 10px; width: 10px"
                     />
                     <span> {{ label }}</span>
                   </template>
                 </v-select>
 
-                <b-form-invalid-feedback :state="getValidationState(validationContext)">
+                <b-form-invalid-feedback
+                  :state="getValidationState(validationContext)"
+                >
                   {{ validationContext.errors[0] }}
                 </b-form-invalid-feedback>
               </b-form-group>
@@ -123,18 +125,19 @@
               name="Start Date"
               rules="required"
             >
-
               <b-form-group
-                label="Start Date"
+                label="시작일"
                 label-for="start-date"
                 :state="getValidationState(validationContext)"
               >
                 <flat-pickr
                   v-model="eventLocal.start"
                   class="form-control"
-                  :config="{ enableTime: true, dateFormat: 'Y-m-d H:i'}"
+                  :config="{ enableTime: true, dateFormat: 'Y-m-d H:i' }"
                 />
-                <b-form-invalid-feedback :state="getValidationState(validationContext)">
+                <b-form-invalid-feedback
+                  :state="getValidationState(validationContext)"
+                >
                   {{ validationContext.errors[0] }}
                 </b-form-invalid-feedback>
               </b-form-group>
@@ -146,18 +149,19 @@
               name="End Date"
               rules="required"
             >
-
               <b-form-group
-                label="End Date"
+                label="종료일"
                 label-for="end-date"
                 :state="getValidationState(validationContext)"
               >
                 <flat-pickr
                   v-model="eventLocal.end"
                   class="form-control"
-                  :config="{ enableTime: true, dateFormat: 'Y-m-d H:i'}"
+                  :config="{ enableTime: true, dateFormat: 'Y-m-d H:i' }"
                 />
-                <b-form-invalid-feedback :state="getValidationState(validationContext)">
+                <b-form-invalid-feedback
+                  :state="getValidationState(validationContext)"
+                >
                   {{ validationContext.errors[0] }}
                 </b-form-invalid-feedback>
               </b-form-group>
@@ -171,87 +175,22 @@
                 switch
                 inline
               >
-                All Day
+                하루종일
               </b-form-checkbox>
             </b-form-group>
 
-            <!-- Event URL -->
-            <validation-provider
-              #default="validationContext"
-              name="Event URL"
-              rules="url"
-            >
-
-              <b-form-group
-                label="Event URL"
-                label-for="event-url"
-              >
-                <b-form-input
-                  id="event-url"
-                  v-model="eventLocal.eventUrl"
-                  type="url"
-                  :state="getValidationState(validationContext)"
-                  placeholder="htttps://www.google.com"
-                  trim
-                />
-                <b-form-invalid-feedback :state="getValidationState(validationContext)">
-                  {{ validationContext.errors[0] }}
-                </b-form-invalid-feedback>
-              </b-form-group>
-            </validation-provider>
-
-            <!-- Guests -->
-            <b-form-group
-              label="Add Guests"
-              label-for="add-guests"
-            >
-              <v-select
-                v-model="eventLocal.extendedProps.guests"
-                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                multiple
-                :close-on-select="false"
-                :options="guestsOptions"
-                label="name"
-                input-id="add-guests"
-              >
-
-                <template #option="{ avatar, name }">
-                  <b-avatar
-                    size="sm"
-                    :src="avatar"
-                  />
-                  <span class="ml-50 align-middle"> {{ name }}</span>
-                </template>
-
-                <template #selected-option="{ avatar, name }">
-                  <b-avatar
-                    size="sm"
-                    class="border border-white"
-                    :src="avatar"
-                  />
-                  <span class="ml-50 align-middle"> {{ name }}</span>
-                </template>
-              </v-select>
-            </b-form-group>
-
             <!-- Location -->
-            <b-form-group
-              label="Location"
-              label-for="event-location"
-            >
+            <b-form-group label="장소" label-for="event-location">
               <b-form-input
                 id="event-location"
                 v-model="eventLocal.extendedProps.location"
                 trim
-                placeholder="Event Location"
+                placeholder="강의실"
               />
             </b-form-group>
 
             <!-- Textarea -->
-            <b-form-group
-              label="Description"
-              label-for="event-description"
-            >
+            <b-form-group label="설명" label-for="event-description">
               <b-form-textarea
                 id="event-description"
                 v-model="eventLocal.extendedProps.description"
@@ -266,14 +205,14 @@
                 class="mr-2"
                 type="submit"
               >
-                {{ eventLocal.id ? 'Update' : 'Add ' }}
+                {{ eventLocal.id ? "수정" : "추가 " }}
               </b-button>
               <b-button
                 v-ripple.400="'rgba(186, 191, 199, 0.15)'"
                 type="reset"
                 variant="outline-secondary"
               >
-                Reset
+                취소
               </b-button>
             </div>
           </b-form>
@@ -285,16 +224,24 @@
 
 <script>
 import {
-  BSidebar, BForm, BFormGroup, BFormInput, BFormCheckbox, BAvatar, BFormTextarea, BButton, BFormInvalidFeedback,
-} from 'bootstrap-vue'
-import vSelect from 'vue-select'
-import flatPickr from 'vue-flatpickr-component'
-import Ripple from 'vue-ripple-directive'
-import { ValidationProvider, ValidationObserver } from 'vee-validate'
-import { required, email, url } from '@validations'
-import formValidation from '@core/comp-functions/forms/form-validation'
-import { ref, toRefs } from '@vue/composition-api'
-import useCalendarEventHandler from './useCalendarEventHandler'
+  BSidebar,
+  BForm,
+  BFormGroup,
+  BFormInput,
+  BFormCheckbox,
+  BAvatar,
+  BFormTextarea,
+  BButton,
+  BFormInvalidFeedback,
+} from "bootstrap-vue";
+import vSelect from "vue-select";
+import flatPickr from "vue-flatpickr-component";
+import Ripple from "vue-ripple-directive";
+import { ValidationProvider, ValidationObserver } from "vee-validate";
+import { required, email, url } from "@validations";
+import formValidation from "@core/comp-functions/forms/form-validation";
+import { ref, toRefs } from "@vue/composition-api";
+import useCalendarEventHandler from "./useCalendarEventHandler";
 
 export default {
   components: {
@@ -316,8 +263,8 @@ export default {
     Ripple,
   },
   model: {
-    prop: 'isEventHandlerSidebarActive',
-    event: 'update:is-event-handler-sidebar-active',
+    prop: "isEventHandlerSidebarActive",
+    event: "update:is-event-handler-sidebar-active",
   },
   props: {
     isEventHandlerSidebarActive: {
@@ -338,7 +285,7 @@ export default {
       required,
       email,
       url,
-    }
+    };
   },
   setup(props, { emit }) {
     /*
@@ -354,7 +301,7 @@ export default {
      ? When we passed it to `useCalendarEventHandler` for first time it will be null but right after it we are getting correct value (which is `clearForm`) and assigning that correct value.
      ? As `clearFormData` is reactive it is being changed from `null` to corrent value and thanks to reactivity it is also update in `useCalendarEventHandler` composition function and it is getting correct value in second time and can work w/o any issues.
     */
-    const clearFormData = ref(null)
+    const clearFormData = ref(null);
 
     const {
       eventLocal,
@@ -364,16 +311,12 @@ export default {
       // UI
       onSubmit,
       guestsOptions,
-    } = useCalendarEventHandler(toRefs(props), clearFormData, emit)
+    } = useCalendarEventHandler(toRefs(props), clearFormData, emit);
 
-    const {
-      refFormObserver,
-      getValidationState,
-      resetForm,
-      clearForm,
-    } = formValidation(resetEventLocal, props.clearEventData)
+    const { refFormObserver, getValidationState, resetForm, clearForm } =
+      formValidation(resetEventLocal, props.clearEventData);
 
-    clearFormData.value = clearForm
+    clearFormData.value = clearForm;
 
     return {
       // Add New Event
@@ -386,12 +329,12 @@ export default {
       resetForm,
       refFormObserver,
       getValidationState,
-    }
+    };
   },
-}
+};
 </script>
 
 <style lang="scss">
-@import '@core/scss/vue/libs/vue-select.scss';
-@import '@core/scss/vue/libs/vue-flatpicker.scss';
+@import "@core/scss/vue/libs/vue-select.scss";
+@import "@core/scss/vue/libs/vue-flatpicker.scss";
 </style>

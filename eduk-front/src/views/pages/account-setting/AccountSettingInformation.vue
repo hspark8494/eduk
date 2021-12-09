@@ -5,63 +5,23 @@
       <b-row>
         <!-- bio -->
         <b-col cols="12">
-          <b-form-group
-            label="Bio"
-            label-for="bio-area"
-          >
+          <b-form-group label="소개" label-for="bio-area">
             <b-form-textarea
               id="bio-area"
               v-model="localOptions.bio"
               rows="4"
-              placeholder="Your bio data here..."
+              placeholder="소개글을 입력하세요!"
             />
           </b-form-group>
         </b-col>
         <!--/ bio -->
-
-        <!-- birth date -->
-        <b-col md="6">
-          <b-form-group
-            label-for="example-datepicker"
-            label="Birth date"
-          >
-            <flat-pickr
-              v-model="localOptions.dob"
-              class="form-control"
-              name="date"
-              placeholder="Birth date"
-            />
-          </b-form-group>
-        </b-col>
-        <!--/ birth date -->
-
-        <!-- Country -->
-        <b-col md="6">
-          <b-form-group
-            label-for="countryList"
-            label="Country"
-          >
-            <v-select
-              id="countryList"
-              v-model="localOptions.country"
-              :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-              label="title"
-              :options="countryOption"
-            />
-          </b-form-group>
-        </b-col>
-        <!--/ Country -->
-
         <!-- website -->
         <b-col md="6">
-          <b-form-group
-            label-for="website"
-            label="Website"
-          >
+          <b-form-group label-for="website" label="홈페이지">
             <b-form-input
               id="website"
               v-model="localOptions.website"
-              placeholder="Website address"
+              placeholder="www.eduk.com"
             />
           </b-form-group>
         </b-col>
@@ -69,17 +29,13 @@
 
         <!-- phone -->
         <b-col md="6">
-          <b-form-group
-            label-for="phone"
-            label="Phone"
-          >
+          <b-form-group label-for="phone" label="전화번호">
             <cleave
               id="phone"
-              v-model="localOptions.phone"
               class="form-control"
               :raw="false"
               :options="clevePhone"
-              placeholder="Phone number"
+              placeholder="010-0000-0000"
             />
           </b-form-group>
         </b-col>
@@ -91,7 +47,7 @@
             variant="primary"
             class="mt-1 mr-1"
           >
-            Save changes
+            저장
           </b-button>
           <b-button
             v-ripple.400="'rgba(186, 191, 199, 0.15)'"
@@ -100,7 +56,7 @@
             variant="outline-secondary"
             @click.prevent="resetForm"
           >
-            Reset
+            취소
           </b-button>
         </b-col>
       </b-row>
@@ -110,15 +66,22 @@
 
 <script>
 import {
-  BButton, BForm, BFormGroup, BFormInput, BRow, BCol, BCard, BFormTextarea,
-} from 'bootstrap-vue'
-import vSelect from 'vue-select'
-import flatPickr from 'vue-flatpickr-component'
-import Ripple from 'vue-ripple-directive'
-import Cleave from 'vue-cleave-component'
+  BButton,
+  BForm,
+  BFormGroup,
+  BFormInput,
+  BRow,
+  BCol,
+  BCard,
+  BFormTextarea,
+} from "bootstrap-vue";
+import vSelect from "vue-select";
+import flatPickr from "vue-flatpickr-component";
+import Ripple from "vue-ripple-directive";
+import Cleave from "vue-cleave-component";
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import 'cleave.js/dist/addons/cleave-phone.us'
+import "cleave.js/dist/addons/cleave-phone.us";
 
 export default {
   components: {
@@ -145,23 +108,23 @@ export default {
   },
   data() {
     return {
-      countryOption: ['USA', 'India', 'Canada'],
+      countryOption: ["USA", "India", "Canada"],
       localOptions: JSON.parse(JSON.stringify(this.informationData)),
       clevePhone: {
         phone: true,
-        phoneRegionCode: 'US',
+        phoneRegionCode: "US",
       },
-    }
+    };
   },
   methods: {
     resetForm() {
-      this.localOptions = JSON.parse(JSON.stringify(this.informationData))
+      this.localOptions = JSON.parse(JSON.stringify(this.informationData));
     },
   },
-}
+};
 </script>
 
 <style lang="scss">
-@import '@core/scss/vue/libs/vue-select.scss';
-@import '@core/scss/vue/libs/vue-flatpicker.scss';
+@import "@core/scss/vue/libs/vue-select.scss";
+@import "@core/scss/vue/libs/vue-flatpicker.scss";
 </style>

@@ -53,14 +53,14 @@
               >
                 <b-input-group
                   class="input-group-merge"
-                  :class="errors.length > 8 ? 'is-invalid' : null"
+                  :class="errors.length > 0 ? 'is-invalid' : null"
                 >
                   <b-form-input
                     id="password"
                     v-model="password"
                     :type="passwordFieldType"
                     class="form-control-merge"
-                    :state="errors.length > 8 ? false : null"
+                    :state="errors.length > 0 ? false : null"
                     name="login-password"
                     placeholder="Password"
                   />
@@ -208,11 +208,10 @@ export default {
                   component: ToastificationContent,
                   position: "top-right",
                   props: {
-                    title: `어서오세요 ${
-                      userData.fullName || userData.username
-                    }`,
+                    title: `로그인 : ${userData.fullName || userData.username}`,
                     icon: "CoffeeIcon",
-                    variant: "로그인",
+                    variant: "success",
+                    text: `돌아오신걸 환영합니다!`,
                   },
                 });
               });

@@ -1,5 +1,12 @@
 <template>
-  <div class="sidebar-wrapper d-flex justify-content-between flex-column flex-grow-1">
+  <div
+    class="
+      sidebar-wrapper
+      d-flex
+      justify-content-between
+      flex-column flex-grow-1
+    "
+  >
     <div class="p-2">
       <b-button
         v-ripple.400="'rgba(255, 255, 255, 0.15)'"
@@ -9,17 +16,14 @@
         block
         @click="$emit('update:isEventHandlerSidebarActive', true)"
       >
-        Add Event
+        일정 추가
       </b-button>
       <div class="mt-3">
         <h5 class="app-label section-label mb-1">
-          <span class="align-middle">Calendars</span>
+          <span class="align-middle">캘린더</span>
         </h5>
-        <b-form-checkbox
-          v-model="checkAll"
-          class="mb-1"
-        >
-          View All
+        <b-form-checkbox v-model="checkAll" class="mb-1">
+          모두보기
         </b-form-checkbox>
         <b-form-group>
           <b-form-checkbox-group
@@ -41,16 +45,19 @@
         </b-form-group>
       </div>
     </div>
-    <b-img :src="require('@/assets/images/pages/calendar-illustration.png')" />
   </div>
 </template>
 
 <script>
 import {
-  BButton, BFormGroup, BFormCheckboxGroup, BFormCheckbox, BImg,
-} from 'bootstrap-vue'
-import Ripple from 'vue-ripple-directive'
-import useCalendarSidebar from './useCalendarSidebar'
+  BButton,
+  BFormGroup,
+  BFormCheckboxGroup,
+  BFormCheckbox,
+  BImg,
+} from "bootstrap-vue";
+import Ripple from "vue-ripple-directive";
+import useCalendarSidebar from "./useCalendarSidebar";
 
 export default {
   directives: {
@@ -70,21 +77,17 @@ export default {
     },
   },
   setup() {
-    const {
-      calendarOptions,
-      selectedCalendars,
-      checkAll,
-    } = useCalendarSidebar()
+    const { calendarOptions, selectedCalendars, checkAll } =
+      useCalendarSidebar();
 
     return {
       calendarOptions,
       selectedCalendars,
       checkAll,
-    }
+    };
   },
-}
+};
 </script>
 
 <style>
-
 </style>

@@ -3,11 +3,10 @@
     <validation-observer ref="simpleRules">
       <b-form>
         <b-row>
-
           <!--  This field is required-->
           <b-col md="6">
             <b-form-group>
-              <label>This field is required</label>
+              <label>입력해주세요!</label>
               <validation-provider
                 #default="{ errors }"
                 rules="required"
@@ -15,7 +14,7 @@
               >
                 <b-form-input
                   v-model="name"
-                  :state="errors.length > 0 ? false:null"
+                  :state="errors.length > 0 ? false : null"
                   placeholder="Fist Name"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
@@ -34,7 +33,7 @@
               >
                 <b-form-input
                   v-model="numberRange"
-                  :state="errors.length > 0 ? false:null"
+                  :state="errors.length > 0 ? false : null"
                   placeholder="Enter Number between 10 & 20"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
@@ -53,7 +52,7 @@
               >
                 <b-form-input
                   v-model="number"
-                  :state="errors.length > 0 ? false:null"
+                  :state="errors.length > 0 ? false : null"
                   placeholder="Enter Number Only"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
@@ -64,7 +63,10 @@
           <!-- Must match the specified regular expression : ^([0-9]+)$ - numbers only -->
           <b-col md="6">
             <b-form-group>
-              <label>Must match the specified regular expression : ^([0-9]+)$ - numbers only</label>
+              <label
+                >Must match the specified regular expression : ^([0-9]+)$ -
+                numbers only</label
+              >
               <validation-provider
                 #default="{ errors }"
                 rules="required|regex:^([0-9]+)$"
@@ -72,7 +74,7 @@
               >
                 <b-form-input
                   v-model="numberRegx"
-                  :state="errors.length > 0 ? false:null"
+                  :state="errors.length > 0 ? false : null"
                   placeholder="Enter Specified regular expression"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
@@ -91,7 +93,7 @@
               >
                 <b-form-input
                   v-model="Alphabetic"
-                  :state="errors.length > 0 ? false:null"
+                  :state="errors.length > 0 ? false : null"
                   placeholder="Enter Character Only"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
@@ -102,7 +104,9 @@
           <!-- Length should not be less than the specified length : 3 -->
           <b-col md="6">
             <b-form-group>
-              <label>Length should not be less than the specified length : 3</label>
+              <label
+                >Length should not be less than the specified length : 3</label
+              >
               <validation-provider
                 #default="{ errors }"
                 rules="required|min:3"
@@ -110,7 +114,7 @@
               >
                 <b-form-input
                   v-model="digitValue"
-                  :state="errors.length > 0 ? false:null"
+                  :state="errors.length > 0 ? false : null"
                   placeholder="Enter minimum 3 Characters"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
@@ -131,7 +135,7 @@
                 <b-form-input
                   v-model="passwordValue"
                   type="password"
-                  :state="errors.length > 0 ? false:null"
+                  :state="errors.length > 0 ? false : null"
                   placeholder="Password"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
@@ -142,7 +146,10 @@
           <!-- The digits field must be numeric and exactly contain 3 digits -->
           <b-col md="6">
             <b-form-group>
-              <label>The digits field must be numeric and exactly contain 3 digits</label>
+              <label
+                >The digits field must be numeric and exactly contain 3
+                digits</label
+              >
               <validation-provider
                 #default="{ errors }"
                 rules="required|digits:3"
@@ -150,7 +157,7 @@
               >
                 <b-form-input
                   v-model="digitValue2"
-                  :state="errors.length > 0 ? false:null"
+                  :state="errors.length > 0 ? false : null"
                   placeholder="Enter Exactyly 3 digit"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
@@ -170,7 +177,7 @@
                 <b-form-input
                   v-model="passwordCon"
                   type="password"
-                  :state="errors.length > 0 ? false:null"
+                  :state="errors.length > 0 ? false : null"
                   placeholder="Repeat Password"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
@@ -181,7 +188,10 @@
           <!--Only alphabetic characters, numbers, dashes or underscores -->
           <b-col md="6">
             <b-form-group>
-              <label>Only alphabetic characters, numbers, dashes or underscores</label>
+              <label
+                >Only alphabetic characters, numbers, dashes or
+                underscores</label
+              >
               <validation-provider
                 #default="{ errors }"
                 rules="required|alpha-dash"
@@ -189,7 +199,7 @@
               >
                 <b-form-input
                   v-model="character"
-                  :state="errors.length > 0 ? false:null"
+                  :state="errors.length > 0 ? false : null"
                   placeholder="Enter Character, Numbers, Dash, Underscores"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
@@ -208,7 +218,7 @@
               >
                 <b-form-input
                   v-model="emailValue"
-                  :state="errors.length > 0 ? false:null"
+                  :state="errors.length > 0 ? false : null"
                   placeholder="Email"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
@@ -227,7 +237,7 @@
               >
                 <b-form-input
                   v-model="URL"
-                  :state="errors.length > 0 ? false:null"
+                  :state="errors.length > 0 ? false : null"
                   placeholder="Enter Valid URL"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
@@ -256,15 +266,31 @@
 </template>
 
 <script>
-import BCardCode from '@core/components/b-card-code'
-import { ValidationProvider, ValidationObserver } from 'vee-validate'
+import BCardCode from "@core/components/b-card-code";
+import { ValidationProvider, ValidationObserver } from "vee-validate";
 import {
-  BFormInput, BFormGroup, BForm, BRow, BCol, BButton,
-} from 'bootstrap-vue'
+  BFormInput,
+  BFormGroup,
+  BForm,
+  BRow,
+  BCol,
+  BButton,
+} from "bootstrap-vue";
 import {
-  required, email, confirmed, url, between, alpha, integer, password, min, digits, alphaDash, length,
-} from '@validations'
-import { codeType } from './code'
+  required,
+  email,
+  confirmed,
+  url,
+  between,
+  alpha,
+  integer,
+  password,
+  min,
+  digits,
+  alphaDash,
+  length,
+} from "@validations";
+import { codeType } from "./code";
 
 export default {
   components: {
@@ -280,18 +306,18 @@ export default {
   },
   data() {
     return {
-      name: '',
-      passwordValue: '',
-      passwordCon: '',
-      emailValue: '',
-      number: '',
-      numberRange: '',
-      numberRegx: '',
-      URL: '',
-      Alphabetic: '',
-      digitValue: '',
-      digitValue2: '',
-      character: '',
+      name: "",
+      passwordValue: "",
+      passwordCon: "",
+      emailValue: "",
+      number: "",
+      numberRange: "",
+      numberRegx: "",
+      URL: "",
+      Alphabetic: "",
+      digitValue: "",
+      digitValue2: "",
+      character: "",
       required,
       confirmed,
       password,
@@ -305,17 +331,17 @@ export default {
       length,
       alphaDash,
       codeType,
-    }
+    };
   },
   methods: {
     validationForm() {
-      this.$refs.simpleRules.validate().then(success => {
+      this.$refs.simpleRules.validate().then((success) => {
         if (success) {
           // eslint-disable-next-line
-          alert('form submitted!')
+          alert("form submitted!");
         }
-      })
+      });
     },
   },
-}
+};
 </script>

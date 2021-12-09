@@ -31,8 +31,8 @@ tagVariant
 
 */
 //import dashboard from './dashboard'
-import home from './home'
-import channeles from './channeles'
+//import home from './home'
+//import channeles from './channeles'
 //import appsAndPages from './apps-and-pages'
 //import others from './others'
 //import chartsAndMaps from './charts-and-maps'
@@ -41,4 +41,38 @@ import channeles from './channeles'
 
 // Array of sections
 //export default [...dashboard, ...appsAndPages, ...uiElements, ...formAndTable, ...chartsAndMaps, ...others]
-export default [...home, ...channeles]
+export default [{
+    title: '강의실',
+    route: 'lesson',
+    icon: 'VideoIcon',
+},
+{
+    title: '채팅',
+    route: 'apps-chat',
+    icon: 'MessageCircleIcon',
+},
+{
+    title: '게시판',
+    route: 'Board',
+    icon: 'Edit2Icon',
+},
+{
+    title: '일정',
+    route: 'apps-calendar',
+    icon: 'CalendarIcon',
+},
+{
+    title: '자료실',
+    route: 'forms-element-file-input',
+    icon: "HardDriveIcon"
+},
+{
+    title: '멤버',
+    route: 'User',
+    icon: 'UsersIcon',
+},
+{
+    title: '설정',
+    route: 'pages-account-setting',
+    icon: 'SettingsIcon'
+},]

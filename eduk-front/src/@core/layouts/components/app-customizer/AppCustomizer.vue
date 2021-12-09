@@ -34,9 +34,12 @@ import VuePerfectScrollbar from "vue-perfect-scrollbar";
 import $ from "jquery";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
-var OPENVIDU_SERVER_URL =
-  "https://ec2-3-36-74-223.ap-northeast-2.compute.amazonaws.com";
-var OPENVIDU_SERVER_SECRET = "1234";
+// var OPENVIDU_SERVER_URL =
+//   "https://ec2-3-36-74-223.ap-northeast-2.compute.amazonaws.com";
+// var OPENVIDU_SERVER_SECRET = "1234";
+
+var OPENVIDU_SERVER_URL = "https://localhost:4443";
+var OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 export default {
   components: {

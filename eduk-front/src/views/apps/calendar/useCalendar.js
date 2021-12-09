@@ -37,6 +37,11 @@ export default function userCalendar() {
     Personal: 'danger',
     Family: 'warning',
     ETC: 'info',
+    일정: 'primary',
+    정보: 'success',
+    강의: 'danger',
+    휴강: 'warning',
+    기타: 'info',
   }
 
   // ------------------------------------------------
@@ -89,7 +94,7 @@ export default function userCalendar() {
     toast({
       component: ToastificationContent,
       props: {
-        title: 'Event Updated',
+        title: '일정 수정',
         icon: 'CheckIcon',
         variant: 'success',
       },
@@ -126,7 +131,7 @@ export default function userCalendar() {
     toast({
       component: ToastificationContent,
       props: {
-        title: 'Event Removed',
+        title: '일정 삭제',
         icon: 'TrashIcon',
         variant: 'danger',
       },
@@ -235,7 +240,7 @@ export default function userCalendar() {
         toast({
           component: ToastificationContent,
           props: {
-            title: 'Error fetching calendar events',
+            title: '오류 발생 ㅠㅠ',
             icon: 'AlertTriangleIcon',
             variant: 'danger',
           },
