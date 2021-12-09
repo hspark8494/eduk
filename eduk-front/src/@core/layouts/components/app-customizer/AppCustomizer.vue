@@ -141,6 +141,8 @@ export default {
         autopublish: true,
         toolbar: true,
         footer: false,
+        avatar:
+          "https://www.google.com/logos/doodles/2021/seasonal-holidays-2021-6753651837109324-6752733080595603-cst.gif",
         toolbarButtons: {
           audio: true,
           video: true,
@@ -279,7 +281,14 @@ export default {
 app-toolbar-logo {
   visibility: hidden !important;
 }
-#messageInput {
+
+.user-img {
+  visibility: hidden;
+}
+mat-toolbar {
+  max-width: 100% !important;
+}
+#messageInput[_ngcontent-lje-c82] {
   height: 50px !important;
   padding: 0px !important;
 }
