@@ -134,7 +134,7 @@ export default {
 
     async function joinSession() {
       var sessionName = "room";
-      var user = userData.username;
+      var user = userData.fullName;
       var webComponent = document.querySelector("openvidu-webcomponent");
       var ovSettings = {
         chat: true,
@@ -274,5 +274,13 @@ export default {
 
 .ps-customizer-area {
   height: calc(100% - 83px);
+}
+
+app-toolbar-logo {
+  visibility: hidden !important;
+}
+#messageInput {
+  height: 50px !important;
+  padding: 0px !important;
 }
 </style>

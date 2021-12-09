@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -97,7 +99,7 @@ public class MemberController {
 	 * 이미지 저장하기
 	 */
 	@PostMapping("/saveImage")
-	public void createFeed(@RequestParam("file") MultipartFile file,
+	public ResponseEntity createFeed(@RequestParam("file") MultipartFile file,
 			@RequestParam Long memberId,
 			@RequestParam String email,
 			@RequestParam String name,
@@ -120,7 +122,8 @@ public class MemberController {
 			//sb.append(member.getProfileImage());
 		}
 		String saveDir=request.getServletContext().getRealPath("/save");
-
+    	System.out.println(request.getServletContext().getRealPath("/save"));
+    	System.out.println(request.getServletContext().getContextPath());
 		if (!file.isEmpty()) {
 			File dest = new File(saveDir + "/" + sb.toString());
 			try {
@@ -135,7 +138,7 @@ public class MemberController {
 			updateMember(member);
 
 		}
-		// return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		return new ResponseEntity<String>(file.getName(), HttpStatus.OK);
 	}
 
 	/**

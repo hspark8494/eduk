@@ -172,6 +172,7 @@ export default {
           })
           .then((res) => {
             this.toast();
+            this.getProfile();
           })
           .catch((err) => {
             console.log(err);
@@ -187,6 +188,7 @@ export default {
           })
           .then((res) => {
             this.toast();
+            this.getProfile();
           });
       }
     },
@@ -201,25 +203,28 @@ export default {
         },
       });
     },
+
+    getProfile() {
+      this.$http
+        .get("/member/selectMemberInfo")
+        .then((res) => {
+          this.member = res.data;
+          this.profileImage = res.data.profileImage;
+          document.getElementById("profile-image").style.backgroundRepeat =
+            "no-repeat";
+          document.getElementById(
+            "profile-image"
+          ).style.backgroundImage = `url('https:/localhost:1234/file/down/${res.data.profileImage}')`;
+          document.getElementById("profile-image").style.backgroundSize =
+            "100% 100%";
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   created() {
-    this.$http
-      .get("/member/selectMemberInfo")
-      .then((res) => {
-        this.member = res.data;
-        this.profileImage = res.data.profileImage;
-        document.getElementById("profile-image").style.backgroundRepeat =
-          "no-repeat";
-        document.getElementById("profile-image").style.backgroundImage =
-          "url('/../../../../../src/main/webapp/save/" +
-          this.profileImage +
-          "')";
-        document.getElementById("profile-image").style.backgroundSize =
-          "100% 100%";
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.getProfile();
   },
   setup() {
     const refInputEl = ref(null);

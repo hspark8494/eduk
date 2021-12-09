@@ -45,7 +45,6 @@ public class FilesController {
 		    	String fileType = file.getContentType();
 		    	
 		    	String saveDir=request.getServletContext().getRealPath("/save");
-		    	
 		    	fileEntity.setFileName(fname);
 		    	fileEntity.setFileSize(fsize);
 		    	fileEntity.setFileType(fileType);

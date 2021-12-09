@@ -102,7 +102,7 @@
         </validation-observer>
         <b-card-text class="text-center mt-2">
           <span>처음 방문하셨나요? </span>
-          <b-link :to="{ name: 'auth-register-v1' }">
+          <b-link :to="{ name: 'auth-register' }">
             <span>계정을 만들어보세요!</span>
           </b-link>
         </b-card-text>
