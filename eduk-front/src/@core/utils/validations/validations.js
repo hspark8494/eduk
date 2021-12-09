@@ -77,7 +77,7 @@ localize({
     },
     fields: {
       password: {
-        min: '{_field_} is too short, you want to get hacked?',
+        min: '{_field_}가 너무 짧습니다!',
       },
     },
   },

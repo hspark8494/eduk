@@ -6,12 +6,14 @@
         <b-link class="brand-logo">
           <vuexy-logo />
 
-          <h2 class="brand-text text-primary ml-1">Vuexy</h2>
+          <h2 class="brand-text text-primary ml-1">EduK</h2>
         </b-link>
 
-        <b-card-title class="mb-1"> Welcome to Vuexy! 👋 </b-card-title>
+        <b-card-title class="mb-1">
+          에듀케이에 오신 것을 환영합니다! 👋
+        </b-card-title>
         <b-card-text class="mb-2">
-          Please sign-in to your account and start the adventure
+          서비스를 이용하시려면 먼저 로그인을 해주세요!
         </b-card-text>
 
         <!-- form -->
@@ -29,7 +31,7 @@
                   v-model="userEmail"
                   name="login-email"
                   :state="errors.length > 0 ? false : null"
-                  placeholder="john@example.com"
+                  placeholder="student@eduk.com"
                   autofocus
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
@@ -39,9 +41,9 @@
             <!-- password -->
             <b-form-group>
               <div class="d-flex justify-content-between">
-                <label for="password">Password</label>
+                <label for="password">비밀번호</label>
                 <b-link :to="{ name: 'auth-forgot-password-v1' }">
-                  <small>Forgot Password?</small>
+                  <small>비밀번호 찾기</small>
                 </b-link>
               </div>
               <validation-provider
@@ -51,14 +53,14 @@
               >
                 <b-input-group
                   class="input-group-merge"
-                  :class="errors.length > 0 ? 'is-invalid' : null"
+                  :class="errors.length > 8 ? 'is-invalid' : null"
                 >
                   <b-form-input
                     id="password"
                     v-model="password"
                     :type="passwordFieldType"
                     class="form-control-merge"
-                    :state="errors.length > 0 ? false : null"
+                    :state="errors.length > 8 ? false : null"
                     name="login-password"
                     placeholder="Password"
                   />
@@ -82,7 +84,7 @@
                 v-model="status"
                 name="checkbox-1"
               >
-                Remember Me
+                로그인 유지
               </b-form-checkbox>
             </b-form-group>
 
@@ -94,14 +96,14 @@
               block
               :disabled="invalid"
             >
-              Sign in
+              로그인
             </b-button>
           </b-form>
         </validation-observer>
         <b-card-text class="text-center mt-2">
-          <span>New on our platform? </span>
+          <span>처음 방문하셨나요? </span>
           <b-link :to="{ name: 'auth-register-v1' }">
-            <span>Create an account</span>
+            <span>계정을 만들어보세요!</span>
           </b-link>
         </b-card-text>
       </b-card>
@@ -206,10 +208,11 @@ export default {
                   component: ToastificationContent,
                   position: "top-right",
                   props: {
-                    title: `Welcome ${userData.fullName || userData.username}`,
+                    title: `어서오세요 ${
+                      userData.fullName || userData.username
+                    }`,
                     icon: "CoffeeIcon",
-                    variant: "success",
-                    text: `You have successfully logged in as ${userData.role}. Now you can start to explore!`,
+                    variant: "로그인",
                   },
                 });
               });
