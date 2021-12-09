@@ -48,9 +48,8 @@ public class MemberController {
 	 * 회원 이메일 입력 후 인증 이메일 발송
 	 */
 	@ResponseBody
-	//@PostMapping("/mail")
-	@RequestMapping(value="/mail", method = RequestMethod.GET)
-	public void emailConfirm(/* @RequestBody */String email) throws Exception {
+	@PostMapping("/mail")
+	public void emailConfirm(@RequestBody String email) throws Exception {
 		System.out.println("전달 받은 이메일 : " + email);
 		emailService.sendSimpleMessage(email);
 	}
