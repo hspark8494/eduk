@@ -237,6 +237,11 @@ export default [
     },
   },
   {
+    path: '/home',
+    name: 'home',
+    component: () => import('@/views/custom/Home.vue')
+  },
+  {
     path: '/:classRoomId/refRoom',
     name: 'ref-room',
     component: () => import('@/views/custom/referenceRoom.vue'),

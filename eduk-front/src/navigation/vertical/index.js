@@ -44,7 +44,7 @@ tagVariant
 export default [
     {
         title: '홈',
-        route: 'Home',
+        route: 'home',
         icon: 'HomeIcon',
     }, {
         title: '강의실',
