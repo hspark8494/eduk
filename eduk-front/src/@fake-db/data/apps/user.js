@@ -15,7 +15,7 @@ const data = {
       email: 'gihyun@gmail.com',
       currentPlan: 'enterprise',
       status: 'inactive',
-      avatar: '',
+      avatar: require('@/assets/images/avatars/profile-4.jpg'),
     },
     {
       id: 2,
