@@ -248,7 +248,7 @@ export default {
   methods: {
     kFormatter,
     update(){
-
+      this.$router.push("/"+this.$route.params.boardId+'/postUpdate/'+this.$route.params.postId)
     },
     write() {
       this.$http
