@@ -54,6 +54,9 @@ export default {
     }
   },  
   created() {
+  if(this.$route.params.classRoomId == undefined){
+    this.$router.push('/42/refRoom')
+  }
    this.$http.get('/file/list/'+this.$route.params.classRoomId)
    .then(res => {
      console.log(res);
