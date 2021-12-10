@@ -142,7 +142,10 @@ export default {
       classRoomName: this.classRoomName,
       detail: this.detail,
       classRoomImage: "https://cdn.pixabay.com/photo/2013/07/13/10/24/board-157165_960_720.png",
-    });
+    })
+    .then(res => {
+      this.$router.push({ name: "apps-calendar"})
+    })
     /*const frm = new FormData();
     frm.append('className', this.classname);
     frm.append('classDetail', this.classdetail);
@@ -171,7 +174,7 @@ export default {
     width: 100px;
     height: 100px;
     margin: 0 auto;
-    background-image: url('noimage.png');
+    background-image: url('../../../../../../src/main/webapp/save/noimage.png');
     background-size: 100% 100%;
     display: block;
   }

@@ -34,7 +34,6 @@
                   placeholder="student@eduk.com"
                   autofocus
                 />
-                <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
             </b-form-group>
 
@@ -73,7 +72,6 @@
                     />
                   </b-input-group-append>
                 </b-input-group>
-                <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
             </b-form-group>
 

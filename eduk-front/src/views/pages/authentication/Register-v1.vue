@@ -7,15 +7,15 @@
         <b-link class="brand-logo">
           <vuexy-logo />
           <h2 class="brand-text text-primary ml-1">
-            EduK
+            eduK
           </h2>
         </b-link>
 
         <b-card-title class="mb-1">
-          Eduk를 즉시 이용해보세요~!
+          eduk를 즉시 이용해보세요~!
         </b-card-title>
         <b-card-text class="mb-2">
-          Eduk는 편리하게 회의를 열어 참여하거나 교육을 수강할 수 있습니다.
+          eduk는 편리하게 회의를 열어 참여하거나 교육을 수강할 수 있습니다.
         </b-card-text>
 
         <!-- form -->
@@ -26,7 +26,7 @@
           >
             <!-- username -->
             <b-form-group
-              label="Username"
+              label="이름"
               label-for="username"
             >
               <validation-provider
@@ -41,13 +41,12 @@
                   name="register-username"
                   placeholder="johndoe"
                 />
-                <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
             </b-form-group>
 
             <!-- email -->
             <b-form-group
-              label="Email"
+              label="이메일"
               label-for="email"
             >
               <validation-provider
@@ -62,13 +61,12 @@
                   name="register-email"
                   placeholder="john@example.com"
                 />
-                <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
             </b-form-group>
 
             <!-- password -->
             <b-form-group
-              label="Password"
+              label="비밀번호"
               label-for="password"
             >
               <validation-provider
@@ -97,7 +95,6 @@
                     />
                   </b-input-group-append>
                 </b-input-group>
-                <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
             </b-form-group>
 
@@ -108,8 +105,8 @@
                 v-model="status"
                 name="checkbox-1"
               >
-                에 동의합니다.
                 <b-link>개인정보보호정책 및 약관</b-link>
+                에 동의합니다.
               </b-form-checkbox>
             </b-form-group>
 
@@ -119,7 +116,7 @@
               block
               type="submit"
             >
-              제출
+              완료
             </b-button>
           </b-form>
         </validation-observer>
@@ -131,39 +128,6 @@
           </b-link>
         </b-card-text>
 
-        <div class="divider my-2">
-          <div class="divider-text">
-            or
-          </div>
-        </div>
-
-        <!-- social buttons -->
-        <div class="auth-footer-btn d-flex justify-content-center">
-          <b-button
-            variant="facebook"
-            href="javascript:void(0)"
-          >
-            <feather-icon icon="FacebookIcon" />
-          </b-button>
-          <b-button
-            variant="twitter"
-            href="javascript:void(0)"
-          >
-            <feather-icon icon="TwitterIcon" />
-          </b-button>
-          <b-button
-            variant="google"
-            href="javascript:void(0)"
-          >
-            <feather-icon icon="MailIcon" />
-          </b-button>
-          <b-button
-            variant="github"
-            href="javascript:void(0)"
-          >
-            <feather-icon icon="GithubIcon" />
-          </b-button>
-        </div>
       </b-card>
     <!-- /Register v1 -->
     </div>

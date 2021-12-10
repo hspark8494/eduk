@@ -42,6 +42,7 @@ public class PostController {
     		@PathVariable Long boardId, 
     		@RequestHeader HttpHeaders headers
     		){
+		System.out.println("post controller call...");
         Long id = TokenProvider.getIdFormHeader(headers);
         post.setBoard(Board.builder().boardId(boardId).build());
         post.setMember(new Member(id));

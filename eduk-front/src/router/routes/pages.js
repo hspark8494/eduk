@@ -308,4 +308,12 @@ export default [
       ],
     },
   },
+  {
+    path: '/create-room',
+    name: 'create-room',
+    component: () => import('@/views/pages/authentication/ui/create-classRoom.vue'),
+    meta: {
+      layout: 'full',
+    },
+  },
 ]

@@ -127,6 +127,7 @@ export default {
   },
   methods: {
     postWrite() {
+      console.log(this.boardId)
       this.$http
         .post("/" + this.boardId + "/post", {
           postTitle: this.postTitle,
@@ -156,7 +157,7 @@ export default {
           this.postRead();
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err + "post 등록 실패");
         });
     },
     postRead() {
