@@ -17,14 +17,6 @@ export default function useUsersList() {
     { key: 'user', sortable: true },
     { key: 'email', sortable: true },
     { key: 'role', sortable: true },
-    {
-      key: 'currentPlan',
-      label: 'Plan',
-      formatter: title,
-      sortable: true,
-    },
-    { key: 'status', sortable: true },
-    { key: 'actions' },
   ]
   const perPage = ref(10)
   const totalUsers = ref(0)
@@ -89,18 +81,17 @@ export default function useUsersList() {
   // *===============================================---*
 
   const resolveUserRoleVariant = role => {
-    if (role === 'subscriber') return 'primary'
+    if (role === '강사') return 'success'
+    if (role === '학생') return 'primary'
     if (role === 'author') return 'warning'
-    if (role === 'maintainer') return 'success'
     if (role === 'editor') return 'info'
     if (role === 'admin') return 'danger'
     return 'primary'
   }
 
   const resolveUserRoleIcon = role => {
-    if (role === 'subscriber') return 'UserIcon'
-    if (role === 'author') return 'SettingsIcon'
-    if (role === 'maintainer') return 'DatabaseIcon'
+    if (role === '강사') return 'SettingsIcon'
+    if (role === '학생') return 'UserIcon'
     if (role === 'editor') return 'Edit2Icon'
     if (role === 'admin') return 'ServerIcon'
     return 'UserIcon'

@@ -1,43 +1,42 @@
 <template>
   <div>
     <b-card title="에듀케이에 오신것을 환영합니다! 🚀">
+      <b-img
+        :src="require('@/assets/images/illustration/badge.svg')"
+        class="congratulation-medal"
+        alt="Medal Pic"
+      />
       <b-card-text
         >에듀케이와 함께 손쉽고 간편한 수업을 시작해보세요!</b-card-text
       >
       <b-card-text
-        >Please make sure to read our
+        >수업에 관한 더 자세한 내용을 알고싶으신가요?
         <b-link
           href="https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/documentation/"
           target="_blank"
         >
-          Template Documentation
+          여기
         </b-link>
-        to understand where to go from here and how to use our
-        template.</b-card-text
+        를 눌러 더 많은 정보를 확인해보세요!</b-card-text
       >
-    </b-card>
-
-    <b-card title="Want to integrate JWT? 🔒">
-      <b-card-text
-        >We carefully crafted JWT flow so you can implement JWT with ease and
-        with minimum efforts.</b-card-text
-      >
-      <b-card-text
-        >Please read our JWT Documentation to get more out of JWT
-        authentication.</b-card-text
-      >
+      <b-img
+        :src="require('@/assets/images/illustration/email.svg')"
+        alt="Meeting Pic"
+        height="450"
+      />
     </b-card>
   </div>
 </template>
 
 <script>
-import { BCard, BCardText, BLink } from "bootstrap-vue";
+import { BCard, BCardText, BLink, BImg } from "bootstrap-vue";
 
 export default {
   components: {
     BCard,
     BCardText,
     BLink,
+    BImg,
   },
 };
 </script>

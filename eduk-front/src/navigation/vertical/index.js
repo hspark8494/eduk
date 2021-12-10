@@ -44,7 +44,7 @@ tagVariant
 export default [
     {
         title: '홈',
-        route: 'home',
+        route: 'welcome',
         icon: 'HomeIcon',
     }, {
         title: '강의실',
@@ -68,7 +68,7 @@ export default [
     },
     {
         title: '멤버',
-        route: 'User',
+        route: 'apps-users-list',
         icon: 'UsersIcon',
     },
     {

@@ -237,8 +237,8 @@ export default [
     },
   },
   {
-    path: '/home',
-    name: 'home',
+    path: '/welcome',
+    name: 'welcome',
     component: () => import('@/views/custom/Home.vue')
   },
   {
