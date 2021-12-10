@@ -43,7 +43,7 @@
               >
                 <b-form-input
                   id="classname"
-                  v-model="classname"
+                  v-model="classRoomName"
                   :state="errors.length > 0 ? false:null"
                   name="register-classname"
                   placeholder="강의실명 입력란"
@@ -62,7 +62,7 @@
               >
                 <b-form-input
                   id="classdetail"
-                  v-model="classdetail"
+                  v-model="detail"
                   :state="errors.length > 0 ? false:null"
                   name="register-classdetail"
                   placeholder="강의실 설명 입력란"
@@ -121,8 +121,9 @@ export default {
   mixins: [togglePasswordVisibility],
   data() {
     return {
-      classname: '',
-      classdetail: '',
+      classRoomName: '',
+      detail: '',
+      classRoomImage: '',
       status: '',
 
       // validation rules
@@ -137,7 +138,12 @@ export default {
   },
   methods: {
     validationForm() {
-    const frm = new FormData();
+    this.$http.post("class-room", {
+      classRoomName: this.classRoomName,
+      detail: this.detail,
+      classRoomImage: "https://cdn.pixabay.com/photo/2013/07/13/10/24/board-157165_960_720.png",
+    });
+    /*const frm = new FormData();
     frm.append('className', this.classname);
     frm.append('classDetail', this.classdetail);
     var file = document.getElementById("image-file");
@@ -149,7 +155,7 @@ export default {
     })
     .then((response) => {
       document.getElementById("#classRoom-image").style.backgroundImage= response;
-    })
+    })*/
     },
   },
 }
