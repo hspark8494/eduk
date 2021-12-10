@@ -1,5 +1,10 @@
 export default [
   {
+        title: '홈',
+        route: 'welcome',
+        icon: 'HomeIcon',
+    },
+  {
     title: '강의실',
     route: 'lesson',
     icon: 'VideoIcon',

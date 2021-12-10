@@ -207,7 +207,7 @@ export default {
                         this.$toast({
             component: ToastificationContent,
             props: {
-              title: 'Form Submitted',
+              title: '회원가입 완료',
               icon: 'EditIcon',
               variant: 'success',
             },

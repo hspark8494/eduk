@@ -36,7 +36,8 @@ public class FilesController {
 	 * 파일 업로드
 	 */
 	@PostMapping("/uploadfile")
-	public Files uploadFile(@RequestPart MultipartFile file, HttpServletRequest request, @RequestParam Long postId, @RequestParam Long classRoomId) throws IOException{
+	public Files uploadFile(@RequestPart MultipartFile file, HttpServletRequest request,
+			@RequestParam Long postId/* , @RequestParam Long classRoomId */) throws IOException{
 		System.out.println("postId : " + postId);
 		Files fileEntity = new Files();
 		    if(file.getSize()>0) {
@@ -49,7 +50,7 @@ public class FilesController {
 		    	fileEntity.setFileSize(fsize);
 		    	fileEntity.setFileType(fileType);
 		    	fileEntity.setPostId(postId);
-		    	fileEntity.setClassRoom(new ClassRoom(classRoomId));
+		    	fileEntity.setClassRoom(new ClassRoom(42L));
 		    	
 		    	file.transferTo(new File(saveDir+"/" + fname));
 		    	fileRepository.save(fileEntity);

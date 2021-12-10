@@ -127,7 +127,7 @@ export default {
         console.log(resp);
         Vue.prototype.$local.classRoom = resp.data;
         console.log(Vue.prototype.$local.classRoom);
-        this.$router.push({ name: "apps-calendar", classRoomId: classRoomId });
+        this.$router.push({ name: "welcome"});
       }, console.log);
     },
   },

@@ -144,7 +144,7 @@ export default {
       classRoomImage: "https://cdn.pixabay.com/photo/2013/07/13/10/24/board-157165_960_720.png",
     })
     .then(res => {
-      this.$router.push({ name: "apps-calendar"})
+      this.$router.push({ name: "welcome"})
     })
     /*const frm = new FormData();
     frm.append('className', this.classname);
