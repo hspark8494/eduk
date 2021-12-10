@@ -11,7 +11,7 @@ export default [
   },
   {
     title: '게시판',
-    route: 'Board',
+    route: 'post-list',
     icon: 'Edit2Icon',
   },
   {

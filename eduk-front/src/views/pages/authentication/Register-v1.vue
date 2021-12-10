@@ -5,19 +5,37 @@
       <b-card class="mb-0">
         <b-link class="brand-logo">
           <vuexy-logo />
+<<<<<<< HEAD
           <h2 class="brand-text text-primary ml-1">EduK</h2>
         </b-link>
 
         <b-card-title class="mb-1"> Eduk를 즉시 이용해보세요~! </b-card-title>
+=======
+          <h2 class="brand-text text-primary ml-1">
+            eduK
+          </h2>
+        </b-link>
+
+        <b-card-title class="mb-1">
+          eduk를 즉시 이용해보세요~!
+        </b-card-title>
+>>>>>>> 1d2eea238245b219632ae3314207ead7c9058f2a
         <b-card-text class="mb-2">
-          Eduk는 편리하게 회의를 열어 참여하거나 교육을 수강할 수 있습니다.
+          eduk는 편리하게 회의를 열어 참여하거나 교육을 수강할 수 있습니다.
         </b-card-text>
 
         <!-- form -->
         <validation-observer ref="registerForm">
           <b-form class="auth-register-form mt-2" @submit.prevent="register">
             <!-- username -->
+<<<<<<< HEAD
             <b-form-group label="Username" label-for="username">
+=======
+            <b-form-group
+              label="이름"
+              label-for="username"
+            >
+>>>>>>> 1d2eea238245b219632ae3314207ead7c9058f2a
               <validation-provider
                 #default="{ errors }"
                 name="Username"
@@ -30,12 +48,18 @@
                   name="register-username"
                   placeholder="johndoe"
                 />
-                <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
             </b-form-group>
 
             <!-- email -->
+<<<<<<< HEAD
             <b-form-group label="Email" label-for="email">
+=======
+            <b-form-group
+              label="이메일"
+              label-for="email"
+            >
+>>>>>>> 1d2eea238245b219632ae3314207ead7c9058f2a
               <validation-provider
                 #default="{ errors }"
                 name="Email"
@@ -48,12 +72,18 @@
                   name="register-email"
                   placeholder="john@example.com"
                 />
-                <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
             </b-form-group>
 
             <!-- password -->
+<<<<<<< HEAD
             <b-form-group label="Password" label-for="password">
+=======
+            <b-form-group
+              label="비밀번호"
+              label-for="password"
+            >
+>>>>>>> 1d2eea238245b219632ae3314207ead7c9058f2a
               <validation-provider
                 #default="{ errors }"
                 name="Password"
@@ -80,7 +110,6 @@
                     />
                   </b-input-group-append>
                 </b-input-group>
-                <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
             </b-form-group>
 
@@ -92,12 +121,26 @@
                 v-model="status"
                 name="checkbox-1"
               >
+<<<<<<< HEAD
+=======
+                <b-link>개인정보보호정책 및 약관</b-link>
+>>>>>>> 1d2eea238245b219632ae3314207ead7c9058f2a
                 에 동의합니다.
               </b-form-checkbox>
             </b-form-group>
 
             <!-- submit button -->
+<<<<<<< HEAD
             <b-button variant="primary" block type="submit"> 제출 </b-button>
+=======
+            <b-button
+              variant="primary"
+              block
+              type="submit"
+            >
+              완료
+            </b-button>
+>>>>>>> 1d2eea238245b219632ae3314207ead7c9058f2a
           </b-form>
         </validation-observer>
 
@@ -108,9 +151,12 @@
           </b-link>
         </b-card-text>
 
+<<<<<<< HEAD
         <div class="divider my-2">
           <div class="divider-text">or</div>
         </div>
+=======
+>>>>>>> 1d2eea238245b219632ae3314207ead7c9058f2a
       </b-card>
       <!-- /Register v1 -->
     </div>

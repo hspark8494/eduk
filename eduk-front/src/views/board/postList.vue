@@ -168,6 +168,10 @@ export default {
     },
   },
   created() {
+    if(this.$route.params.boardId == undefined){
+      console.log('errrrrrrrr')
+      this.$router.push('/45/postList/1')
+    }
     this.refreshList();
   },
   methods: {

@@ -21,6 +21,15 @@
           <div class="my-1 py-25"></div>
           <!-- eslint-disable vue/no-v-html -->
           <div class="blog-content" v-html="postDetail.postContent" />
+            <b-button
+              v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+              variant="primary"
+              @click="update"
+              class="btnright"
+              v-if="userData.memberId == postDetail.member.memberId"
+            >
+              수정
+            </b-button>
         </b-card>
       </b-col>
       <!--/ blogs -->
@@ -201,6 +210,7 @@ export default {
   },
   data() {
     return {
+      userData:[],
       search_query: "",
       commentCheckmark: "",
       replyWrite: "",
@@ -233,9 +243,13 @@ export default {
           });
         this.refreshReply();
       });
+      this.userData = JSON.parse(localStorage.getItem("userData"));
   },
   methods: {
     kFormatter,
+    update(){
+
+    },
     write() {
       this.$http
         .post("/" + this.$route.params.postId + "/reply", {
@@ -289,5 +303,8 @@ export default {
 
 .blog-content {
   min-height: 200px;
+}
+.btnright{
+  float:right;
 }
 </style>

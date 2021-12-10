@@ -120,7 +120,7 @@ export default {
         })
     },
     createClassRoom() {
-      // this.$router.push
+      this.$router.push({name:"create-room"})
     },
     enterClassRoom(classRoomId) {
       this.$http.get("class-room/" + classRoomId).then((resp) => {
